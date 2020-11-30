@@ -4,12 +4,12 @@ from .models import Category,Product
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ['name', 'slug']
+    list_display = ['id','name', 'slug']
     prepopulated_fields = {'slug': ('name',)}
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ['name', 'slug', 'price',
+    list_display = ['name', 'slug','category', 'price',
                 'available','created','updated']
     list_filter = ['available','created','updated']
     list_editable = ['price', 'available']
