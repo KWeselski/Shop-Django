@@ -21,6 +21,13 @@ def products_list(request):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET'])
+def category_list(request):
+    if request.method == 'GET':
+        categories = Category.objects.all()
+        serializer = CategorySerializer(categories, context={'request': request}, many=True)
+        return Response(serializer.data)
+
+@api_view(['GET'])
 def category_product_list(request,pk):
     try:
         category_ = Category.objects.get(pk=pk)

@@ -1,5 +1,5 @@
 import React , {Component} from 'react';
-
+import Button from '@material-ui/core/Button';
 export default class CategoryList extends Component{
     constructor(props){
         super (props);
@@ -11,7 +11,7 @@ export default class CategoryList extends Component{
         }   
         
         componentDidMount(){
-           fetch("api/products/<slug:category_slug>").then(response => {
+           fetch("api/category/").then(response => {
                if (response.status > 400) {
                    return this.setState(() => {
                        console.log('error')
@@ -27,9 +27,26 @@ export default class CategoryList extends Component{
                      loaded:true
                  };
              });
-         });
+         });       
         }
     
-
-
-}
+        render(){
+            if (this.state.loaded == true){
+                let data_ = this.state.data;
+                console.log(data_)
+            return(
+                <div>
+                    <ul>
+                        {data_.map((value,index) => {                    
+                            return(
+                                <div>
+                                <Button href="" color='primary'>{value.name}</Button>
+                                </div>)          
+                        })}
+                    </ul>
+                </div>
+            )
+            }
+            else{return(<h1>Data is not working</h1>)}
+        }
+    }

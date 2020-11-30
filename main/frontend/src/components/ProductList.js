@@ -38,8 +38,12 @@ export default class ProductList extends Component{
             let data_ = this.state.data;
         return(   
             <Grid container spacing={24}>
-                <Grid item xs={6}> <ProductDiv temp={data_[0]}/></Grid>
-                <Grid item xs={6}> <ProductDiv temp={data_[1]}/></Grid>
+                {data_.map((value,index) => {                    
+                return(
+                    <div>
+                    <Grid item xs={6}> <ProductDiv temp={data_[index]}/></Grid>
+                    </div>)          
+                })}
             </Grid>);
         }
         else{

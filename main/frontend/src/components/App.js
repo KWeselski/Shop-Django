@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {render} from 'react-dom';
 import Navbar from './NavBar';
 import ProductList from './ProductList';
+import CategoryList from './CategoryList';
 import Grid from '@material-ui/core/Grid';
 export default class App extends Component{
     constructor(props){
@@ -11,8 +12,8 @@ export default class App extends Component{
         return(   
             <Grid container spacing={24}>
                 <Grid item xs={12} align="center"><Navbar/></Grid>
-                <Grid item xs={3}></Grid>
-                <Grid item xs={6}> <ProductList/></Grid>
+                <Grid item xs={3}> <CategoryList/> </Grid>
+                <Grid item xs={6}> <ProductList/> </Grid>
             </Grid>);
         }
     }
