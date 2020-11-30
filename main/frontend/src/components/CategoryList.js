@@ -3,13 +3,21 @@ import Button from '@material-ui/core/Button';
 export default class CategoryList extends Component{
     constructor(props){
         super (props);
+
         this.state = {
             data: [],
             loaded: false,
-            placeholder: "Loading"
+            placeholder: "Loading",
          };
-        }   
-        
+
+        }
+
+        onChangeLink(index) {
+            this.state.api_link = ('api/category/' + String(index));
+            //this.state.product_loaded = false;
+            this.props.changeLink(this.state.api_link);          
+        }
+           
         componentDidMount(){
            fetch("api/category/").then(response => {
                if (response.status > 400) {
@@ -33,14 +41,13 @@ export default class CategoryList extends Component{
         render(){
             if (this.state.loaded == true){
                 let data_ = this.state.data;
-                console.log(data_)
             return(
                 <div>
                     <ul>
                         {data_.map((value,index) => {                    
                             return(
                                 <div>
-                                <Button href="" color='primary'>{value.name}</Button>
+                                <Button onClick={this.onChangeLink.bind(this,index+1)} color='primary'>{value.name}</Button>
                                 </div>)          
                         })}
                     </ul>

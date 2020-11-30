@@ -13,11 +13,10 @@ export default class ProductDiv extends Component {
     constructor(props){
         super (props);
         this.state = {
-        } 
+        }     
     }    
       
     render(){
-        console.log(this.props)
         this.props.temp.image = String(this.props.temp.image).split('frontend')[1]
         return(   
         <Card className="ProductDiv">

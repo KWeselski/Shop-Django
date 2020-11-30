@@ -3,39 +3,56 @@ import {render} from 'react-dom';
 import Navbar from './NavBar';
 import ProductDiv from './ProductDiv';
 import Grid from '@material-ui/core/Grid';
+import ReactDOM from "react-dom";
+
 export default class ProductList extends Component{
     constructor(props){
         super (props);
         this.state = {
             data: [],
-            loaded: false,
-            placeholder: "Loading"
+            placeholder: "Loading",
          };
         }   
-        
+
+        getData(){
+            fetch(this.props.data_from_api).then(response => {
+                if (response.status > 400) {
+                    return this.setState(() => {
+                        console.log('error')
+                        return { placeholder: "Something went wrong"};
+                    });
+                }
+                return response.json();
+            })
+          .then(data => {
+              this.props.loaded = true
+              this.setState(() => {
+                  return { 
+                      data,                
+                  };
+              });
+          });
+        }
+        componentDidUpdate(){
+            if(this.props.loaded==true){
+
+            }
+            else{this.getData();}
+            
+        }
+
         componentDidMount(){
-           fetch("api/products/").then(response => {
-               if (response.status > 400) {
-                   return this.setState(() => {
-                       console.log('error')
-                       return { placeholder: "Something went wrong"};
-                   });
-               }
-               return response.json();
-           })
-         .then(data => {
-             this.setState(() => {
-                 return { 
-                     data,
-                     loaded:true
-                 };
-             });
-         });
+           this.getData();
         }
     
     render(){
-        if (this.state.loaded == true){
+        let p =this.props.data_from_api
+        let l =this.props.loaded
+        console.log(p)
+        console.log(l)
+        if (this.props.loaded == true){
             let data_ = this.state.data;
+
         return(   
             <Grid container spacing={24}>
                 {data_.map((value,index) => {                    
@@ -48,7 +65,7 @@ export default class ProductList extends Component{
         }
         else{
             return(
-                <div>Data not working</div>
+                <div></div>
             )
         };
         }
