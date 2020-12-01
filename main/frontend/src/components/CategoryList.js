@@ -13,13 +13,13 @@ export default class CategoryList extends Component{
         }
 
         onChangeLink(index) {
-            this.state.api_link = ('api/category/' + String(index));
+            this.state.api_link = ('http://127.0.0.1:8000/api/category/' + String(index));
             //this.state.product_loaded = false;
             this.props.changeLink(this.state.api_link);          
         }
            
-        componentDidMount(){
-           fetch("api/category/").then(response => {
+        async componentDidMount(){
+           fetch("http://127.0.0.1:8000/api/category/").then(response => {
                if (response.status > 400) {
                    return this.setState(() => {
                        console.log('error')
@@ -42,7 +42,7 @@ export default class CategoryList extends Component{
             if (this.state.loaded == true){
                 let data_ = this.state.data;
             return(
-                <div>
+                <div id="categoryList">
                     <ul>
                         {data_.map((value,index) => {                    
                             return(

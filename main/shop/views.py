@@ -21,6 +21,16 @@ def products_list(request):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET'])
+def product_detail(request,pk):
+    try:
+        product_d = Product.objects.get(pk=pk)
+    except Product.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    if request.method == "GET": 
+        serializer = ProductSerializer(product_d, context={'request': request})
+        return Response(serializer.data)  
+
+@api_view(['GET'])
 def category_list(request):
     if request.method == 'GET':
         categories = Category.objects.all()

@@ -6,6 +6,8 @@
 
 /*! export AsyncMode [provided] [no usage info] [provision prevents renaming (no use info)] -> ./node_modules/react-is/cjs/react-is.production.min.js .AsyncMode */
 
+/*! export BrowserRouter [provided] [no usage info] [missing usage info prevents renaming] */
+
 /*! export Children [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export Children [provided] [no usage info] [provision prevents renaming (no use info)] -> ./node_modules/react/cjs/react.production.min.js .Children */
@@ -42,13 +44,23 @@
 
 /*! export Fragment [provided] [no usage info] [provision prevents renaming (no use info)] -> ./node_modules/react/cjs/react.production.min.js .Fragment */
 
+/*! export HashRouter [provided] [no usage info] [missing usage info prevents renaming] */
+
 /*! export Lazy [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export Lazy [provided] [no usage info] [provision prevents renaming (no use info)] -> ./node_modules/react-is/cjs/react-is.production.min.js .Lazy */
 
+/*! export Link [provided] [no usage info] [missing usage info prevents renaming] */
+
 /*! export Memo [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export Memo [provided] [no usage info] [provision prevents renaming (no use info)] -> ./node_modules/react-is/cjs/react-is.production.min.js .Memo */
+
+/*! export MemoryRouter [provided] [no usage info] [missing usage info prevents renaming] */
+
+/*! export MemoryRouter [provided] [no usage info] [missing usage info prevents renaming] -> ./node_modules/react-router/esm/react-router.js .MemoryRouter */
+
+/*! export NavLink [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export Portal [provided] [no usage info] [missing usage info prevents renaming] */
 
@@ -60,15 +72,35 @@
 
 /*! export Profiler [provided] [no usage info] [provision prevents renaming (no use info)] -> ./node_modules/react/cjs/react.production.min.js .Profiler */
 
+/*! export Prompt [provided] [no usage info] [missing usage info prevents renaming] */
+
+/*! export Prompt [provided] [no usage info] [missing usage info prevents renaming] -> ./node_modules/react-router/esm/react-router.js .Prompt */
+
 /*! export PureComponent [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export PureComponent [provided] [no usage info] [provision prevents renaming (no use info)] -> ./node_modules/react/cjs/react.production.min.js .PureComponent */
+
+/*! export Redirect [provided] [no usage info] [missing usage info prevents renaming] */
+
+/*! export Redirect [provided] [no usage info] [missing usage info prevents renaming] -> ./node_modules/react-router/esm/react-router.js .Redirect */
+
+/*! export Route [provided] [no usage info] [missing usage info prevents renaming] */
+
+/*! export Route [provided] [no usage info] [missing usage info prevents renaming] -> ./node_modules/react-router/esm/react-router.js .Route */
+
+/*! export Router [provided] [no usage info] [missing usage info prevents renaming] */
+
+/*! export Router [provided] [no usage info] [missing usage info prevents renaming] -> ./node_modules/react-router/esm/react-router.js .Router */
 
 /*! export RuleList [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export SheetsManager [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export SheetsRegistry [provided] [no usage info] [missing usage info prevents renaming] */
+
+/*! export StaticRouter [provided] [no usage info] [missing usage info prevents renaming] */
+
+/*! export StaticRouter [provided] [no usage info] [missing usage info prevents renaming] -> ./node_modules/react-router/esm/react-router.js .StaticRouter */
 
 /*! export StrictMode [provided] [no usage info] [missing usage info prevents renaming] */
 
@@ -83,6 +115,14 @@
 /*! export Suspense [provided] [no usage info] [provision prevents renaming (no use info)] -> ./node_modules/react-is/cjs/react-is.production.min.js .Suspense */
 
 /*! export Suspense [provided] [no usage info] [provision prevents renaming (no use info)] -> ./node_modules/react/cjs/react.production.min.js .Suspense */
+
+/*! export Switch [provided] [no usage info] [missing usage info prevents renaming] */
+
+/*! export Switch [provided] [no usage info] [missing usage info prevents renaming] -> ./node_modules/react-router/esm/react-router.js .Switch */
+
+/*! export __HistoryContext [provided] [no usage info] [missing usage info prevents renaming] */
+
+/*! export __RouterContext [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED [provided] [no usage info] [missing usage info prevents renaming] */
 
@@ -100,6 +140,8 @@
 
 /*! export create [provided] [no usage info] [missing usage info prevents renaming] */
 
+/*! export createBrowserHistory [provided] [no usage info] [missing usage info prevents renaming] */
+
 /*! export createContext [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export createContext [provided] [no usage info] [provision prevents renaming (no use info)] -> ./node_modules/react/cjs/react.production.min.js .createContext */
@@ -113,6 +155,14 @@
 /*! export createFactory [provided] [no usage info] [provision prevents renaming (no use info)] -> ./node_modules/react/cjs/react.production.min.js .createFactory */
 
 /*! export createGenerateId [provided] [no usage info] [missing usage info prevents renaming] */
+
+/*! export createHashHistory [provided] [no usage info] [missing usage info prevents renaming] */
+
+/*! export createLocation [provided] [no usage info] [missing usage info prevents renaming] */
+
+/*! export createMemoryHistory [provided] [no usage info] [missing usage info prevents renaming] */
+
+/*! export createPath [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export createPortal [provided] [no usage info] [missing usage info prevents renaming] */
 
@@ -155,6 +205,10 @@
 /*! export forwardRef [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export forwardRef [provided] [no usage info] [provision prevents renaming (no use info)] -> ./node_modules/react/cjs/react.production.min.js .forwardRef */
+
+/*! export generatePath [provided] [no usage info] [missing usage info prevents renaming] */
+
+/*! export generatePath [provided] [no usage info] [missing usage info prevents renaming] -> ./node_modules/react-router/esm/react-router.js .generatePath */
 
 /*! export getChildMapping [provided] [no usage info] [missing usage info prevents renaming] */
 
@@ -256,11 +310,19 @@
 
 /*! export lighten [provided] [no usage info] [missing usage info prevents renaming] */
 
+/*! export locationsAreEqual [provided] [no usage info] [missing usage info prevents renaming] */
+
+/*! export matchPath [provided] [no usage info] [missing usage info prevents renaming] */
+
+/*! export matchPath [provided] [no usage info] [missing usage info prevents renaming] -> ./node_modules/react-router/esm/react-router.js .matchPath */
+
 /*! export memo [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export memo [provided] [no usage info] [provision prevents renaming (no use info)] -> ./node_modules/react/cjs/react.production.min.js .memo */
 
 /*! export mergeChildMappings [provided] [no usage info] [missing usage info prevents renaming] */
+
+/*! export parsePath [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export prefix [provided] [no usage info] [missing usage info prevents renaming] */
 
@@ -400,6 +462,10 @@
 
 /*! export useEffect [provided] [no usage info] [provision prevents renaming (no use info)] -> ./node_modules/react/cjs/react.production.min.js .useEffect */
 
+/*! export useHistory [provided] [no usage info] [missing usage info prevents renaming] */
+
+/*! export useHistory [provided] [no usage info] [missing usage info prevents renaming] -> ./node_modules/react-router/esm/react-router.js .useHistory */
+
 /*! export useImperativeHandle [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export useImperativeHandle [provided] [no usage info] [provision prevents renaming (no use info)] -> ./node_modules/react/cjs/react.production.min.js .useImperativeHandle */
@@ -408,9 +474,17 @@
 
 /*! export useLayoutEffect [provided] [no usage info] [provision prevents renaming (no use info)] -> ./node_modules/react/cjs/react.production.min.js .useLayoutEffect */
 
+/*! export useLocation [provided] [no usage info] [missing usage info prevents renaming] */
+
+/*! export useLocation [provided] [no usage info] [missing usage info prevents renaming] -> ./node_modules/react-router/esm/react-router.js .useLocation */
+
 /*! export useMemo [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export useMemo [provided] [no usage info] [provision prevents renaming (no use info)] -> ./node_modules/react/cjs/react.production.min.js .useMemo */
+
+/*! export useParams [provided] [no usage info] [missing usage info prevents renaming] */
+
+/*! export useParams [provided] [no usage info] [missing usage info prevents renaming] -> ./node_modules/react-router/esm/react-router.js .useParams */
 
 /*! export useReducer [provided] [no usage info] [missing usage info prevents renaming] */
 
@@ -419,6 +493,10 @@
 /*! export useRef [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export useRef [provided] [no usage info] [provision prevents renaming (no use info)] -> ./node_modules/react/cjs/react.production.min.js .useRef */
+
+/*! export useRouteMatch [provided] [no usage info] [missing usage info prevents renaming] */
+
+/*! export useRouteMatch [provided] [no usage info] [missing usage info prevents renaming] -> ./node_modules/react-router/esm/react-router.js .useRouteMatch */
 
 /*! export useState [provided] [no usage info] [missing usage info prevents renaming] */
 
@@ -429,6 +507,10 @@
 /*! export version [provided] [no usage info] [provision prevents renaming (no use info)] -> ./node_modules/react-dom/cjs/react-dom.production.min.js .version */
 
 /*! export version [provided] [no usage info] [provision prevents renaming (no use info)] -> ./node_modules/react/cjs/react.production.min.js .version */
+
+/*! export withRouter [provided] [no usage info] [missing usage info prevents renaming] */
+
+/*! export withRouter [provided] [no usage info] [missing usage info prevents renaming] -> ./node_modules/react-router/esm/react-router.js .withRouter */
 
 /*! exports [not provided] [no usage info] */
 
@@ -444,11 +526,15 @@
 
 /*! runtime requirements: __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
 
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.d, __webpack_require__.n, __webpack_require__.r, __webpack_require__.* */
+
 /*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.d, __webpack_require__.r, __webpack_require__.* */
 
 /*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
 
 /*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+
+/*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_exports__, __webpack_require__.r, __webpack_require__.g, __webpack_require__.d, __webpack_require__.* */
 
 /*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
 
@@ -476,6 +562,10 @@
   !*** ./src/components/NavBar.js ***!
   \**********************************/
 
+/*!************************************!*\
+  !*** ./src/components/HomePage.js ***!
+  \************************************/
+
 /*!*************************************!*\
   !*** ./node_modules/react/index.js ***!
   \*************************************/
@@ -483,6 +573,10 @@
 /*!**************************************!*\
   !*** ./src/components/ProductDiv.js ***!
   \**************************************/
+
+/*!***************************************!*\
+  !*** ./node_modules/isarray/index.js ***!
+  \***************************************/
 
 /*!***************************************!*\
   !*** ./src/components/ProductList.js ***!
@@ -504,6 +598,10 @@
   !*** ./node_modules/scheduler/index.js ***!
   \*****************************************/
 
+/*!*****************************************!*\
+  !*** ./src/components/ProductDetail.js ***!
+  \*****************************************/
+
 /*!******************************************!*\
   !*** ./node_modules/clsx/dist/clsx.m.js ***!
   \******************************************/
@@ -517,8 +615,16 @@
   \******************************************/
 
 /*!*********************************************!*\
+  !*** ./node_modules/history/esm/history.js ***!
+  \*********************************************/
+
+/*!*********************************************!*\
   !*** ./node_modules/object-assign/index.js ***!
   \*********************************************/
+
+/*!**********************************************!*\
+  !*** ./node_modules/path-to-regexp/index.js ***!
+  \**********************************************/
 
 /*!*************************************************!*\
   !*** ./node_modules/@material-ui/icons/Menu.js ***!
@@ -532,8 +638,16 @@
   !*** ./node_modules/hyphenate-style-name/index.js ***!
   \****************************************************/
 
+/*!*****************************************************!*\
+  !*** ./node_modules/value-equal/esm/value-equal.js ***!
+  \*****************************************************/
+
 /*!*******************************************************!*\
   !*** ./node_modules/@material-ui/system/esm/merge.js ***!
+  \*******************************************************/
+
+/*!*******************************************************!*\
+  !*** ./node_modules/react-router/esm/react-router.js ***!
   \*******************************************************/
 
 /*!********************************************************!*\
@@ -668,6 +782,14 @@
   !*** ./node_modules/@material-ui/core/esm/Toolbar/Toolbar.js ***!
   \***************************************************************/
 
+/*!***************************************************************!*\
+  !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
+  \***************************************************************/
+
+/*!***************************************************************!*\
+  !*** ./node_modules/resolve-pathname/esm/resolve-pathname.js ***!
+  \***************************************************************/
+
 /*!****************************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/esm/createClass.js ***!
   \****************************************************************/
@@ -692,6 +814,10 @@
   !*** ./node_modules/scheduler/cjs/scheduler.production.min.js ***!
   \****************************************************************/
 
+/*!****************************************************************!*\
+  !*** ./node_modules/tiny-invariant/dist/tiny-invariant.esm.js ***!
+  \****************************************************************/
+
 /*!*****************************************************************!*\
   !*** ./node_modules/@material-ui/core/esm/ButtonBase/Ripple.js ***!
   \*****************************************************************/
@@ -710,6 +836,10 @@
 
 /*!******************************************************************!*\
   !*** ./node_modules/@material-ui/core/esm/styles/transitions.js ***!
+  \******************************************************************/
+
+/*!******************************************************************!*\
+  !*** ./node_modules/mini-create-react-context/dist/esm/index.js ***!
   \******************************************************************/
 
 /*!*******************************************************************!*\
