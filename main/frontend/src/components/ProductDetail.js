@@ -3,51 +3,61 @@ import {makeStyles} from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper'
-
+import {productDetailURL, ProductDetailURL} from "./constants";
+import { withRouter } from "react-router-dom";
 
 export default class ProductDetail extends Component{
     constructor(props){
         super (props);
         this.state = {
-            name: "",
-            category_name: "",
-            image: "",
-            description: "",
-            price: "",
-            available: false
-        }
-        this.id = this.props.match.path.split("/product/")[1]
-        this.getProductDetails();        
+            data:[],
+            loading: false,
+        }       
+    }
+
+    componentDidMount(){
+        this.getProductDetails();
     }
 
     getProductDetails() {
-        fetch(`http://127.0.0.1:8000/api/products/${this.id}`).then((response) =>
-        response.json()).then((data) => {
-            console.log(data)
-            this.setState({
-                name : data.name,
-                category_name : data.category_name,
-                image : data.image,
-                description: data.description,
-                price : data.price,
-                available: data.available,
-            });
-        });
-    }
+        const { match : {params} } = this.props;
+        fetch(productDetailURL(params.productID)).then(response => {
+               if (response.status > 400) {
+                   return this.setState(() => {
+                       console.log('error')
+                       return { placeholder: "Something went wrong"};
+                   });
+               }
+               return response.json();
+           })
+         .then(data => {
+             this.setState(() => {
+                 return { 
+                     data,
+                     loaded:true
+                 };
+             });
+         });       
+        }  
 
 
     render(){
-        let image = String(this.state.image).split('frontend')[1]
+        const{data, loading} = this.state;
+        console.log('Product detail data: ', data)
+        const item = data;
+        let image = String(item.image).split('frontend')[1]
+        console.log(image)
         return(
             <div>
-                <h3>{this.state.name}</h3>
-                <p>{this.state.category_name}</p>
-                <p>{this.state.description}</p>
+                <h3>{item.name}</h3>
+                <p>{item.category_name}</p>
+                <p>{item.description}</p>
                 <div><img src={image} width="200" height="200"/></div>
-                <p>{this.state.price}</p>
-                <p>{this.state.available}</p>
+                <p>{item.price}</p>
+                <p>{item.available}</p>
             </div>
         );
     }
 
 }
+

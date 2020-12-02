@@ -1,5 +1,7 @@
 import React , {Component} from 'react';
 import Button from '@material-ui/core/Button';
+import {categoryListURL} from "./constants";
+
 export default class CategoryList extends Component{
     constructor(props){
         super (props);
@@ -9,17 +11,9 @@ export default class CategoryList extends Component{
             loaded: false,
             placeholder: "Loading",
          };
-
-        }
-
-        onChangeLink(index) {
-            this.state.api_link = ('http://127.0.0.1:8000/api/category/' + String(index));
-            //this.state.product_loaded = false;
-            this.props.changeLink(this.state.api_link);          
-        }
-           
+        }  
         async componentDidMount(){
-           fetch("http://127.0.0.1:8000/api/category/").then(response => {
+           fetch(categoryListURL).then(response => {
                if (response.status > 400) {
                    return this.setState(() => {
                        console.log('error')
@@ -36,18 +30,19 @@ export default class CategoryList extends Component{
                  };
              });
          });       
-        }
-    
+        }  
         render(){
+            const {data, loaded} = this.state;
             if (this.state.loaded == true){
-                let data_ = this.state.data;
+                let item = data;
+                console.log(item)
             return(
                 <div id="categoryList">
                     <ul>
-                        {data_.map((value,index) => {                    
+                        {item.map((value,index) => {                    
                             return(
                                 <div>
-                                <Button onClick={this.onChangeLink.bind(this,index+1)} color='primary'>{value.name}</Button>
+                                <Button href={`/category/${value.slug}`} color='primary'>{value.name}</Button>
                                 </div>)          
                         })}
                     </ul>

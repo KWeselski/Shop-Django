@@ -38,9 +38,9 @@ def category_list(request):
         return Response(serializer.data)
 
 @api_view(['GET'])
-def category_product_list(request,pk):
+def category_product_list(request,slug):
     try:
-        category_ = Category.objects.get(pk=pk)
+        category_ = Category.objects.get(slug=slug)
     except Category.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
     

@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import ProductDiv from './ProductDiv';
 import Grid from '@material-ui/core/Grid';
-import {productListURL} from "./constants";
+import {productListByCategoryURL} from "./constants";
 
-export default class ProductList extends Component{
+export default class ProductListByCategory extends Component{
     constructor(props){
         super (props);
         this.state = {
@@ -14,7 +14,8 @@ export default class ProductList extends Component{
         }   
 
         getData(){
-            fetch(productListURL).then(response => {
+            const { match : {params} } = this.props;
+            fetch(productListByCategoryURL(params.categoryID)).then(response => {
                 if (response.status > 400) {
                     return this.setState(() => {
                         console.log('error')
@@ -42,8 +43,6 @@ export default class ProductList extends Component{
         }    
     render(){
         const {data, loaded} = this.state;
-        console.log(data)
-        console.log(loaded)
         if (loaded == true){
         return(   
             <Grid container spacing={24}>
@@ -61,6 +60,6 @@ export default class ProductList extends Component{
             )
         };
         }
-    }
+}
 
 
