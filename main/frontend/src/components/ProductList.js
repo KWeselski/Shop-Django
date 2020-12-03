@@ -2,65 +2,47 @@ import React, {Component} from 'react';
 import ProductDiv from './ProductDiv';
 import Grid from '@material-ui/core/Grid';
 import {productListURL} from "./constants";
+import {connect} from 'react-redux'
+import { fetchProducts } from "./actions/cartActions";
 
-export default class ProductList extends Component{
+class ProductList extends Component{
     constructor(props){
         super (props);
         this.state = {
-            data: [],
-            placeholder: "Loading",
-            loaded : false
          };
+         
         }   
-
-        getData(){
-            fetch(productListURL).then(response => {
-                if (response.status > 400) {
-                    return this.setState(() => {
-                        console.log('error')
-                        return { placeholder: "Something went wrong"};
-                    });
-                }
-                return response.json();
-            })
-          .then(data => {
-              this.setState(() => {
-                  return { 
-                      data,
-                      loaded:true                
-                  };
-              });
-          });
+      
+        render(){
+        console.log(this.props)
+        const {error, loading, products} = this.props;
+        
+        if (error){
+            return<div>Errro! {error.message}</div>
         }
-        componentDidUpdate(){
-            if(this.state.loaded==true){
-            }
-            else{this.getData();}         
+        if (loading){
+            return <div>Loading...</div>
         }
-        componentDidMount(){
-           this.getData();
-        }    
-    render(){
-        const {data, loaded} = this.state;
-        console.log(data)
-        console.log(loaded)
-        if (loaded == true){
         return(   
             <Grid container spacing={24}>
-                {data.map((value,index) => {                    
+                {products.map((value,index) => {                    
                 return(
                     <div>
-                    <Grid item xs={6}> <ProductDiv temp={data[index]}/></Grid>
+                    <Grid item xs={6}> <ProductDiv temp={products[index]}/></Grid>
                     </div>)          
                 })}
             </Grid>);
         }
-        else{
-            return(
-                <div></div>
-            )
         };
-        }
+const mapStateToProps = state => ({
+        products: state.items,
+        loading: state.loading,
+        error: state.error
+});
+/*const mapDispatchToProps= (dispatch)=>{    
+    return{
+        fetchProducts : dispatch(fetchProducts())
     }
-
-
+}*/
+ 
+export default connect(mapStateToProps)(ProductList);    

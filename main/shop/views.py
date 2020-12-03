@@ -49,3 +49,5 @@ def category_product_list(request,slug):
         serializer = ProductSerializer(products, context={'request':request},many=True)
         return Response(serializer.data)
 
+
+

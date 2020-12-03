@@ -2,6 +2,12 @@
 
 /*! dynamic exports */
 
+/*! export ADD_QUANTITY [provided] [no usage info] [missing usage info prevents renaming] */
+
+/*! export ADD_SHIPPING [provided] [no usage info] [missing usage info prevents renaming] */
+
+/*! export ADD_TO_CART [provided] [no usage info] [missing usage info prevents renaming] */
+
 /*! export AsyncMode [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export AsyncMode [provided] [no usage info] [provision prevents renaming (no use info)] -> ./node_modules/react-is/cjs/react-is.production.min.js .AsyncMode */
@@ -62,6 +68,8 @@
 
 /*! export NavLink [provided] [no usage info] [missing usage info prevents renaming] */
 
+/*! export PRODUCTS_NAMES [provided] [no usage info] [missing usage info prevents renaming] */
+
 /*! export Portal [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export Portal [provided] [no usage info] [provision prevents renaming (no use info)] -> ./node_modules/react-is/cjs/react-is.production.min.js .Portal */
@@ -76,9 +84,17 @@
 
 /*! export Prompt [provided] [no usage info] [missing usage info prevents renaming] -> ./node_modules/react-router/esm/react-router.js .Prompt */
 
+/*! export Provider [provided] [no usage info] [missing usage info prevents renaming] -> ./node_modules/react-redux/es/components/Provider.js .default */
+
 /*! export PureComponent [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export PureComponent [provided] [no usage info] [provision prevents renaming (no use info)] -> ./node_modules/react/cjs/react.production.min.js .PureComponent */
+
+/*! export REMOVE_ITEM [provided] [no usage info] [missing usage info prevents renaming] */
+
+/*! export ReactReduxContext [provided] [no usage info] [missing usage info prevents renaming] */
+
+/*! export ReactReduxContext [provided] [no usage info] [missing usage info prevents renaming] -> ./node_modules/react-redux/es/components/Context.js .ReactReduxContext */
 
 /*! export Redirect [provided] [no usage info] [missing usage info prevents renaming] */
 
@@ -93,6 +109,8 @@
 /*! export Router [provided] [no usage info] [missing usage info prevents renaming] -> ./node_modules/react-router/esm/react-router.js .Router */
 
 /*! export RuleList [provided] [no usage info] [missing usage info prevents renaming] */
+
+/*! export SUB_QUANTITY [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export SheetsManager [provided] [no usage info] [missing usage info prevents renaming] */
 
@@ -120,6 +138,8 @@
 
 /*! export Switch [provided] [no usage info] [missing usage info prevents renaming] -> ./node_modules/react-router/esm/react-router.js .Switch */
 
+/*! export __DO_NOT_USE__ActionTypes [provided] [no usage info] [missing usage info prevents renaming] */
+
 /*! export __HistoryContext [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export __RouterContext [provided] [no usage info] [missing usage info prevents renaming] */
@@ -134,19 +154,43 @@
 
 /*! export __esModule [provided] [no usage info] [missing usage info prevents renaming] */
 
+/*! export addQuantity [provided] [no usage info] [missing usage info prevents renaming] */
+
+/*! export addToCart [provided] [no usage info] [missing usage info prevents renaming] */
+
+/*! export applyMiddleware [provided] [no usage info] [missing usage info prevents renaming] */
+
+/*! export batch [provided] [no usage info] [missing usage info prevents renaming] -> ./node_modules/react-dom/cjs/react-dom.production.min.js .unstable_batchedUpdates */
+
+/*! export bindActionCreators [provided] [no usage info] [missing usage info prevents renaming] */
+
 /*! export categoryListURL [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export cloneElement [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export cloneElement [provided] [no usage info] [provision prevents renaming (no use info)] -> ./node_modules/react/cjs/react.production.min.js .cloneElement */
 
+/*! export combineReducers [provided] [no usage info] [missing usage info prevents renaming] */
+
+/*! export compose [provided] [no usage info] [missing usage info prevents renaming] */
+
+/*! export connect [provided] [no usage info] [missing usage info prevents renaming] -> ./node_modules/react-redux/es/connect/connect.js .default */
+
+/*! export connectAdvanced [provided] [no usage info] [missing usage info prevents renaming] -> ./node_modules/react-redux/es/components/connectAdvanced.js .default */
+
 /*! export create [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export createBrowserHistory [provided] [no usage info] [missing usage info prevents renaming] */
 
+/*! export createConnect [provided] [no usage info] [missing usage info prevents renaming] */
+
 /*! export createContext [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export createContext [provided] [no usage info] [provision prevents renaming (no use info)] -> ./node_modules/react/cjs/react.production.min.js .createContext */
+
+/*! export createDispatchHook [provided] [no usage info] [missing usage info prevents renaming] */
+
+/*! export createDispatchHook [provided] [no usage info] [missing usage info prevents renaming] -> ./node_modules/react-redux/es/hooks/useDispatch.js .createDispatchHook */
 
 /*! export createElement [provided] [no usage info] [missing usage info prevents renaming] */
 
@@ -176,6 +220,16 @@
 
 /*! export createRule [provided] [no usage info] [missing usage info prevents renaming] */
 
+/*! export createSelectorHook [provided] [no usage info] [missing usage info prevents renaming] */
+
+/*! export createSelectorHook [provided] [no usage info] [missing usage info prevents renaming] -> ./node_modules/react-redux/es/hooks/useSelector.js .createSelectorHook */
+
+/*! export createStore [provided] [no usage info] [missing usage info prevents renaming] */
+
+/*! export createStoreHook [provided] [no usage info] [missing usage info prevents renaming] */
+
+/*! export createStoreHook [provided] [no usage info] [missing usage info prevents renaming] -> ./node_modules/react-redux/es/hooks/useStore.js .createStoreHook */
+
 /*! export createUnarySpacing [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export dark [provided] [no usage info] [missing usage info prevents renaming] */
@@ -188,6 +242,8 @@
 
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] -> ./node_modules/@material-ui/core/esm/SvgIcon/SvgIcon.js .default */
 
+/*! export defaultMergeProps [provided] [no usage info] [missing usage info prevents renaming] */
+
 /*! export duration [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export easing [provided] [no usage info] [missing usage info prevents renaming] */
@@ -198,9 +254,17 @@
 
 /*! export fade [provided] [no usage info] [missing usage info prevents renaming] */
 
+/*! export failFetchProducts [provided] [no usage info] [missing usage info prevents renaming] */
+
+/*! export fetchProducts [provided] [no usage info] [missing usage info prevents renaming] */
+
+/*! export fetchProductsID [provided] [no usage info] [missing usage info prevents renaming] */
+
 /*! export findDOMNode [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export findDOMNode [provided] [no usage info] [provision prevents renaming (no use info)] -> ./node_modules/react-dom/cjs/react-dom.production.min.js .findDOMNode */
+
+/*! export finishFetchProducts [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export flushSync [provided] [no usage info] [missing usage info prevents renaming] */
 
@@ -214,9 +278,13 @@
 
 /*! export generatePath [provided] [no usage info] [missing usage info prevents renaming] -> ./node_modules/react-router/esm/react-router.js .generatePath */
 
+/*! export getBatch [provided] [no usage info] [missing usage info prevents renaming] */
+
 /*! export getChildMapping [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export getContrastRatio [provided] [no usage info] [missing usage info prevents renaming] */
+
+/*! export getDependsOnOwnProps [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export getDynamicStyles [provided] [no usage info] [missing usage info prevents renaming] */
 
@@ -237,6 +305,8 @@
 /*! export hydrate [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export hydrate [provided] [no usage info] [provision prevents renaming (no use info)] -> ./node_modules/react-dom/cjs/react-dom.production.min.js .hydrate */
+
+/*! export impureFinalPropsSelectorFactory [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export increment [provided] [no usage info] [missing usage info prevents renaming] */
 
@@ -336,7 +406,11 @@
 
 /*! export productListURL [provided] [no usage info] [missing usage info prevents renaming] */
 
+/*! export pureFinalPropsSelectorFactory [provided] [no usage info] [missing usage info prevents renaming] */
+
 /*! export recomposeColor [provided] [no usage info] [missing usage info prevents renaming] */
+
+/*! export removeItem [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export render [provided] [no usage info] [missing usage info prevents renaming] */
 
@@ -344,11 +418,19 @@
 
 /*! export rgbToHex [provided] [no usage info] [missing usage info prevents renaming] */
 
+/*! export setBatch [provided] [no usage info] [missing usage info prevents renaming] */
+
+/*! export shallowEqual [provided] [no usage info] [missing usage info prevents renaming] -> ./node_modules/react-redux/es/utils/shallowEqual.js .default */
+
 /*! export sheets [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export sheetsManager [provided] [no usage info] [missing usage info prevents renaming] */
 
+/*! export startFetchProducts [provided] [no usage info] [missing usage info prevents renaming] */
+
 /*! export styles [provided] [no usage info] [missing usage info prevents renaming] */
+
+/*! export subtractQuantity [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export supportedKeyframes [provided] [no usage info] [missing usage info prevents renaming] */
 
@@ -393,6 +475,8 @@
 /*! export unstable_UserBlockingPriority [provided] [no usage info] [provision prevents renaming (no use info)] -> ./node_modules/scheduler/cjs/scheduler.production.min.js .unstable_UserBlockingPriority */
 
 /*! export unstable_batchedUpdates [provided] [no usage info] [missing usage info prevents renaming] */
+
+/*! export unstable_batchedUpdates [provided] [no usage info] [missing usage info prevents renaming] -> ./node_modules/react-dom/cjs/react-dom.production.min.js .unstable_batchedUpdates */
 
 /*! export unstable_batchedUpdates [provided] [no usage info] [provision prevents renaming (no use info)] -> ./node_modules/react-dom/cjs/react-dom.production.min.js .unstable_batchedUpdates */
 
@@ -468,6 +552,10 @@
 
 /*! export useDebugValue [provided] [no usage info] [provision prevents renaming (no use info)] -> ./node_modules/react/cjs/react.production.min.js .useDebugValue */
 
+/*! export useDispatch [provided] [no usage info] [missing usage info prevents renaming] */
+
+/*! export useDispatch [provided] [no usage info] [missing usage info prevents renaming] -> ./node_modules/react-redux/es/hooks/useDispatch.js .useDispatch */
+
 /*! export useEffect [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export useEffect [provided] [no usage info] [provision prevents renaming (no use info)] -> ./node_modules/react/cjs/react.production.min.js .useEffect */
@@ -479,6 +567,8 @@
 /*! export useImperativeHandle [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export useImperativeHandle [provided] [no usage info] [provision prevents renaming (no use info)] -> ./node_modules/react/cjs/react.production.min.js .useImperativeHandle */
+
+/*! export useIsomorphicLayoutEffect [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export useLayoutEffect [provided] [no usage info] [missing usage info prevents renaming] */
 
@@ -500,6 +590,8 @@
 
 /*! export useReducer [provided] [no usage info] [provision prevents renaming (no use info)] -> ./node_modules/react/cjs/react.production.min.js .useReducer */
 
+/*! export useReduxContext [provided] [no usage info] [missing usage info prevents renaming] */
+
 /*! export useRef [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export useRef [provided] [no usage info] [provision prevents renaming (no use info)] -> ./node_modules/react/cjs/react.production.min.js .useRef */
@@ -508,9 +600,17 @@
 
 /*! export useRouteMatch [provided] [no usage info] [missing usage info prevents renaming] -> ./node_modules/react-router/esm/react-router.js .useRouteMatch */
 
+/*! export useSelector [provided] [no usage info] [missing usage info prevents renaming] */
+
+/*! export useSelector [provided] [no usage info] [missing usage info prevents renaming] -> ./node_modules/react-redux/es/hooks/useSelector.js .useSelector */
+
 /*! export useState [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export useState [provided] [no usage info] [provision prevents renaming (no use info)] -> ./node_modules/react/cjs/react.production.min.js .useState */
+
+/*! export useStore [provided] [no usage info] [missing usage info prevents renaming] */
+
+/*! export useStore [provided] [no usage info] [missing usage info prevents renaming] -> ./node_modules/react-redux/es/hooks/useStore.js .useStore */
 
 /*! export version [provided] [no usage info] [missing usage info prevents renaming] */
 
@@ -518,9 +618,29 @@
 
 /*! export version [provided] [no usage info] [provision prevents renaming (no use info)] -> ./node_modules/react/cjs/react.production.min.js .version */
 
+/*! export whenMapDispatchToPropsIsFunction [provided] [no usage info] [missing usage info prevents renaming] */
+
+/*! export whenMapDispatchToPropsIsMissing [provided] [no usage info] [missing usage info prevents renaming] */
+
+/*! export whenMapDispatchToPropsIsObject [provided] [no usage info] [missing usage info prevents renaming] */
+
+/*! export whenMapStateToPropsIsFunction [provided] [no usage info] [missing usage info prevents renaming] */
+
+/*! export whenMapStateToPropsIsMissing [provided] [no usage info] [missing usage info prevents renaming] */
+
+/*! export whenMergePropsIsFunction [provided] [no usage info] [missing usage info prevents renaming] */
+
+/*! export whenMergePropsIsOmitted [provided] [no usage info] [missing usage info prevents renaming] */
+
 /*! export withRouter [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export withRouter [provided] [no usage info] [missing usage info prevents renaming] -> ./node_modules/react-router/esm/react-router.js .withRouter */
+
+/*! export wrapMapToPropsConstant [provided] [no usage info] [missing usage info prevents renaming] */
+
+/*! export wrapMapToPropsFunc [provided] [no usage info] [missing usage info prevents renaming] */
+
+/*! export wrapMergePropsFunc [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! exports [not provided] [no usage info] */
 
@@ -529,6 +649,8 @@
 /*! namespace exports */
 
 /*! other exports [not provided] [no usage info] */
+
+/*! runtime requirements:  */
 
 /*! runtime requirements: __webpack_exports__ */
 
@@ -552,6 +674,8 @@
 
 /*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
 
+/*! runtime requirements: __webpack_require__, module.loaded, module.id, module, __webpack_require__.hmd, __webpack_exports__, __webpack_require__.r, __webpack_require__.g, __webpack_require__.d, __webpack_require__.* */
+
 /*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
 
 /*! runtime requirements: module */
@@ -568,8 +692,16 @@
   !*** ./src/components/App.js ***!
   \*******************************/
 
+/*!********************************!*\
+  !*** ./src/components/Cart.js ***!
+  \********************************/
+
 /*!**********************************!*\
   !*** ./src/components/NavBar.js ***!
+  \**********************************/
+
+/*!**********************************!*\
+  !*** ./src/components/styles.js ***!
   \**********************************/
 
 /*!************************************!*\
@@ -601,6 +733,10 @@
   \****************************************/
 
 /*!****************************************!*\
+  !*** ./node_modules/redux/es/redux.js ***!
+  \****************************************/
+
+/*!****************************************!*\
   !*** ./src/components/CategoryList.js ***!
   \****************************************/
 
@@ -614,10 +750,6 @@
 
 /*!*****************************************!*\
   !*** ./src/components/ProductDetail.js ***!
-  \*****************************************/
-
-/*!*****************************************!*\
-  !*** ./src/components/TestComponent.js ***!
   \*****************************************/
 
 /*!******************************************!*\
@@ -644,13 +776,29 @@
   !*** ./node_modules/path-to-regexp/index.js ***!
   \**********************************************/
 
-/*!*************************************************!*\
-  !*** ./node_modules/@material-ui/icons/Menu.js ***!
-  \*************************************************/
+/*!**********************************************!*\
+  !*** ./node_modules/react-redux/es/index.js ***!
+  \**********************************************/
+
+/*!***********************************************!*\
+  !*** ./src/components/actions/cartActions.js ***!
+  \***********************************************/
+
+/*!************************************************!*\
+  !*** ./src/components/reducers/cartReducer.js ***!
+  \************************************************/
 
 /*!*************************************************!*\
   !*** ./src/components/ProductListByCategory.js ***!
   \*************************************************/
+
+/*!**************************************************!*\
+  !*** ../../node_modules/redux-thunk/es/index.js ***!
+  \**************************************************/
+
+/*!***************************************************!*\
+  !*** ./node_modules/@material-ui/icons/Person.js ***!
+  \***************************************************/
 
 /*!***************************************************!*\
   !*** ./node_modules/is-in-browser/dist/module.js ***!
@@ -660,16 +808,36 @@
   !*** ./node_modules/hyphenate-style-name/index.js ***!
   \****************************************************/
 
+/*!****************************************************!*\
+  !*** ./node_modules/react-redux/es/utils/batch.js ***!
+  \****************************************************/
+
+/*!****************************************************!*\
+  !*** ./node_modules/symbol-observable/es/index.js ***!
+  \****************************************************/
+
 /*!*****************************************************!*\
   !*** ./node_modules/value-equal/esm/value-equal.js ***!
   \*****************************************************/
+
+/*!******************************************************!*\
+  !*** ./node_modules/react-redux/es/utils/warning.js ***!
+  \******************************************************/
 
 /*!*******************************************************!*\
   !*** ./node_modules/@material-ui/system/esm/merge.js ***!
   \*******************************************************/
 
 /*!*******************************************************!*\
+  !*** ./node_modules/react-redux/es/hooks/useStore.js ***!
+  \*******************************************************/
+
+/*!*******************************************************!*\
   !*** ./node_modules/react-router/esm/react-router.js ***!
+  \*******************************************************/
+
+/*!*******************************************************!*\
+  !*** ./node_modules/symbol-observable/es/ponyfill.js ***!
   \*******************************************************/
 
 /*!********************************************************!*\
@@ -678,6 +846,10 @@
 
 /*!********************************************************!*\
   !*** ./node_modules/css-vendor/dist/css-vendor.esm.js ***!
+  \********************************************************/
+
+/*!********************************************************!*\
+  !*** ./node_modules/react-redux/es/connect/connect.js ***!
   \********************************************************/
 
 /*!********************************************************!*\
@@ -708,6 +880,14 @@
   !*** ./node_modules/@material-ui/utils/esm/deepmerge.js ***!
   \**********************************************************/
 
+/*!**********************************************************!*\
+  !*** ./node_modules/react-redux/es/hooks/useDispatch.js ***!
+  \**********************************************************/
+
+/*!**********************************************************!*\
+  !*** ./node_modules/react-redux/es/hooks/useSelector.js ***!
+  \**********************************************************/
+
 /*!***********************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/esm/typeof.js ***!
   \***********************************************************/
@@ -728,6 +908,26 @@
   !*** ./node_modules/@material-ui/core/esm/colors/pink.js ***!
   \***********************************************************/
 
+/*!***********************************************************!*\
+  !*** ./node_modules/@material-ui/icons/ShoppingBasket.js ***!
+  \***********************************************************/
+
+/*!***********************************************************!*\
+  !*** ./node_modules/react-redux/es/components/Context.js ***!
+  \***********************************************************/
+
+/*!***********************************************************!*\
+  !*** ./node_modules/react-redux/es/connect/mergeProps.js ***!
+  \***********************************************************/
+
+/*!***********************************************************!*\
+  !*** ./node_modules/react-redux/es/utils/Subscription.js ***!
+  \***********************************************************/
+
+/*!***********************************************************!*\
+  !*** ./node_modules/react-redux/es/utils/shallowEqual.js ***!
+  \***********************************************************/
+
 /*!************************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/esm/extends.js ***!
   \************************************************************/
@@ -742,6 +942,14 @@
 
 /*!************************************************************!*\
   !*** ./node_modules/@material-ui/core/esm/utils/setRef.js ***!
+  \************************************************************/
+
+/*!************************************************************!*\
+  !*** ./node_modules/react-redux/es/components/Provider.js ***!
+  \************************************************************/
+
+/*!************************************************************!*\
+  !*** ./node_modules/react-redux/es/utils/isPlainObject.js ***!
   \************************************************************/
 
 /*!************************************************************!*\
@@ -788,6 +996,10 @@
   !*** ./node_modules/prop-types/lib/ReactPropTypesSecret.js ***!
   \*************************************************************/
 
+/*!*************************************************************!*\
+  !*** ./src/components/actions/action-types/cart-actions.js ***!
+  \*************************************************************/
+
 /*!**************************************************************!*\
   !*** ./node_modules/@material-ui/core/esm/styles/shadows.js ***!
   \**************************************************************/
@@ -796,12 +1008,20 @@
   !*** ./node_modules/react-is/cjs/react-is.production.min.js ***!
   \**************************************************************/
 
+/*!**************************************************************!*\
+  !*** ./node_modules/react-redux/es/hooks/useReduxContext.js ***!
+  \**************************************************************/
+
 /*!***************************************************************!*\
   !*** ./node_modules/@material-ui/core/esm/SvgIcon/SvgIcon.js ***!
   \***************************************************************/
 
 /*!***************************************************************!*\
   !*** ./node_modules/@material-ui/core/esm/Toolbar/Toolbar.js ***!
+  \***************************************************************/
+
+/*!***************************************************************!*\
+  !*** ./node_modules/react-redux/es/connect/wrapMapToProps.js ***!
   \***************************************************************/
 
 /*!***************************************************************!*\
@@ -830,6 +1050,18 @@
 
 /*!****************************************************************!*\
   !*** ./node_modules/react-dom/cjs/react-dom.production.min.js ***!
+  \****************************************************************/
+
+/*!****************************************************************!*\
+  !*** ./node_modules/react-redux/es/connect/mapStateToProps.js ***!
+  \****************************************************************/
+
+/*!****************************************************************!*\
+  !*** ./node_modules/react-redux/es/connect/selectorFactory.js ***!
+  \****************************************************************/
+
+/*!****************************************************************!*\
+  !*** ./node_modules/react-redux/es/utils/verifyPlainObject.js ***!
   \****************************************************************/
 
 /*!****************************************************************!*\
@@ -864,6 +1096,10 @@
   !*** ./node_modules/mini-create-react-context/dist/esm/index.js ***!
   \******************************************************************/
 
+/*!******************************************************************!*\
+  !*** ./node_modules/react-redux/es/utils/reactBatchedUpdates.js ***!
+  \******************************************************************/
+
 /*!*******************************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/esm/arrayWithHoles.js ***!
   \*******************************************************************/
@@ -886,6 +1122,18 @@
 
 /*!*******************************************************************!*\
   !*** ./node_modules/@material-ui/styles/esm/useTheme/useTheme.js ***!
+  \*******************************************************************/
+
+/*!*******************************************************************!*\
+  !*** ./node_modules/react-redux/es/components/connectAdvanced.js ***!
+  \*******************************************************************/
+
+/*!*******************************************************************!*\
+  !*** ./node_modules/react-redux/es/connect/mapDispatchToProps.js ***!
+  \*******************************************************************/
+
+/*!*******************************************************************!*\
+  !*** ./node_modules/react-redux/es/connect/verifySubselectors.js ***!
   \*******************************************************************/
 
 /*!********************************************************************!*\
@@ -914,10 +1162,6 @@
 
 /*!*********************************************************************!*\
   !*** ./node_modules/@material-ui/core/esm/ButtonBase/ButtonBase.js ***!
-  \*********************************************************************/
-
-/*!*********************************************************************!*\
-  !*** ./node_modules/@material-ui/core/esm/IconButton/IconButton.js ***!
   \*********************************************************************/
 
 /*!*********************************************************************!*\
@@ -1006,6 +1250,10 @@
 
 /*!************************************************************************!*\
   !*** ./node_modules/@material-ui/core/esm/styles/createBreakpoints.js ***!
+  \************************************************************************/
+
+/*!************************************************************************!*\
+  !*** ./node_modules/react-redux/es/utils/useIsomorphicLayoutEffect.js ***!
   \************************************************************************/
 
 /*!*************************************************************************!*\

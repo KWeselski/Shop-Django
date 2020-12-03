@@ -1,17 +1,23 @@
 import React , {Component} from 'react';
 import Button from '@material-ui/core/Button';
 import {categoryListURL} from "./constants";
+import {withStyles} from '@material-ui/core/styles';
+import {styles} from './styles'
+import {Link} from 'react-router-dom';
 
-export default class CategoryList extends Component{
+
+
+
+class CategoryList extends Component{
     constructor(props){
-        super (props);
+        super (props)
 
         this.state = {
             data: [],
             loaded: false,
             placeholder: "Loading",
-         };
-        }  
+         }; 
+        }             
         async componentDidMount(){
            fetch(categoryListURL).then(response => {
                if (response.status > 400) {
@@ -32,17 +38,18 @@ export default class CategoryList extends Component{
          });       
         }  
         render(){
+            const { classes } = this.props;
             const {data, loaded} = this.state;
             if (this.state.loaded == true){
                 let item = data;
-                console.log(item)
             return(
                 <div id="categoryList">
                     <ul>
                         {item.map((value,index) => {                    
                             return(
-                                <div>
-                                <Button href={`/category/${value.slug}`} color='primary'>{value.name}</Button>
+                                <div id="categoryButton">     
+                                    <Button className={classes.btn} variant="contained">{value.name}</Button>
+                                
                                 </div>)          
                         })}
                     </ul>
@@ -51,4 +58,7 @@ export default class CategoryList extends Component{
             }
             else{return(<h1>Data is not working</h1>)}
         }
-    }
+}
+export default withStyles(styles)(CategoryList);
+
+//<Link to={`/category/${value.slug}`}

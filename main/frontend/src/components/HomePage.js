@@ -5,9 +5,8 @@ import ProductList from './ProductList';
 import CategoryList from './CategoryList';
 import Grid from '@material-ui/core/Grid';
 import ProductDetail from './ProductDetail'
-import TestComponent from './TestComponent'
+import Cart from './Cart'
 import ProductListByCategory from './ProductListByCategory'
-import {productListURL, productListByCategoryURL} from "./constants";
 import {
     BrowserRouter as Router,
     Switch,
@@ -21,17 +20,14 @@ export default class HomePage extends Component{
         }
     }
     render(){
+       
         return (
             <Router>
                 <Switch>
-                <Route exact path='/'>
-                    <Grid container spacing={24}>       
-                        <Grid item xs={6}> <ProductList/> </Grid>        
-                    </Grid>);
-                </Route>
+                <Route exact path='/' component={ProductList}/>
                 <Route exact path='/product/:productID' component={ProductDetail}/>
                 <Route exact path='/category/:categoryID' component={ProductListByCategory}/>
-                <Route exact path="/test"><TestComponent/></Route>      
+                <Route exact path="/cart" component={Cart}></Route>      
                 </Switch>
             </Router>
         );

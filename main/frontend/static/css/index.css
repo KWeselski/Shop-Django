@@ -18,8 +18,21 @@ body {
     height: 100%;
 }
 
+
 .MuiAppBar-root{
     height: 60px;
+}
+
+.icon{
+    float: right;
+    height: 48px;
+    color:white;
+}
+
+#titleShop{
+    text-decoration: none;
+    color:white;
+
 }
 
 .center {
@@ -39,7 +52,27 @@ body {
     height: 180px;
 }
 
+
+
 #categoryList div{
     margin-right: 40px;
     height: 70px;
+}
+
+#productDetail{
+    width:300px;
+}
+
+#productDetail h1{
+    font-size: 42px;
+    text-align: center;
+}
+#productDetail p{
+    font-size: 26px;
+    text-align: center;
+}
+
+#productDetailImg{
+    border: 2px solid black;
+    right: 0px;
 }
