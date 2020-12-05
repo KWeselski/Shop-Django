@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
-from .models import Product, Category
+from .models import Product, Category, OrderItem, Order, Profile
 from .serializers import *
 
 @api_view(['GET', 'POST'])
@@ -47,6 +47,18 @@ def category_product_list(request,slug):
     if request.method == "GET":
         products = Product.objects.filter(category=category_)
         serializer = ProductSerializer(products, context={'request':request},many=True)
+        return Response(serializer.data)
+
+
+@api_view(["GET"])
+def user_id_view(request):
+    return Response({'userID': request.user.id}, status=status.HTTP_200_OK)
+
+@api_view(['GET','POST'])
+def orders_list(request):
+    if request.method == "GET":
+        orders = Order.objects.all(user = request.user, ordered=False)
+        serializer = OrderSerializer(orders, context={'request': request}, many=True)
         return Response(serializer.data)
 
 

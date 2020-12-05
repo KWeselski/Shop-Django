@@ -1,33 +1,53 @@
 import React, {Component} from 'react';
 import {render} from 'react-dom';
+import ReactDOM from 'react-dom'
 import Navbar from './NavBar';
 import ProductList from './ProductList';
-import CategoryList from './CategoryList';
-import Grid from '@material-ui/core/Grid';
-import HomePage from './HomePage'
 import {Provider} from 'react-redux';
 import cartReducer from './reducers/cartReducer';
 import {createStore, applyMiddleware} from 'redux';
-import ReactDOM from 'react-dom';
 import thunk from "redux-thunk";
 import {fetchProducts} from './actions/cartActions';
-
-
+import CategoryList from './CategoryList';
+import ProductDetail from './ProductDetail'
+import Cart from './Cart'
+import ProductListByCategory from './ProductListByCategory'
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+  } from "react-router-dom";
 
 const store = createStore(cartReducer,applyMiddleware(thunk))
 store.dispatch(fetchProducts())
-console.log(store.getState())
-export default class App extends Component{
-    render(){
-       
-        return(          
-            <Grid container spacing={24}>
-                <Grid item xs={12} align="center"><Navbar/></Grid>
-                <Grid item xs={1}><CategoryList/></Grid>
-                <Grid item xs={6}><HomePage></HomePage></Grid>              
-            </Grid>);
-        }
 
+const NavRoute = ({exact, path, component: Component}) => (
+    <Route exact={exact} path={path} render={(props) => (
+      <div>      
+        <Component {...props}/>
+      </div>
+    )}/>
+)
+
+export default class App extends Component{
+    render(){      
+        return(
+            <div className="App">
+            <Router>
+                <div> 
+                    <Navbar/>
+                    <CategoryList/>                     
+                    <Switch>
+                        <Route exact path='/' component={ProductList}/>
+                        <Route exact path='/product/:productID' component={ProductDetail}/>
+                        <Route exact path='/category/:categoryID' component={ProductListByCategory}/>
+                        <Route exact path="/cart" component={Cart}/>
+                    </Switch>
+                </div>
+            </Router>        
+         </div>          
+        );
+        }
 }
    
 

@@ -11,10 +11,8 @@ export default function NavBar() {
         return(
             <div id="navbar">
                 <AppBar id="appbar" position="static"> 
-                <Toolbar> 
-                              
-                        <Typography variant='h3' align="center" color="inherit">
-                            
+                <Toolbar>       
+                        <Typography variant='h3' align="center" color="inherit">                          
                         </Typography>
                         <ShoppingBasketIcon class="icon" href="/cart"></ShoppingBasketIcon>
                         <PersonIcon class="icon"></PersonIcon>

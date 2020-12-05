@@ -21,8 +21,7 @@ class ProductDetail extends Component{
         this.getProductDetails();
     }
 
-    handleClick = (id) => { 
-        console.log('Yhm')     
+    handleClick = (id) => {    
         this.props.addToCart(id);
     }
 
@@ -46,7 +45,6 @@ class ProductDetail extends Component{
              });
          });       
         }  
-
 
     render(){
         const {data} = this.state;   
@@ -74,6 +72,7 @@ class ProductDetail extends Component{
                 </Button>
                 <div>Total to pay: {total}</div>
                 <Link to="/"><Button variant="contained" color='primary' >Home</Button></Link> 
+                <Link to="/cart"><Button variant="contained" color='primary' >To cart</Button></Link> 
             </Paper>
            
         );

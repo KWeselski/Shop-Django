@@ -42,19 +42,17 @@ class ProductDiv extends Component {
                 <Typography style={{align:"center" }} gutterBottom varian='h5' component='h2'>
                     {this.props.temp.price} zł
                 </Typography>
-                <div>
+                <div>              
                 <Link to={`/product/${this.props.temp.id}`}>
                     <Button style={{width:100 }} variant="contained"  color='primary'>
-                        Detail
+                        Detail                     
                     </Button>
-                </Link>
-                
+                </Link>              
                 </div>
             </CardContent>
         </Card>
     );
 }
 }
-
 
 export default (ProductDiv)

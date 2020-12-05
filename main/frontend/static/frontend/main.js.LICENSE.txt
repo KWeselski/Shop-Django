@@ -650,8 +650,6 @@
 
 /*! other exports [not provided] [no usage info] */
 
-/*! runtime requirements:  */
-
 /*! runtime requirements: __webpack_exports__ */
 
 /*! runtime requirements: __webpack_exports__, __webpack_require__ */
@@ -699,14 +697,6 @@
 /*!**********************************!*\
   !*** ./src/components/NavBar.js ***!
   \**********************************/
-
-/*!**********************************!*\
-  !*** ./src/components/styles.js ***!
-  \**********************************/
-
-/*!************************************!*\
-  !*** ./src/components/HomePage.js ***!
-  \************************************/
 
 /*!*************************************!*\
   !*** ./node_modules/react/index.js ***!

@@ -1,17 +1,16 @@
 import React, {Component} from 'react';
-import {render} from 'react-dom';
-import Navbar from './NavBar';
 import ProductList from './ProductList';
 import CategoryList from './CategoryList';
-import Grid from '@material-ui/core/Grid';
 import ProductDetail from './ProductDetail'
 import Cart from './Cart'
+import App from './App'
 import ProductListByCategory from './ProductListByCategory'
 import {
     BrowserRouter as Router,
     Switch,
     Route,
   } from "react-router-dom";
+import NavBar from './NavBar';
 
 export default class HomePage extends Component{
     constructor(props){
@@ -19,16 +18,9 @@ export default class HomePage extends Component{
         this.state = {
         }
     }
-    render(){
-       
+    render(){     
         return (
             <Router>
-                <Switch>
-                <Route exact path='/' component={ProductList}/>
-                <Route exact path='/product/:productID' component={ProductDetail}/>
-                <Route exact path='/category/:categoryID' component={ProductListByCategory}/>
-                <Route exact path="/cart" component={Cart}></Route>      
-                </Switch>
             </Router>
         );
     }
