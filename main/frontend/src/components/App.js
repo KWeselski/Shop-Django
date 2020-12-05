@@ -20,7 +20,6 @@ import {
 
 const store = createStore(cartReducer,applyMiddleware(thunk))
 store.dispatch(fetchProducts())
-
 const NavRoute = ({exact, path, component: Component}) => (
     <Route exact={exact} path={path} render={(props) => (
       <div>      
@@ -30,6 +29,7 @@ const NavRoute = ({exact, path, component: Component}) => (
 )
 
 export default class App extends Component{
+    
     render(){      
         return(
             <div className="App">

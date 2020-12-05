@@ -10,43 +10,20 @@ class ProductList extends Component{
     constructor(props){
         super (props);
         this.state = {
-         data:[]
         };     
-        }
-        componentDidMount(){
-            fetch(categoryListURL).then(response => {
-                if (response.status > 400) {
-                    return this.setState(() => {
-                        console.log('error')
-                        return { placeholder: "Something went wrong"};
-                    });
-                }
-                return response.json();
-            })
-          .then(data => {
-              this.setState(() => {
-                  return { 
-                      data,
-                      loaded:true
-                  };
-              });
-          });       
-         }     
-      
-        render(){
-        console.log(this.props)
+        }   
+             
+        render(){       
         const {error, loading, products} = this.props;
-        let item = this.state.data;
         if (error){
             return<div>Errro! {error.message}</div>
         }
         if (loading){
             return <div>Loading...</div>
         }
+        console.log(products)
         return(   
-            <Grid container spacing={24}>
-
-            
+            <Grid container spacing={24}>        
                 {products.map((value,index) => {                    
                 return(
                     <div>
@@ -63,10 +40,10 @@ const mapStateToProps = state => ({
         loading: state.loading,
         error: state.error
 });
-/*const mapDispatchToProps= (dispatch)=>{    
+const mapDispatchToProps= (dispatch)=>{    
     return{
         fetchProducts : dispatch(fetchProducts())
     }
-}*/
+}
  
 export default connect(mapStateToProps)(ProductList);    

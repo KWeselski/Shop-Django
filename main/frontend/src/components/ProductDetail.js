@@ -51,7 +51,7 @@ class ProductDetail extends Component{
         const item = data;
         const {total,products} = this.props;
 
-        let image = String(item.image).split('frontend')[1]
+        
         let available = String(item.available) ? 'Dostępny' : 'Niedostępny'
         
         return(        
@@ -65,7 +65,7 @@ class ProductDetail extends Component{
                     <p>{item.id}</p>
                 </div>
                 <div id="productDetailImg">
-                <img src={image} width="300" height="300"/>
+                <img src={String(item.image).split('frontend')[1]} width="300" height="300"/>
                 </div>
                 <Button style={{float:"right"}} variant="contained" onClick={()=>{this.handleClick(item.id)}} color='primary'>
                     Add to Cart

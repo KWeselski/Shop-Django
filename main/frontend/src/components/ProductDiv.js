@@ -21,14 +21,14 @@ class ProductDiv extends Component {
     }
     render(){
         
-        this.props.temp.image = String(this.props.temp.image).split('frontend')[1]
+        let image = String(this.props.temp.image).split('frontend')[1]
         return(   
         <Card className="ProductDiv">
             <CardActionArea>
                 <CardMedia id="ProductImg" component={'img'}
                 alt="Product"
                 height="160"
-                image={this.props.temp.image}
+                image={image}
                 title={this.props.temp.name}
                 />
             </CardActionArea>
