@@ -34,15 +34,12 @@ class Product(models.Model):
     def __str__(self):
         return self.name
 
-class OrderItem(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL,
-                            on_delete=models.CASCADE)   
-    ordered = models.BooleanField(default=False)
+class OrderItem(models.Model):   
     item = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.IntegerField(default=1)
 
     def __str__(self):
-        return f"{self.quantity} of {self.item.title}"
+        return f"{self.quantity} of {self.item.name}"
 
     def get_total_item_price(self):
         return self.quantity * self.item.price
@@ -52,15 +49,14 @@ class OrderItem(models.Model):
 
 
 class Order(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL,
-                            on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     items = models.ManyToManyField(OrderItem)
     start_date = models.DateTimeField(auto_now_add=True)
     ordered_date = models.DateTimeField()
     ordered = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.user.username
+        return f"Order number :{self.id}"
 
     def get_total(self):
         total=0

@@ -8,6 +8,14 @@
 
 /*! export ADD_TO_CART [provided] [no usage info] [missing usage info prevents renaming] */
 
+/*! export AUTH_FAIL [provided] [no usage info] [missing usage info prevents renaming] */
+
+/*! export AUTH_LOGOUT [provided] [no usage info] [missing usage info prevents renaming] */
+
+/*! export AUTH_START [provided] [no usage info] [missing usage info prevents renaming] */
+
+/*! export AUTH_SUCCESS [provided] [no usage info] [missing usage info prevents renaming] */
+
 /*! export AsyncMode [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export AsyncMode [provided] [no usage info] [provision prevents renaming (no use info)] -> ./node_modules/react-is/cjs/react-is.production.min.js .AsyncMode */
@@ -159,6 +167,18 @@
 /*! export addToCart [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export applyMiddleware [provided] [no usage info] [missing usage info prevents renaming] */
+
+/*! export authCheckState [provided] [no usage info] [missing usage info prevents renaming] */
+
+/*! export authFail [provided] [no usage info] [missing usage info prevents renaming] */
+
+/*! export authLogin [provided] [no usage info] [missing usage info prevents renaming] */
+
+/*! export authSignup [provided] [no usage info] [missing usage info prevents renaming] */
+
+/*! export authStart [provided] [no usage info] [missing usage info prevents renaming] */
+
+/*! export authSuccess [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export batch [provided] [no usage info] [missing usage info prevents renaming] -> ./node_modules/react-dom/cjs/react-dom.production.min.js .unstable_batchedUpdates */
 
@@ -386,6 +406,10 @@
 
 /*! export locationsAreEqual [provided] [no usage info] [missing usage info prevents renaming] */
 
+/*! export loginUrl [provided] [no usage info] [missing usage info prevents renaming] */
+
+/*! export logout [provided] [no usage info] [missing usage info prevents renaming] */
+
 /*! export matchPath [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export matchPath [provided] [no usage info] [missing usage info prevents renaming] -> ./node_modules/react-router/esm/react-router.js .matchPath */
@@ -425,6 +449,8 @@
 /*! export sheets [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export sheetsManager [provided] [no usage info] [missing usage info prevents renaming] */
+
+/*! export signUpUrl [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export startFetchProducts [provided] [no usage info] [missing usage info prevents renaming] */
 
@@ -539,6 +565,8 @@
 /*! export unstable_wrapCallback [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export unstable_wrapCallback [provided] [no usage info] [provision prevents renaming (no use info)] -> ./node_modules/scheduler/cjs/scheduler.production.min.js .unstable_wrapCallback */
+
+/*! export updateObject [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export useCallback [provided] [no usage info] [missing usage info prevents renaming] */
 
@@ -698,6 +726,10 @@
   !*** ./src/components/NavBar.js ***!
   \**********************************/
 
+/*!***********************************!*\
+  !*** ./src/components/utility.js ***!
+  \***********************************/
+
 /*!*************************************!*\
   !*** ./node_modules/react/index.js ***!
   \*************************************/
@@ -771,8 +803,16 @@
   \**********************************************/
 
 /*!***********************************************!*\
+  !*** ./src/components/actions/authActions.js ***!
+  \***********************************************/
+
+/*!***********************************************!*\
   !*** ./src/components/actions/cartActions.js ***!
   \***********************************************/
+
+/*!************************************************!*\
+  !*** ./src/components/reducers/authReducer.js ***!
+  \************************************************/
 
 /*!************************************************!*\
   !*** ./src/components/reducers/cartReducer.js ***!
@@ -835,6 +875,10 @@
   \********************************************************/
 
 /*!********************************************************!*\
+  !*** ./node_modules/@material-ui/icons/ArrowDropUp.js ***!
+  \********************************************************/
+
+/*!********************************************************!*\
   !*** ./node_modules/css-vendor/dist/css-vendor.esm.js ***!
   \********************************************************/
 
@@ -864,6 +908,10 @@
 
 /*!**********************************************************!*\
   !*** ./node_modules/@material-ui/core/esm/colors/red.js ***!
+  \**********************************************************/
+
+/*!**********************************************************!*\
+  !*** ./node_modules/@material-ui/icons/ArrowDropDown.js ***!
   \**********************************************************/
 
 /*!**********************************************************!*\
@@ -984,6 +1032,10 @@
 
 /*!*************************************************************!*\
   !*** ./node_modules/prop-types/lib/ReactPropTypesSecret.js ***!
+  \*************************************************************/
+
+/*!*************************************************************!*\
+  !*** ./src/components/actions/action-types/auth-actions.js ***!
   \*************************************************************/
 
 /*!*************************************************************!*\

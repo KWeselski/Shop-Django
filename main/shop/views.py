@@ -57,7 +57,7 @@ def user_id_view(request):
 @api_view(['GET','POST'])
 def orders_list(request):
     if request.method == "GET":
-        orders = Order.objects.all(user = request.user, ordered=False)
+        orders = Order.objects.all()
         serializer = OrderSerializer(orders, context={'request': request}, many=True)
         return Response(serializer.data)
 

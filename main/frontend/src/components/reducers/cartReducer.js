@@ -38,16 +38,16 @@ const cartReducer=(state= initState, action)=>{
         
         let existingItem = state.addedItems.find(item => action.id == item.id)
         if(existingItem){
-            console.log("existingItem",existingItem)
-            console.log('existingState', state)
+            addedItem.quantity += 1
             return{
                 ...state,
                 total: Number(state.total) + Number(addedItem.price)
             }
         }
-        else{        
+        else{ 
+            addedItem.quantity = 1;    
             let newTotal = Number(state.total) + Number(addedItem.price)
-            console.log('newTotal', state)
+            
             return {
                 ...state,
                 addedItems: [...state.addedItems, addedItem],
@@ -60,20 +60,51 @@ const cartReducer=(state= initState, action)=>{
         let new_items = state.addedItems.filter(item=> action.id !== item.id)
         
         //calculating the total
-        let newTotal = state.total - (itemToRemove.price * itemToRemove.quantity )
-        console.log(itemToRemove)
+        let newTotal = Number((state.total)) - Number((itemToRemove.price * itemToRemove.quantity ))
+        
         return{
             ...state,
             addedItems: new_items,
             total: newTotal
         }
     }
+    
+
+
+    if(action.type=== ADD_QUANTITY){
+        let addedItem = state.items.find(item=> item.id === action.id)
+          addedItem.quantity += 1 
+          let newTotal = Number(state.total) + Number(addedItem.price)
+          return{
+              ...state,
+              total: newTotal
+          }
+    }
+    if(action.type=== SUB_QUANTITY){  
+        let addedItem = state.items.find(item=> item.id === action.id) 
+        //if the qt == 0 then it should be removed
+        if(addedItem.quantity === 1){
+            let new_items = state.addedItems.filter(item=>item.id !== action.id)
+            let newTotal = Number(state.total) - Number(addedItem.price)
+            return{
+                ...state,
+                addedItems: new_items,
+                total: newTotal
+            }
+        }
+        else {
+            addedItem.quantity -= 1
+            let newTotal = Number(state.total) - Number(addedItem.price)
+            return{
+                ...state,
+                total: newTotal
+            }
+        }
+        
+    }
     else{
         return state
     }
-
-
-
 }
 
 export default cartReducer

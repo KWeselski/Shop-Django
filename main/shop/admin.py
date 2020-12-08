@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category,Product
+from .models import Category,Product,Order, OrderItem
 # Register your models here.
 
 @admin.register(Category)
@@ -14,3 +14,16 @@ class ProductAdmin(admin.ModelAdmin):
     list_filter = ['available','created','updated']
     list_editable = ['price', 'available']
     prepopulated_fields = {'slug': ('name',)}
+
+@admin.register(Order)
+class OrderAdmin(admin.ModelAdmin):
+    fields = ['items','ordered_date','ordered']
+    
+    list_display = ['id','get_items','start_date','ordered_date','ordered']
+
+    def get_items(self,obj):
+        return "\n".join([str(i.item) for i in obj.items.all()])
+
+@admin.register(OrderItem)
+class OrderItemAdmin(admin.ModelAdmin):
+    list_display = ['item','quantity']

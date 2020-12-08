@@ -5,7 +5,8 @@ import Navbar from './NavBar';
 import ProductList from './ProductList';
 import {Provider} from 'react-redux';
 import cartReducer from './reducers/cartReducer';
-import {createStore, applyMiddleware} from 'redux';
+import authReducer from './reducers/authReducer';
+import {createStore, applyMiddleware, compose, combineReducers} from 'redux';
 import thunk from "redux-thunk";
 import {fetchProducts} from './actions/cartActions';
 import CategoryList from './CategoryList';
@@ -18,8 +19,14 @@ import {
     Route,
   } from "react-router-dom";
 
-const store = createStore(cartReducer,applyMiddleware(thunk))
+
+const composeEnhances = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+
+const rootReducer = combineReducers({auth: authReducer, cart:cartReducer})
+const store = createStore(rootReducer,composeEnhances(applyMiddleware(thunk)))
+
 store.dispatch(fetchProducts())
+
 const NavRoute = ({exact, path, component: Component}) => (
     <Route exact={exact} path={path} render={(props) => (
       <div>      
