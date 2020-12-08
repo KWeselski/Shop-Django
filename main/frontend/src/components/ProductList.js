@@ -36,9 +36,9 @@ class ProductList extends Component{
         }
         };
 const mapStateToProps = state => ({
-        products: state.items,
-        loading: state.loading,
-        error: state.error
+        products: state.cart.items,
+        loading: state.cart.loading,
+        error: state.cart.error
 });
 const mapDispatchToProps= (dispatch)=>{    
     return{

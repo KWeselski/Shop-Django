@@ -10,7 +10,8 @@ import {createStore, applyMiddleware, compose, combineReducers} from 'redux';
 import thunk from "redux-thunk";
 import {fetchProducts} from './actions/cartActions';
 import CategoryList from './CategoryList';
-import ProductDetail from './ProductDetail'
+import ProductDetail from './ProductDetail';
+import Registration from './RegistrationForm';
 import Cart from './Cart'
 import ProductListByCategory from './ProductListByCategory'
 import {
@@ -49,6 +50,7 @@ export default class App extends Component{
                         <Route exact path='/product/:productID' component={ProductDetail}/>
                         <Route exact path='/category/:categoryID' component={ProductListByCategory}/>
                         <Route exact path="/cart" component={Cart}/>
+                        <Route exact path='/signup' component={Registration}/>
                     </Switch>
                 </div>
             </Router>        

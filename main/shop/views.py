@@ -61,5 +61,3 @@ def orders_list(request):
         serializer = OrderSerializer(orders, context={'request': request}, many=True)
         return Response(serializer.data)
 
-
-

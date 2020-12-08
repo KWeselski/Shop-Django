@@ -78,10 +78,10 @@ class ProductDetail extends Component{
 
 }
 const mapStateToProps = state => ({
-    products: state.items,
-    loading: state.loading,
-    error: state.error,
-    total : state.total
+    products: state.cart.items,
+    loading: state.cart.loading,
+    error: state.cart.error,
+    total : state.cart.total
 });
 
 const mapDispatchToProps = (dispatch) => {
