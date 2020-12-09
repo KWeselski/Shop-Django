@@ -1,30 +1,61 @@
 import React, {Component} from 'react';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
-import PersonIcon from '@material-ui/icons/Person';
-import {Link} from 'react-router-dom'
-import Button from '@material-ui/core/Button';
-export default class NavBar extends Component {
-    constructor(props){
-        super (props)
-    }
+import {AppBar, Toolbar, Typography, Button} from '@material-ui/core/';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import { Link, withRouter } from "react-router-dom";
+import {connect} from "react-redux";
+import {compose} from 'redux'
+import { logout } from './actions/authActions';
+import {withStyles} from "@material-ui/styles";
+
+const styles = theme => ({
+    typographyStyles: {
+        flex: 1
+    },
+
+});
+
+
+class NavBar extends Component {
     render(){
-        return(
+        const {classes, authenticated} = this.props;
+        return(      
             <div id="navbar">
                 <AppBar id="appbar" position="static"> 
                 <Toolbar>       
-                        <Typography variant='h3' align="center" color="inherit">                          
+                        <Typography variant='h3' className={classes.typographyStyles}>
+                            <Link to="/">Shop</Link>                       
                         </Typography>
-                        <Link to='/cart'><ShoppingBasketIcon class="icon"></ShoppingBasketIcon></Link>
-                        <Link to='/accounts/login/'><PersonIcon class="icon"></PersonIcon></Link>                      
-                </Toolbar>              
-                            
-                </AppBar>
-                
+                        <Link to='/cart'><ShoppingCartIcon></ShoppingCartIcon></Link>
+                        {authenticated ? (
+                                <div>
+                                    <h5>Logged</h5>
+                                    <Button class="icon" onClick={() => this.props.logout()}> Logout </Button>
+                                </div>
+                            )
+                            :(
+                                <div>
+                                    <Link to='/login'><Button class="icon">Login</Button></Link>
+                                    <Link to='/signup'><Button class="icon">Signup</Button></Link>
+                                </div>
+                            )}                                        
+                </Toolbar>                                         
+                </AppBar>                
             </div>
         );
-
     };
 }
+
+const mapStateToProps = state => {
+    return {
+        authenticated: state.auth.token !== null,
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        logout: () => dispatch(logout()),
+    };
+};
+
+export default compose(connect(mapStateToProps, mapDispatchToProps),withStyles(styles),)(NavBar);
+

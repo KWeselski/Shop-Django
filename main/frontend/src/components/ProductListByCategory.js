@@ -47,12 +47,11 @@ class ProductListByCategory extends Component{
         
         const {data} = this.state;    
         return(   
-            <Grid container spacing={24}>
+            <Grid container spacing={2}>
                 {data.map((value,index) => {                    
                 return(
-                    <div>
-                    <Grid item xs={6}> <ProductDiv temp={data[index]}/></Grid>
-                    </div>)          
+                    <Grid item> <ProductDiv temp={data[index]}/></Grid>
+                    )          
                 })}
             </Grid>);
         }

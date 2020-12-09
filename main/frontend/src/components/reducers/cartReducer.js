@@ -99,8 +99,7 @@ const cartReducer=(state= initState, action)=>{
                 ...state,
                 total: newTotal
             }
-        }
-        
+        }       
     }
     else{
         return state

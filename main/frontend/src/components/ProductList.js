@@ -11,24 +11,24 @@ class ProductList extends Component{
         super (props);
         this.state = {
         };     
-        }   
+    }   
              
         render(){       
         const {error, loading, products} = this.props;
         if (error){
-            return<div>Errro! {error.message}</div>
+            return<div>Error! {error.message}</div>
         }
         if (loading){
             return <div>Loading...</div>
         }
         console.log(products)
         return(   
-            <Grid container spacing={24}>        
+            <Grid container spacing={2}>        
                 {products.map((value,index) => {                    
                 return(
-                    <div>
-                    <Grid item xs={6}> <ProductDiv temp={products[index]}/></Grid>
-                    </div>
+                        <Grid item >
+                            <ProductDiv temp={products[index]}/>
+                        </Grid>
                     ) 
                 })}          
                 

@@ -67,7 +67,7 @@ class ProductDetail extends Component{
                 <img src={String(item.image).split('frontend')[1]} width="300" height="300"/>
                 </div>
                 <Link to="/cart">
-                    <Button style={{float:"right"}} variant="contained" onClick={()=>{this.handleClick(item.id)}} color='primary'>
+                    <Button variant="contained" onClick={()=>{this.handleClick(item.id)}} color='primary'>
                         Add to Cart
                     </Button>
                 </Link> 

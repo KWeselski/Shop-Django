@@ -1,19 +1,16 @@
 import React, {Component} from 'react';
-import {render} from 'react-dom';
-import ReactDOM from 'react-dom'
+import {connect} from 'react-redux';
+import Grid from '@material-ui/core/Grid';
 import Navbar from './NavBar';
 import ProductList from './ProductList';
-import {Provider} from 'react-redux';
-import cartReducer from './reducers/cartReducer';
-import authReducer from './reducers/authReducer';
-import {createStore, applyMiddleware, compose, combineReducers} from 'redux';
-import thunk from "redux-thunk";
-import {fetchProducts} from './actions/cartActions';
 import CategoryList from './CategoryList';
 import ProductDetail from './ProductDetail';
 import Registration from './RegistrationForm';
+import LoginForm from './LoginForm';
 import Cart from './Cart'
 import ProductListByCategory from './ProductListByCategory'
+import * as actions from './actions/authActions';
+
 import {
     BrowserRouter as Router,
     Switch,
@@ -21,46 +18,52 @@ import {
   } from "react-router-dom";
 
 
-const composeEnhances = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+class App extends Component{
+    componentDidMount() {
+      this.props.onTryAutoSignup();
+    }
 
-const rootReducer = combineReducers({auth: authReducer, cart:cartReducer})
-const store = createStore(rootReducer,composeEnhances(applyMiddleware(thunk)))
-
-store.dispatch(fetchProducts())
-
-const NavRoute = ({exact, path, component: Component}) => (
-    <Route exact={exact} path={path} render={(props) => (
-      <div>      
-        <Component {...props}/>
-      </div>
-    )}/>
-)
-
-export default class App extends Component{
-    
-    render(){      
+    render(){ 
+        const {isAuthenticated} = this.props;
+        console.log(isAuthenticated)     
         return(
             <div className="App">
-            <Router>
-                <div> 
+            <Router>   
                     <Navbar/>
-                    <CategoryList/>                     
-                    <Switch>
-                        <Route exact path='/' component={ProductList}/>
-                        <Route exact path='/product/:productID' component={ProductDetail}/>
-                        <Route exact path='/category/:categoryID' component={ProductListByCategory}/>
-                        <Route exact path="/cart" component={Cart}/>
-                        <Route exact path='/signup' component={Registration}/>
-                    </Switch>
-                </div>
+                    <Grid container direction="row" xs={12} >
+                      <Grid item xs={1}><CategoryList/></Grid>  
+                      <Grid item xs={1}></Grid>            
+                      <Grid container xs={8}>                  
+                        <Switch>
+                            <Route exact path='/' component={ProductList}/>
+                            <Route exact path='/product/:productID' component={ProductDetail}/>
+                            <Route exact path='/category/:categoryID' component={ProductListByCategory}/>
+                            <Route exact path="/cart" component={Cart}/>
+                            <Route exact path='/signup' component={Registration}/>
+                            <Route exact path='/login' component={LoginForm}/>
+                        </Switch>
+                      </Grid>
+                      <Grid item xs={2}></Grid>
+                    </Grid> 
             </Router>        
          </div>          
         );
         }
 }
    
+const mapStateToProps = state => {
+  return {
+    isAuthenticated: state.auth.token !== null
+  };
+};
 
-const appDiv = document.getElementById("app");
-ReactDOM.render(<Provider store={store}><App/></Provider>, appDiv);
+const mapDispatchToProps = dispatch => {
+  return {
+    onTryAutoSignup: () => dispatch(actions.authCheckState())
+  };
+}
+export default connect(mapStateToProps, mapDispatchToProps)(App);
+
+
 
 

@@ -16,11 +16,9 @@ class ProductDiv extends Component {
     constructor(props){
         super (props);
         this.state = {
-        }
-        
+        }       
     }
-    render(){
-        
+    render(){     
         let image = String(this.props.temp.image).split('frontend')[1]
         return(   
         <Card className="ProductDiv">

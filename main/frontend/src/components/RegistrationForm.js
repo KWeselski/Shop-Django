@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {NavLink, Redirect} from "react-router-dom"
 import {authSignup} from './actions/authActions';
-import {Button, Grid, TextField } from '@material-ui/core';
+import {Button, Grid, TextField , Typography} from '@material-ui/core';
 
 class Registration extends React.Component{
     state = {
@@ -25,15 +25,17 @@ class Registration extends React.Component{
     render(){
         const {username, email, password1, password2} = this.state;
         const {error, loading, token} = this.props;
-
+        console.log(token)
         if(token){
             return <Redirect to="/" />;
         }
         return(
         <div>
-            <h1>Signup to your account</h1>
+            <Typography variant="h1">Signup to your account</Typography>
             <form onSubmit={this.handleSubmit}>
-                <Grid container spacing={2}>
+                <Grid container spacing={2} textAlign="center"
+                style={{ height: "50vh" }}
+                verticalAlign="middle">
                     <Grid item xs={12}>
                         <TextField
                             autoComplete='username'
@@ -124,7 +126,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         signup: (username, email, password1, password2) =>
-        dispatch(authSignup(username,email,password1,password1))
+        dispatch(authSignup(username,email,password1,password2))
     };
 };
 
