@@ -69,15 +69,13 @@ def create_order(request):
         order = Order.objects.create(ordered_date=ordered_date)
         for idx,order_item in enumerate(request.data['order_items']):
             data = {"item": order_item["id"] , "quantity": order_item["quantity"]} 
-            print(data)     
+                
             item_serializer = OrderItemSerializer(data=data)
             if item_serializer.is_valid():
-        #    serializer.create(request.data)
                item_serializer.save()
-               ord_item = OrderItem.objects.filter(item= order_item["id"], quantity=order_item["quantity"])
-               print(ord_item)
+               ord_item = OrderItem.objects.filter(id=item_serializer.data["id"])
                order.items.add(ord_item[0])
-               print('Serializer:',item_serializer.data)
+               
         return Response(item_serializer.data)
 
     if request.method == "GET":

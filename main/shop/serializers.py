@@ -22,15 +22,15 @@ class OrderItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = OrderItem
         fields = (
+            'id',
             'item',
             'quantity',
             'final_price'
         )
-    def get_item(self,obj):
-        return ProductSerializer(obj.item).data
 
     def get_final_price(self, obj):
         return obj.get_final_price()
+        
 
 class OrderSerializer(serializers.ModelSerializer):
     order_items = serializers.SerializerMethodField()

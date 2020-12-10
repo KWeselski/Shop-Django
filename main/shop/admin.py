@@ -19,7 +19,8 @@ class ProductAdmin(admin.ModelAdmin):
 class OrderAdmin(admin.ModelAdmin):
     fields = ['items','ordered_date','ordered']
     
-    list_display = ['id','get_items','start_date','ordered_date','ordered']
+    list_display = ['id','start_date','ordered_date','ordered','get_total',]
+    filter_horizontal = ('items',)
 
     def get_items(self,obj):
         return "\n".join([str(i.item) for i in obj.items.all()])
