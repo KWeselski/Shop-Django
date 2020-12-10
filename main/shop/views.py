@@ -4,6 +4,7 @@ from rest_framework.decorators import api_view
 from rest_framework import status
 from .models import Product, Category, OrderItem, Order, Profile
 from .serializers import *
+from django.utils import timezone
 
 @api_view(['GET', 'POST'])
 def products_list(request):
@@ -61,3 +62,25 @@ def orders_list(request):
         serializer = OrderSerializer(orders, context={'request': request}, many=True)
         return Response(serializer.data)
 
+@api_view(['GET','POST'])
+def create_order(request):
+    if request.method == 'POST':
+        ordered_date = timezone.now()
+        order = Order.objects.create(ordered_date=ordered_date)
+        for idx,order_item in enumerate(request.data['order_items']):
+            data = {"item": order_item["id"] , "quantity": order_item["quantity"]} 
+            print(data)     
+            item_serializer = OrderItemSerializer(data=data)
+            if item_serializer.is_valid():
+        #    serializer.create(request.data)
+               item_serializer.save()
+               ord_item = OrderItem.objects.filter(item= order_item["id"], quantity=order_item["quantity"])
+               print(ord_item)
+               order.items.add(ord_item[0])
+               print('Serializer:',item_serializer.data)
+        return Response(item_serializer.data)
+
+    if request.method == "GET":
+        order_items = OrderItem.objects.all()
+        serializer = OrderItemSerializer(order_items, context={'request': request}, many=True)
+        return Response(serializer.data)

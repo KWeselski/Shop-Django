@@ -1,4 +1,4 @@
-import { ADD_TO_CART,REMOVE_ITEM,SUB_QUANTITY,ADD_QUANTITY,ADD_SHIPPING, PRODUCTS_NAMES} from '../actions/action-types/cart-actions'
+import { ADD_TO_CART,REMOVE_ITEM,SUB_QUANTITY,ADD_QUANTITY,ADD_SHIPPING, PRODUCTS_NAMES, ORDERS_NAMES} from '../actions/action-types/cart-actions'
 import {productListURL} from '../constants'
 
 const initState = {
@@ -31,6 +31,17 @@ const cartReducer=(state= initState, action)=>{
         loading:false,
         items: action.payload.products}*/
     }
+
+    if(action.type == ORDERS_NAMES.START_ORDER){
+        return { ...state, loading:true,error:null }
+    }
+    if(action.type == ORDERS_NAMES.FAIL_ORDER){
+        return { ...state, loading:false,error:action.error }
+    }
+    if(action.type == ORDERS_NAMES.FINISH_ORDER){
+        return { ...state, loading:false,error:null }
+    }
+
     if(action.type == ADD_TO_CART){
         
 

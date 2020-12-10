@@ -1,6 +1,6 @@
-import { ADD_TO_CART,REMOVE_ITEM,SUB_QUANTITY,ADD_QUANTITY,ADD_SHIPPING, PRODUCTS_NAMES} from './action-types/cart-actions'
+import { ADD_TO_CART,REMOVE_ITEM,SUB_QUANTITY,ADD_QUANTITY,ADD_SHIPPING, PRODUCTS_NAMES, ORDERS_NAMES} from './action-types/cart-actions'
 import {productListURL,productDetailURL} from "../constants";
-
+import axios from 'axios'
 
 export function fetchProducts() {
     return dispatch => {
@@ -31,6 +31,19 @@ export function fetchProductsID(id) {
         .catch(error => dispatch(failFetchProducts(error)));
     };
 }
+
+export const orderAdd = (order_items) =>{  
+    return dispatch => {
+        dispatch(startAddOrder());
+        axios.post("http://127.0.0.1:8000/api/create_order/",{
+            order_items:order_items,
+        }).then(()=>{     
+            dispatch(finishAddOrder())
+        }).catch(error => dispatch(failAddOrder(error)));
+    };
+};
+   
+
 function handleErrors(response) {
     if (!response.ok) {
       throw Error(response.statusText);
@@ -77,3 +90,14 @@ export const finishFetchProducts = products => ({
     type: PRODUCTS_NAMES.FINISH_FETCH,
     payload:{products}
 });
+
+export const startAddOrder = () => ({
+    type: ORDERS_NAMES.START_ORDER
+})
+export const finishAddOrder = () => ({
+    type: ORDERS_NAMES.FINISH_ORDER,   
+})
+export const failAddOrder = error => ({
+    type: ORDERS_NAMES.FAIL_ORDER,
+    error: error
+})

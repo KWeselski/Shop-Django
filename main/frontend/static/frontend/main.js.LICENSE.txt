@@ -84,6 +84,8 @@
 
 /*! export NavLink [provided] [no usage info] [missing usage info prevents renaming] */
 
+/*! export ORDERS_NAMES [provided] [no usage info] [missing usage info prevents renaming] */
+
 /*! export PRODUCTS_NAMES [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export Portal [provided] [no usage info] [missing usage info prevents renaming] */
@@ -292,6 +294,8 @@
 
 /*! export fade [provided] [no usage info] [missing usage info prevents renaming] */
 
+/*! export failAddOrder [provided] [no usage info] [missing usage info prevents renaming] */
+
 /*! export failFetchProducts [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export fetchProducts [provided] [no usage info] [missing usage info prevents renaming] */
@@ -301,6 +305,8 @@
 /*! export findDOMNode [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export findDOMNode [provided] [no usage info] [provision prevents renaming (no use info)] -> ./node_modules/react-dom/cjs/react-dom.production.min.js .findDOMNode */
+
+/*! export finishAddOrder [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export finishFetchProducts [provided] [no usage info] [missing usage info prevents renaming] */
 
@@ -450,6 +456,8 @@
 
 /*! export mergeChildMappings [provided] [no usage info] [missing usage info prevents renaming] */
 
+/*! export orderAdd [provided] [no usage info] [missing usage info prevents renaming] */
+
 /*! export parsePath [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export prefix [provided] [no usage info] [missing usage info prevents renaming] */
@@ -483,6 +491,8 @@
 /*! export sheetsManager [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export signUpUrl [provided] [no usage info] [missing usage info prevents renaming] */
+
+/*! export startAddOrder [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export startFetchProducts [provided] [no usage info] [missing usage info prevents renaming] */
 

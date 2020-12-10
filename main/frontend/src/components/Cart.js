@@ -1,7 +1,7 @@
 import React , {Component} from 'react';
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import {removeItem, addQuantity, subtractQuantity} from './actions/cartActions'
+import {removeItem, addQuantity, subtractQuantity, orderAdd} from './actions/cartActions'
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
 class Cart extends Component{
@@ -15,6 +15,10 @@ class Cart extends Component{
     }
     handleSubtractQuantity = (id)=>{
         this.props.subtractQuantity(id);
+    }
+
+    handleMakeOrder = (addedItems)=>{
+        this.props.addOrder(addedItems);
     }
 
     render(){
@@ -53,7 +57,11 @@ class Cart extends Component{
                             {addedItems}
                         </ul>
                     </div>
-                    <div><b>Total to pay:</b> {this.props.total}</div>
+                    <div><b>Total to pay:</b>{this.props.total} 
+                    </div>
+                    <div>
+                    <button onClick={()=>{this.handleMakeOrder(this.props.items)}}>MakeOrder</button>
+                    </div>
                 </div>              
             )
     }
@@ -70,8 +78,8 @@ const mapDispatchToProps = (dispatch) =>{
     return{
         addQuantity: (id)=> {dispatch(addQuantity(id))},
         subtractQuantity: (id)=>{dispatch(subtractQuantity(id))},
-        removeItem: (id) => {dispatch(removeItem(id))
-        }
+        removeItem: (id) => {dispatch(removeItem(id))},
+        addOrder: (addedItems) => {dispatch(orderAdd(addedItems))}
     }
 }
 
