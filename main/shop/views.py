@@ -5,6 +5,9 @@ from rest_framework import status
 from .models import Product, Category, OrderItem, Order, Profile
 from .serializers import *
 from django.utils import timezone
+from rest_framework.authtoken.models import Token
+from django.utils.html import escape
+from django.contrib.auth.models import User, AnonymousUser
 
 @api_view(['GET', 'POST'])
 def products_list(request):
@@ -51,9 +54,10 @@ def category_product_list(request,slug):
         return Response(serializer.data)
 
 
-@api_view(["GET"])
+@api_view(["POST"])
 def user_id_view(request):
-    return Response({'userID': request.user.id}, status=status.HTTP_200_OK)
+    print(request.user)
+    return Response({'userID': request.data}, status=status.HTTP_200_OK)
 
 @api_view(['GET','POST'])
 def orders_list(request):
@@ -65,18 +69,25 @@ def orders_list(request):
 @api_view(['GET','POST'])
 def create_order(request):
     if request.method == 'POST':
-        ordered_date = timezone.now()
-        order = Order.objects.create(ordered_date=ordered_date)
+        ordered_date = timezone.now()     
+        token = request.headers['Authorization']
+        user_id = Token.objects.get(key=token).user_id
+        user = User.objects.get(id=user_id)
+        if(user == None): 
+            order = Order.objects.create(user=AnonymousUser, ordered_date=ordered_date)
+        else:
+            order = Order.objects.create(user=user, ordered_date=ordered_date)
+
         for idx,order_item in enumerate(request.data['order_items']):
-            data = {"item": order_item["id"] , "quantity": order_item["quantity"]} 
-                
-            item_serializer = OrderItemSerializer(data=data)
-            if item_serializer.is_valid():
-               item_serializer.save()
-               ord_item = OrderItem.objects.filter(id=item_serializer.data["id"])
-               order.items.add(ord_item[0])
-               
-        return Response(item_serializer.data)
+            data = {"item": order_item["id"] , "quantity": order_item["quantity"]}      
+            item_ = OrderItemSerializer(data=data)
+            if item_.is_valid():
+                item_.save(user=user)
+               #order_item = OrderItem.objects.create(user = user,item_serializer
+                ord_item = OrderItem.objects.filter(id=item_.data["id"])
+                order.items.add(ord_item[0])
+         
+        return Response(item_.data)
 
     if request.method == "GET":
         order_items = OrderItem.objects.all()

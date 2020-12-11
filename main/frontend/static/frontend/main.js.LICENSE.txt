@@ -192,6 +192,8 @@
 
 /*! export authLogin [provided] [no usage info] [missing usage info prevents renaming] */
 
+/*! export authLogout [provided] [no usage info] [missing usage info prevents renaming] */
+
 /*! export authSignup [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export authStart [provided] [no usage info] [missing usage info prevents renaming] */

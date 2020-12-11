@@ -26,7 +26,8 @@ const authReducer = (state= initialState, action) => {
      }
      if(action.type == AUTH_LOGOUT){
         return{...state,
-         token:null}
+         token:null,
+         loading:false}
      }
      else{
          return state

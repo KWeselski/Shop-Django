@@ -36,7 +36,10 @@ export const orderAdd = (order_items) =>{
     return dispatch => {
         dispatch(startAddOrder());
         axios.post("http://127.0.0.1:8000/api/create_order/",{
-            order_items:order_items,
+            order_items:order_items,            
+            },
+            {headers: {
+                Authorization: `${localStorage.getItem("token")}`}
         }).then(()=>{     
             dispatch(finishAddOrder())
         }).catch(error => dispatch(failAddOrder(error)));

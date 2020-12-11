@@ -22,11 +22,26 @@ export const authFail = error => {
     }
 }
 
-export const logout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('expirationDate');
+export const authLogout = () => {
     return { type: actionTypes.AUTH_LOGOUT }
 }
+
+export const logout = () => {
+  return dispatch => {
+    dispatch(authStart());
+      axios
+        .get("http://127.0.0.1:8000/rest-auth/logout/", {
+        })
+        .then(() => {
+          
+      localStorage.removeItem('token');
+      localStorage.removeItem('expirationDate');
+      dispatch(authLogout())
+        }).catch(err => {
+          dispatch(authFail(err));
+        });
+    }
+  }
 
 export const checkAuthTimeout = expirationTime => {
     return dispatch => { 
@@ -42,7 +57,7 @@ export const authLogin = (username, password) => {
       axios
         .post("http://127.0.0.1:8000/rest-auth/login/", {
           username: username,
-          password: password
+          password: password,
         })
         .then(res => {
           const token = res.data.key;
