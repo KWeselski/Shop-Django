@@ -1,9 +1,20 @@
 import React , {Component} from 'react';
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
+import {Typography, Button} from '@material-ui/core/';
 import {removeItem, addQuantity, subtractQuantity, orderAdd} from './actions/cartActions'
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import DeleteIcon from '@material-ui/icons/Delete';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper'
+
 class Cart extends Component{
 
     handleRemove = (id) =>{
@@ -21,48 +32,69 @@ class Cart extends Component{
         this.props.addOrder(addedItems);
     }
 
-    render(){
-        console.log(this.props)
+    getTotal = (price,quantity)=>{
+        return price*quantity
+    }
+
+    render(){         
         const {total} = this.props;
+
         let addedItems = this.props.items.length ?
-            (
-                this.props.items.map(item => {
-                    return(
-                        <li key={item.id}>
-                            <div>
-                                <span>{item.name}</span>
-                                <p>{item.description}</p>
-                                <p><b>Price {item.price}$</b></p>
-                                <p>
-                                    <b>Quantity: {item.quantity}</b> 
-                                </p>
-                                <div className="add-remove">
-                                    <Link to="/cart"><i className="material-icons" onClick={()=>{this.handleAddQuantity(item.id)}}><ArrowDropUpIcon/></i></Link>
-                                    <Link to="/cart"><i className="material-icons" onClick={()=>{this.handleSubtractQuantity(item.id)}}><ArrowDropDownIcon/></i></Link>
-                                </div>
-                                
-                            </div>
-                            <button onClick={()=>{this.handleRemove(item.id)}}>Remove</button>
-                        </li>
-                    )
-                })
+            (         
+                <TableContainer>
+                <TableHead>
+                <TableRow>
+                  <TableCell align="right"></TableCell>
+                  <TableCell align="right">Product</TableCell>
+                  <TableCell align="right">Price</TableCell>
+                  <TableCell align="right">Quantity</TableCell>
+                  <TableCell align="right">Total price</TableCell>
+                        </TableRow>
+                     </TableHead>
+                    <TableBody>
+                        {this.props.items.map(item=> {
+                            return(
+
+                                <TableRow key={item.id}>
+                                    <TableCell style={{width:60, height:60}}><img src={String(item.image).split('frontend')[1]} width="60" height="60"/></TableCell>
+                                    <TableCell component="th" scope="row"><b>{item.name}</b></TableCell>
+                                    <TableCell style={{ width: 160 }} align="right">{item.price}$</TableCell>
+                                    <TableCell style={{ width: 160 }} align="right">{item.quantity}</TableCell>
+                                    <TableCell style={{ width: 160 }} align="right">{ this.getTotal(item.price,item.quantity)}$</TableCell>
+                                    <TableCell component="th" scope="row">
+                                        <Link to="/cart"><i className="material-icons" onClick={()=>{this.handleAddQuantity(item.id)}}><ArrowDropUpIcon/></i></Link>
+                                        <Link to="/cart"><i className="material-icons" onClick={()=>{this.handleSubtractQuantity(item.id)}}><ArrowDropDownIcon/></i></Link>
+                                        <DeleteIcon onClick={()=>{this.handleRemove(item.id)}}> </DeleteIcon>
+                                    </TableCell>
+                                </TableRow> )                 
+                        })}
+                    </TableBody>
+                </TableContainer>             
             ):(
                 <p>Nothing.</p>
             )
             return(
-                <div className="container">
-                    <div className="cart">
-                        <h5>You have ordered: </h5>
+                <Grid container xs={12}>
+                    <Grid item xs={12}>
+                        <Typography variant='h3'>You have ordered:</Typography>
+                    </Grid>
+                    <Grid item xs={10}>
+                        <div className="cart">      
                         <ul className="collection">
                             {addedItems}
                         </ul>
-                    </div>
-                    <div><b>Total to pay:</b>{this.props.total} 
-                    </div>
-                    <div>
-                    <button onClick={()=>{this.handleMakeOrder(this.props.items)}}>MakeOrder</button>
-                    </div>
-                </div>              
+                         </div>
+                    </Grid>  
+                    <Grid item xs={2}>
+                    <Paper style={{height:200}}>
+                        <Typography variant='h5' align="center">
+
+                        Total to pay: {this.props.total}<b>$</b>
+                        </Typography>
+                        <Button variant="contained" color='primary' onClick={()=>{this.handleMakeOrder(this.props.items)}}>Make Order</Button>                    
+                    </Paper>
+                    </Grid> 
+                </Grid>             
             )
     }
 }

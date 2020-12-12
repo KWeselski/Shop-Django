@@ -38,7 +38,7 @@ class ProductDiv extends Component {
                     {this.props.temp.name}
                 </Typography>       
                 <Typography style={{align:"center" }} gutterBottom varian='h5' component='h2'>
-                    {this.props.temp.price} zł
+                    {this.props.temp.price} $
                 </Typography>
                 <div>              
                 <Link to={`/product/${this.props.temp.id}`}>

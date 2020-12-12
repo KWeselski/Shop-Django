@@ -60,7 +60,7 @@ class ProductDetail extends Component{
                     <h1>{item.name}</h1>
                     <p>{item.category_name}</p>
                     <p>{item.description}</p>               
-                    <p>{item.price}</p>
+                    <p>{item.price}$</p>
                     <p>{available}</p>
                 </div>
                 <div id="productDetailImg">

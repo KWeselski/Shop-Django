@@ -26,13 +26,11 @@ class NavBar extends Component {
                             <Link to="/">Shop</Link> 
 
                         </Typography>
-                        <Link to='/signup'><Button class="icon">Signup</Button></Link>
                         <Link to='/cart'><ShoppingCartIcon></ShoppingCartIcon></Link>
                         {authenticated ? (
                                 <div>
                                     <h5>Logged</h5>
-                                    <Button class="icon" onClick={() => this.props.logout()}> Logout </Button>
-                                    
+                                    <Button class="icon" onClick={() => this.props.logout()}> Logout </Button>                                    
                                 </div>
                             )
                             :(
