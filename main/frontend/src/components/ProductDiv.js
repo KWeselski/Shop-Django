@@ -34,7 +34,7 @@ class ProductDiv extends Component {
                  <Typography style={{align:"center" }} variant="body2" color="textSecondary" component="p">
                     {this.props.temp.category_name}
                 </Typography>
-                <Typography  style={{align:"center" }}gutterBottom varian='h5' component='h2'>
+                <Typography  style={{align:"center" }} gutterBottom varian='h5' component='h2'>
                     {this.props.temp.name}
                 </Typography>       
                 <Typography style={{align:"center" }} gutterBottom varian='h5' component='h2'>

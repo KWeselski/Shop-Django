@@ -1,12 +1,20 @@
 import React, {Component} from 'react';
 import {categoryListURL} from "./constants";
 import {Link, BrowserRouter as Router, Switch} from 'react-router-dom';
-import {List, ListItem, ListItemText, Button} from "@material-ui/core/"
-import {withStyles} from "@material-ui/styles";
+import {List, ListItem, ListItemText, Button,Typography, Paper} from "@material-ui/core/"
+import {withStyles} from "@material-ui/core/styles";
 
 
 const styles = theme => ({
-
+    linkItem: {
+        textDecoration: 'none',
+    },
+    listItem: {    
+        display: 'grid',
+        alignItems: 'center',
+        justifyContent: 'left',
+        marginLeft: 20
+    }
 });
 
 
@@ -45,25 +53,28 @@ class CategoryList extends Component{
             const {data} = this.state;
             if (this.state.loaded == true){
                 let item = data;     
-            return(
-                <div id="categoryList">
-                    <List>
-                        <ListItem button>
-                        <Link to={'/'}>
+            return(                      
+                    <List >
+                        <div>
+                        <Paper elevation={3}>   
+                        <Typography align='center' color='primary' variant='h4'>Categories</Typography>
+                        <ListItem  className={classes.listItem} button>
+                        <Link className={classes.linkItem} to={'/'}>
                                 <ListItemText primary="Wszystkie"/>
                             </Link>
                         </ListItem>               
                         {item.map((value,index) => {                   
                             return(
-                            <ListItem alignItems="center" button>
-                                <Link to={`/category/${value.slug}`}>  
-                                    <ListItemText primary={value.name}/> 
+                            <ListItem className={classes.listItem} button>
+                                <Link className={classes.linkItem} to={`/category/${value.slug}`}>  
+                                    <ListItemText  primary={value.name}/> 
                                 </Link>          
                             </ListItem>                      
                             )          
                         })}
-                    </List>
-                </div>
+                        </Paper>
+                        </div>
+                    </List>                       
             )
             }
             else{return(<h1>Data is not working</h1>)}

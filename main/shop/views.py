@@ -71,13 +71,13 @@ def create_order(request):
     if request.method == 'POST':
         ordered_date = timezone.now()     
         token = request.headers['Authorization']
-        user_id = Token.objects.get(key=token).user_id
-        user = User.objects.get(id=user_id)
-        if(user == None): 
+        print(token)
+        if(token == "null"):         
             order = Order.objects.create(user=AnonymousUser, ordered_date=ordered_date)
         else:
+            user_id = Token.objects.get(key=token).user_id
+            user = User.objects.get(id=user_id)
             order = Order.objects.create(user=user, ordered_date=ordered_date)
-
         for idx,order_item in enumerate(request.data['order_items']):
             data = {"item": order_item["id"] , "quantity": order_item["quantity"]}      
             item_ = OrderItemSerializer(data=data)
