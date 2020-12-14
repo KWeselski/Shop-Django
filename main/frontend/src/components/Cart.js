@@ -1,7 +1,7 @@
 import React , {Component} from 'react';
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import {Typography, Button} from '@material-ui/core/';
+import {Typography, Button, Divider} from '@material-ui/core/';
 import {removeItem, addQuantity, subtractQuantity, orderAdd} from './actions/cartActions'
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
@@ -86,12 +86,19 @@ class Cart extends Component{
                          </div>
                     </Grid>  
                     <Grid item xs={2}>
-                    <Paper style={{height:200}}>
-                        <Typography variant='h5' align="center">
-
-                        Total to pay: {this.props.total}<b>$</b>
-                        </Typography>
-                        <Button variant="contained" color='primary' onClick={()=>{this.handleMakeOrder(this.props.items)}}>Make Order</Button>                    
+                    <Paper style={{height:250}}>
+                        <Grid containter style={{height:'100%', position:'relative'}}xs={12}>
+                            <Grid item xs={12} style={{width:'100%', position:'absolute', marginTop: '15%'}}>
+                            <Typography variant='h5'>Total to pay: {this.props.total}<b>$</b></Typography>
+                            </Grid>
+                            <Grid item xs={12}>
+                            <div>
+                            </div>
+                            </Grid>
+                            <Grid item xs={12}>          
+                            <Button style={{width:'100%' ,position:'absolute', bottom:0}} variant="contained" color='primary' onClick={()=>{this.handleMakeOrder(this.props.items)}}>Make Order</Button>   
+                            </Grid>
+                        </Grid>                                        
                     </Paper>
                     </Grid> 
                 </Grid>             

@@ -31,9 +31,10 @@ class App extends Component{
             <Router>   
                     <Navbar/>
                     <Grid container direction="row" xs={12} >
-                      <Grid item xs={1}><CategoryList/></Grid>  
-                      <Grid item xs={1}></Grid>            
-                      <Grid container xs={8}>                  
+                      <Grid item xs={2}></Grid>  
+                      <Grid item xs={2}><CategoryList/></Grid>  
+                                
+                      <Grid container xs={6}>                  
                         <Switch>
                             <Route exact path='/' component={ProductList}/>
                             <Route exact path='/product/:productID' component={ProductDetail}/>

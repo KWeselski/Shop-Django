@@ -18,6 +18,10 @@ class ProductDiv extends Component {
         this.state = {
         }       
     }
+
+    handleClick = (id) => {    
+        this.props.addToCart(id);
+    }
     render(){     
         let image = String(this.props.temp.image).split('frontend')[1]
         return(   
@@ -45,7 +49,11 @@ class ProductDiv extends Component {
                     <Button style={{width:100 }} variant="contained"  color='primary'>
                         Detail                     
                     </Button>
-                </Link>              
+                </Link>               
+                    <Button onClick={() => {this.handleClick(this.props.temp.id)}} style={{marginLeft:'10%', width:100}} variant="contained"  color='primary'>
+                        Add                   
+                    </Button>
+              
                 </div>
             </CardContent>
         </Card>
@@ -53,4 +61,11 @@ class ProductDiv extends Component {
 }
 }
 
-export default (ProductDiv)
+const mapDispatchToProps = (dispatch) => {
+    return{  
+      addToCart: (id) => {dispatch(addToCart(id))
+      }
+    }
+}
+
+export default connect(null,mapDispatchToProps)(ProductDiv);    

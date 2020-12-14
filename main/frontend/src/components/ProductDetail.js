@@ -7,6 +7,8 @@ import {connect} from 'react-redux'
 import { addToCart } from './actions/cartActions'
 import { fetchProductsID } from "./actions/cartActions";
 import { Link } from 'react-router-dom';
+import Grid from '@material-ui/core/Grid';
+import { Typography } from '@material-ui/core';
 
 class ProductDetail extends Component{
     constructor(props){
@@ -55,23 +57,36 @@ class ProductDetail extends Component{
         let available = String(item.available) ? 'Dostępny' : 'Niedostępny'
         
         return(        
-            <Paper elevation={3} style={{ display: "flex"}}>
-                 <div id="productDetail">
-                    <h1>{item.name}</h1>
-                    <p>{item.category_name}</p>
-                    <p>{item.description}</p>               
-                    <p>{item.price}$</p>
-                    <p>{available}</p>
-                </div>
-                <div id="productDetailImg">
-                <img src={String(item.image).split('frontend')[1]} width="300" height="300"/>
-                </div>
-                <Link to="/cart">
-                    <Button variant="contained" onClick={()=>{this.handleClick(item.id)}} color='primary'>
-                        Add to Cart
-                    </Button>
-                </Link> 
-            </Paper>
+            
+                <Grid container xs={12} style={{height:'80%'}}>
+                    <Grid container xs={6}>
+                        <Paper elevation={3} style={{width:'100%', height:'100%'}}>         
+                        <span>
+                        <Typography align='center' variant="h2">{item.name}</Typography>                       
+                        <Typography align='center' variant="h5">{item.category_name}</Typography>   
+                        <Typography align='justify' variant="h6">{item.description}</Typography>    
+                        <Typography align='left' variant="h5">{item.price}$ </Typography>   
+                        <Typography align='left' variant="h6">{available}</Typography>   
+                        </span> 
+                        </Paper>             
+                    </Grid> 
+                    <Grid item xs={2}></Grid>           
+                    <Grid item xs={3}>
+                        <Paper elevation={3} style={{width:'100%'}}>       
+                        <div id="productDetailImg">
+                            <img src={String(item.image).split('frontend')[1]} width="300" height="300"/>
+                        </div>
+                        </Paper>
+                    <Link to="/cart">
+                        <Button variant="contained" onClick={()=>{this.handleClick(item.id)}} color='primary'>Add to Cart</Button>
+                     </Link>
+                    </Grid>
+                          
+                </Grid>
+                 
+                
+                 
+            
            
         );
     }

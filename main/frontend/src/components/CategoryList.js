@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {categoryListURL} from "./constants";
 import {Link, BrowserRouter as Router, Switch} from 'react-router-dom';
-import {List, ListItem, ListItemText, Button,Typography, Paper} from "@material-ui/core/"
+import {List, ListItem, ListItemText, Button,Typography, Paper,Divider} from "@material-ui/core/"
 import {withStyles} from "@material-ui/core/styles";
 
 
@@ -13,7 +13,7 @@ const styles = theme => ({
         display: 'grid',
         alignItems: 'center',
         justifyContent: 'left',
-        marginLeft: 20
+        height:'90'
     }
 });
 
@@ -58,18 +58,22 @@ class CategoryList extends Component{
                         <div>
                         <Paper elevation={3}>   
                         <Typography align='center' color='primary' variant='h4'>Categories</Typography>
-                        <ListItem  className={classes.listItem} button>
+                        
                         <Link className={classes.linkItem} to={'/'}>
-                                <ListItemText primary="Wszystkie"/>
-                            </Link>
-                        </ListItem>               
+                            <ListItem  className={classes.listItem} button>
+                                    <ListItemText disableTypography primary={<Typography variant='h6'>Wszystkie</Typography>}/> 
+                            </ListItem> 
+                        </Link>
+                                      
                         {item.map((value,index) => {                   
                             return(
-                            <ListItem className={classes.listItem} button>
+                                                               
                                 <Link className={classes.linkItem} to={`/category/${value.slug}`}>  
-                                    <ListItemText  primary={value.name}/> 
-                                </Link>          
-                            </ListItem>                      
+                                    <ListItem className={classes.listItem} button>
+                                        <ListItemText disableTypography primary={<Typography variant='h6'>{value.name}</Typography>}/> 
+                                    </ListItem> 
+                                </Link>
+                                                                                                                   
                             )          
                         })}
                         </Paper>
