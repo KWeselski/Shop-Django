@@ -2,14 +2,10 @@ import React, {Component} from 'react';
 import {Button, Grid,Paper,Typography,TextField, MenuItem } from '@material-ui/core';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom'
-import {addCode,getLastOrder} from './actions/cartActions'
+import {addCode,getLastOrder, addAddress} from './actions/cartActions'
 
 class Checkout extends Component {
     state = {
-        data:null,
-        loading:false,
-        error:null,
-        success:false,
         street_address: "",
         apartament_address: "",
         city: "",
@@ -29,16 +25,21 @@ class Checkout extends Component {
         e.preventDefault();
     };
 
-    handleSubmitCode =  (e) => {
+    handleSubmitCode = e => {
         const { code } = this.state;
         this.props.addCode(e, code);
         this.setState({ code: "" });     
       };
 
+    handleAddAddress = () => {
+        const { street_address, apartament_address, city, postal_code, delivery_type } = this.state;
+        this.props.addAddress(street_address, apartament_address, city, postal_code, delivery_type);
+    }
+
     render(){
         const {street_address, apartament_address, city, postal_code, delivery_type, code} = this.state;
         const {total, discount} = this.props
-        console.log(discount[0])
+        
         const deliveryTypes = [
             {value: 'P', label: 'Pickup in store'},
             {value: 'D', label: 'Delivery'}
@@ -159,7 +160,7 @@ class Checkout extends Component {
                         <Button style={{width:'100%' ,position:'absolute', bottom:40}} variant="contained" color='primary' onClick={()=>{}}>Reedem Code</Button>
                     </Grid>
                     <Grid item xs={12}>                    
-                    <Link to=''><Button style={{width:'100%' ,position:'absolute', bottom:0}} variant="contained" color='primary' onClick={()=>{this.handleMakeOrder(this.props.items)}}>Pay</Button></Link>
+                    <Link to=''><Button style={{width:'100%' ,position:'absolute', bottom:0}} variant="contained" color='primary' onClick={()=>{this.handleAddAddress()}}>Pay</Button></Link>
                     </Grid>
                 </Grid>                                        
                 </Paper>
@@ -178,7 +179,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) =>{
     return{
         addCode: (e,code)=> {dispatch(addCode(e,code))},
-        lastOrder: () => {dispatch(getLastOrder())}
+        lastOrder: () => {dispatch(getLastOrder())},
+        addAddress: (street_address, apartament_address, city, postal_code, delivery_type) =>
+         {dispatch(addAddress(street_address, apartament_address, city, postal_code, delivery_type))}
     }
 }
 export default connect(mapStateToProps,mapDispatchToProps)(Checkout)

@@ -50,6 +50,23 @@ export const orderAdd = (order_items) =>{
     };
 };
 
+export const addAddress = (street_address,apartment_address,city,postal_code,delivery_type) => {
+    return dispatch => {
+        dispatch(startAddOrder());
+        axios.post("http://127.0.0.1:8000/api/add_address/",{
+            street_address : street_address,
+            apartment_address : apartment_address,
+            city : city,
+            postal_code : postal_code,
+            delivery_type : delivery_type
+        },{headers: {
+            Authorization: `${localStorage.getItem("token")}`}
+        }).then(()=>{     
+            dispatch(finishAddOrder())
+        }).catch(error => dispatch(failAddOrder(error)));
+    };
+};
+
 export const addCode = (e, code) => {
     e.preventDefault();
     return async dispatch => {

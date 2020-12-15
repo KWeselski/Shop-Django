@@ -19,7 +19,7 @@ class ProductAdmin(admin.ModelAdmin):
 class OrderAdmin(admin.ModelAdmin):
     fields = ['items','ordered_date','ordered','coupon']
     
-    list_display = ['user','delivery_address','start_date','ordered_date','ordered','coupon','get_total',]
+    list_display = ['user','delivery_address','start_date','ordered_date','ordered','coupon','get_total_before','get_total',]
     list_display_links = [
         'user',
         'delivery_address',

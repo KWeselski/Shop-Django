@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
-from .models import Product, Category, OrderItem, Order, Profile,Coupon
+from .models import Product, Category, OrderItem, Order, Profile,Coupon,Address
 from .serializers import *
 from django.utils import timezone
 from rest_framework.authtoken.models import Token
@@ -105,7 +105,6 @@ def get_coupon(request, code):
         print(request, "This coupon does not exist")
         return None
 
-
 def get_user_from_token(request):
     token = request.headers['Authorization']
     user_id = Token.objects.get(key=token).user_id
@@ -124,6 +123,8 @@ def add_code(request):
                     user = user, ordered=False
                 ).last()
                 coupon_ = get_coupon(request, code)
+                if coupon_ == None:
+                    return Response('No coupon')
                 order.coupon = coupon_
                 order.discount = coupon_.discount
                 order.save()              
@@ -142,3 +143,21 @@ def get_last_order(request):
                 ).last()
         return(Response({'discount': order.coupon.discount, 'total_after_discount': order.get_total()},status=status.HTTP_200_OK))
        
+@api_view(['POST'])
+def add_address(request):
+    if request.method == 'POST':
+        user = get_user_from_token(request)
+        serializer = AddressSerializer(data=request.data)
+        print(serializer)
+        if serializer.is_valid():
+            serializer.save(user=user)
+            order = Order.objects.filter(
+                    user = user, ordered=False
+                    ).last()
+            address = Address.objects.filter(id=serializer.data["id"])
+            order.delivery_address = address[0]
+            order.ordered = True
+            order.save()
+            return Response(serializer.data)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
