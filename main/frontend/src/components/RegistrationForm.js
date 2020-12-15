@@ -31,12 +31,12 @@ class Registration extends React.Component{
         }
         return(
         <div>
-            <Typography variant="h1">Signup to your account</Typography>
+            <Typography style={{padding:30}} variant="h4">Signup to your account</Typography>
             <form onSubmit={this.handleSubmit}>
                 <Grid container spacing={2} textAlign="center"
                 style={{ height: "50vh" }}
                 verticalAlign="middle">
-                    <Grid item xs={12}>
+                    <Grid item xs={8}>
                         <TextField
                             autoComplete='username'
                             name="username"
@@ -50,7 +50,7 @@ class Registration extends React.Component{
                             onChange={this.handleChange}
                             />
                     </Grid>
-                    <Grid item xs={12}>
+                    <Grid item xs={8}>
                         <TextField
                             autoComplete='email'
                             name="email"
@@ -64,7 +64,7 @@ class Registration extends React.Component{
                             onChange={this.handleChange}
                             />
                     </Grid>
-                    <Grid item xs={12}>
+                    <Grid item xs={8}>
                     <TextField
                         variant="outlined"
                         required
@@ -78,7 +78,7 @@ class Registration extends React.Component{
                         onChange={this.handleChange}
                     />
                     </Grid>
-                    <Grid item xs={12}>
+                    <Grid item xs={8}>
                     <TextField
                         variant="outlined"
                         required
@@ -92,16 +92,19 @@ class Registration extends React.Component{
                         onChange={this.handleChange}
                     />
                     </Grid>
+                    <Grid item xs={8}>
+                        <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        color="primary"                  
+                        loading={loading}
+                        disabled={loading}>
+                        Sign Up
+                    </Button>
+                    </Grid>
                 </Grid>
-                <Button
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    color="primary"                  
-                    loading={loading}
-                    disabled={loading}>
-                    Sign Up
-                </Button>
+                
                 <Grid containter justify="flex-end">
                     <Grid item>
                         <NavLink to="/login" variant="body2">

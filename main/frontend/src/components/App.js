@@ -9,6 +9,7 @@ import Registration from './RegistrationForm';
 import LoginForm from './LoginForm';
 import Cart from './Cart'
 import ProductListByCategory from './ProductListByCategory'
+import Checkout from './Checkout'
 import * as actions from './actions/authActions';
 
 import {
@@ -31,7 +32,7 @@ class App extends Component{
             <Router>   
                     <Navbar/>
                     <Grid container direction="row" xs={12} >
-                      <Grid item xs={2}></Grid>  
+                      <Grid item xs={1}></Grid>  
                       <Grid item xs={2}><CategoryList/></Grid>  
                                 
                       <Grid container xs={6}>                  
@@ -42,6 +43,7 @@ class App extends Component{
                             <Route exact path="/cart" component={Cart}/>
                             <Route exact path='/signup' component={Registration}/>
                             <Route exact path='/login' component={LoginForm}/>
+                            <Route exact path='/checkout' component={Checkout}/>
                         </Switch>
                       </Grid>
                       <Grid item xs={2}></Grid>

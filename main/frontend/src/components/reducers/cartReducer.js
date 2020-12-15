@@ -1,4 +1,4 @@
-import { ADD_TO_CART,REMOVE_ITEM,SUB_QUANTITY,ADD_QUANTITY,ADD_SHIPPING, PRODUCTS_NAMES, ORDERS_NAMES} from '../actions/action-types/cart-actions'
+import { ADD_TO_CART,REMOVE_ITEM,SUB_QUANTITY,ADD_QUANTITY,ADD_SHIPPING, PRODUCTS_NAMES, ORDERS_NAMES,CODE_NAMES, DISCOUNT_NAMES} from '../actions/action-types/cart-actions'
 import {productListURL} from '../constants'
 
 const initState = {
@@ -6,7 +6,8 @@ const initState = {
     loading:false,
     error:null,
     addedItems:[],
-    total: 0
+    total: 0,
+    discount: [0,0]
 }
 
 const cartReducer=(state= initState, action)=>{   
@@ -21,15 +22,31 @@ const cartReducer=(state= initState, action)=>{
         error:action.payload.error,
         items:[]}
     }
-    if(action.type == PRODUCTS_NAMES.FINISH_FETCH){
-        
+    if(action.type == PRODUCTS_NAMES.FINISH_FETCH){     
         return Object.assign({}, state, {
             items: state.items.concat(action.payload.products),
             loading:false
         });
-        /*return{...state,
+       
+    }
+
+    if(action.type == DISCOUNT_NAMES.START_DISCOUNT){
+        return{...state,
+        loading:true,
+        error: null}
+    }
+    if(action.type == DISCOUNT_NAMES.FAIL_DISCOUNT){
+        return{...state,
         loading:false,
-        items: action.payload.products}*/
+        error:action.error,
+        discount:0}
+    }
+    if(action.type == DISCOUNT_NAMES.FINISH_DISCOUNT){
+        console.log(action)     
+        return {...state,
+            discount: action.payload.discount,
+            loading:false
+        };      
     }
 
     if(action.type == ORDERS_NAMES.START_ORDER){
@@ -39,6 +56,16 @@ const cartReducer=(state= initState, action)=>{
         return { ...state, loading:false,error:action.error }
     }
     if(action.type == ORDERS_NAMES.FINISH_ORDER){
+        return { ...state, loading:false,error:null }
+    }
+
+    if(action.type == CODE_NAMES.START_CODE){
+        return { ...state, loading:true,error:null }
+    }
+    if(action.type == CODE_NAMES.FAIL_CODE){
+        return { ...state, loading:false,error:action.error }
+    }
+    if(action.type == CODE_NAMES.FINISH_CODE){
         return { ...state, loading:false,error:null }
     }
 

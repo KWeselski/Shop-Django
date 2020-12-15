@@ -2,12 +2,14 @@ from django.shortcuts import render, get_object_or_404
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
-from .models import Product, Category, OrderItem, Order, Profile
+from .models import Product, Category, OrderItem, Order, Profile,Coupon
 from .serializers import *
 from django.utils import timezone
 from rest_framework.authtoken.models import Token
 from django.utils.html import escape
 from django.contrib.auth.models import User, AnonymousUser
+from .forms import CouponForm
+from django.core.exceptions import ObjectDoesNotExist
 
 @api_view(['GET', 'POST'])
 def products_list(request):
@@ -93,3 +95,50 @@ def create_order(request):
         order_items = OrderItem.objects.all()
         serializer = OrderItemSerializer(order_items, context={'request': request}, many=True)
         return Response(serializer.data)
+
+def get_coupon(request, code):
+    try:
+        coupon = Coupon.objects.get(code=code)
+        print('coupon:', coupon)
+        return coupon
+    except ObjectDoesNotExist:        
+        print(request, "This coupon does not exist")
+        return None
+
+
+def get_user_from_token(request):
+    token = request.headers['Authorization']
+    user_id = Token.objects.get(key=token).user_id
+    user = User.objects.get(id=user_id)
+    return user
+
+@api_view(['POST'])
+def add_code(request):
+    if request.method == 'POST':
+        form = CouponForm(request.data)
+        user = get_user_from_token(request)
+        if form.is_valid():
+            try:
+                code= form.cleaned_data.get('code')
+                order = Order.objects.filter(
+                    user = user, ordered=False
+                ).last()
+                coupon_ = get_coupon(request, code)
+                order.coupon = coupon_
+                order.discount = coupon_.discount
+                order.save()              
+                return Response()
+            except ObjectDoesNotExist:
+                return Response()
+        else:
+            print('Error')
+
+@api_view(['GET'])
+def get_last_order(request):
+    if request.method == "GET":
+        user = get_user_from_token(request)
+        order = Order.objects.filter(
+                user=user,ordered=False
+                ).last()
+        return(Response({'discount': order.coupon.discount, 'total_after_discount': order.get_total()},status=status.HTTP_200_OK))
+       

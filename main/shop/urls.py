@@ -1,5 +1,5 @@
 from django.urls import path,re_path
-from .views import products_list, category_product_list, category_list,product_detail,user_id_view,orders_list,create_order
+from .views import products_list, category_product_list, category_list,product_detail,user_id_view,orders_list,create_order,add_code,get_last_order
 
 urlpatterns = [
     path('products/', products_list),
@@ -8,5 +8,7 @@ urlpatterns = [
     path('products/<int:pk>',product_detail),
     path('user/',user_id_view),
     path('orders/',orders_list),
-    path('create_order/',create_order)
+    path('create_order/',create_order),
+    path('add_code/',add_code),
+    path('get_last_order/',get_last_order)
 ]

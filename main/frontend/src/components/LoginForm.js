@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {NavLink, Redirect} from "react-router-dom"
 import {authLogin} from './actions/authActions';
-import {Button, Grid, TextField } from '@material-ui/core';
+import {Button, Grid, TextField,Typography } from '@material-ui/core';
 
 
 class LoginForm extends React.Component {
@@ -31,7 +31,7 @@ class LoginForm extends React.Component {
 
         return(
             <div>
-            <h1>Login</h1>
+            <Typography style={{padding:30}} variant="h4">Signup to your account</Typography>
             <form onSubmit={this.handleSubmit}>
                 <Grid container spacing={2}>
                     

@@ -1,5 +1,5 @@
-import { ADD_TO_CART,REMOVE_ITEM,SUB_QUANTITY,ADD_QUANTITY,ADD_SHIPPING, PRODUCTS_NAMES, ORDERS_NAMES} from './action-types/cart-actions'
-import {productListURL,productDetailURL} from "../constants";
+import { ADD_TO_CART,REMOVE_ITEM,SUB_QUANTITY,ADD_QUANTITY,ADD_SHIPPING, PRODUCTS_NAMES, ORDERS_NAMES,CODE_NAMES, DISCOUNT_NAMES} from './action-types/cart-actions'
+import {productListURL,productDetailURL, addCodeURL, lastOrderURL} from "../constants";
 import axios from 'axios'
 
 export function fetchProducts() {
@@ -16,6 +16,9 @@ export function fetchProducts() {
         .catch(error => dispatch(failFetchProducts(error)));
     };
 }
+
+
+
 export function fetchProductsID(id) {
     return dispatch => {
       dispatch(startFetchProducts());
@@ -32,6 +35,7 @@ export function fetchProductsID(id) {
     };
 }
 
+
 export const orderAdd = (order_items) =>{  
     return dispatch => {
         dispatch(startAddOrder());
@@ -45,7 +49,33 @@ export const orderAdd = (order_items) =>{
         }).catch(error => dispatch(failAddOrder(error)));
     };
 };
-   
+
+export const addCode = (e, code) => {
+    e.preventDefault();
+    return async dispatch => {
+        dispatch(startAddCode());
+        await axios.post(addCodeURL,{
+            code:code
+        },{headers: {Authorization: `${localStorage.getItem("token")}`}
+    }).then(()=> {    
+        dispatch(finishAddCode())
+        dispatch(getLastOrder())
+    }).catch(error => dispatch(failAddCode(error)));
+    };
+};
+
+export const getLastOrder =  () => {
+     return  dispatch => {
+         dispatch(startFetchDiscount());
+         axios.get(lastOrderURL,{
+            headers: {Authorization: `${localStorage.getItem("token")}`}
+        }).then(res => {
+            console.log(res.data)
+            dispatch(finishFetchDiscount(res.data));
+            return res.data          
+        }).catch(error => dispatch(failFetchDiscount(error)));
+    };
+} 
 
 function handleErrors(response) {
     if (!response.ok) {
@@ -94,6 +124,18 @@ export const finishFetchProducts = products => ({
     payload:{products}
 });
 
+export const startFetchDiscount = () => ({
+    type: DISCOUNT_NAMES.START_DISCOUNT
+});
+export const failFetchDiscount = error => ({
+    type: DISCOUNT_NAMES.FAIL_DISCOUNT,
+    payload: {error}
+});
+export const finishFetchDiscount = discount => ({
+    type: DISCOUNT_NAMES.FINISH_DISCOUNT,
+    payload:{discount}
+});
+
 export const startAddOrder = () => ({
     type: ORDERS_NAMES.START_ORDER
 })
@@ -102,5 +144,16 @@ export const finishAddOrder = () => ({
 })
 export const failAddOrder = error => ({
     type: ORDERS_NAMES.FAIL_ORDER,
+    error: error
+})
+
+export const startAddCode = () => ({
+    type: CODE_NAMES.START_CODE
+})
+export const finishAddCode = () => ({
+    type: CODE_NAMES.FINISH_CODE   
+})
+export const failAddCode = error => ({
+    type: CODE_NAMES.FAIL_CODE,
     error: error
 })

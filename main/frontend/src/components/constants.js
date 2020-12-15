@@ -14,3 +14,6 @@ export const productListByCategoryURL = id =>`${endpoint}/category/${id}`;
 
 export const loginUrl = `${authEndpoint}/login/`;
 export const signUpUrl = `${authEndpoint}/registration/`;
+
+export const addCodeURL = `${endpoint}/add_code/`;
+export const lastOrderURL = `${endpoint}/get_last_order/`;

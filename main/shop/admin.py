@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category,Product,Order, OrderItem, Coupon
+from .models import Category,Product,Order, OrderItem, Coupon,Address
 # Register your models here.
 
 @admin.register(Category)
@@ -17,9 +17,16 @@ class ProductAdmin(admin.ModelAdmin):
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    fields = ['items','ordered_date','ordered']
+    fields = ['items','ordered_date','ordered','coupon']
     
-    list_display = ['user','id','start_date','ordered_date','ordered','get_total',]
+    list_display = ['user','delivery_address','start_date','ordered_date','ordered','coupon','get_total',]
+    list_display_links = [
+        'user',
+        'delivery_address',
+        'coupon'
+    ]
+    search_fields = [
+        'user__username',]
     filter_horizontal = ('items',)
 
     def get_items(self,obj):
@@ -34,3 +41,10 @@ class CouponAdmin(admin.ModelAdmin):
     list_display = ['code', 'valid_from','valid_to', 'discount', 'active']
     list_filter = ['active','valid_from','valid_to']
     search_fields = ['code']
+
+@admin.register(Address)
+class AddressAdmin(admin.ModelAdmin):
+    list_display = ['user','street_address','apartment_address','city',
+        'postal_code','delivery_type',]
+    list_filter = ['delivery_type', 'city']
+    search_fields = ['user', 'street_address', 'apartment_address', 'postal_code']
