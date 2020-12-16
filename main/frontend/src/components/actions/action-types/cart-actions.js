@@ -3,7 +3,7 @@ export const REMOVE_ITEM = 'REMOVE_ITEM';
 export const SUB_QUANTITY = 'SUB_QUANTITY';
 export const ADD_QUANTITY = 'ADD_QUANTITY';
 export const ADD_SHIPPING = 'ADD_SHIPPING';
-
+export const CLEAR_CART = "CLEAR CART";
 
 export const PRODUCTS_NAMES = {
     START_FETCH: "PRODUCTS_NAMES_START_FETCH",

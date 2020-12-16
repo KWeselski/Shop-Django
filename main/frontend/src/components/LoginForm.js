@@ -31,11 +31,11 @@ class LoginForm extends React.Component {
 
         return(
             <div>
-            <Typography style={{padding:30}} variant="h4">Signup to your account</Typography>
+            <Typography style={{padding:30}} variant="h4">Login to your account</Typography>
             <form onSubmit={this.handleSubmit}>
-                <Grid container spacing={2}>
-                    
-                    <Grid item xs={12}>
+                <Grid container spacing={2} textAlign="center" style={{ height: "20vh" }}
+                verticalAlign="middle">         
+                    <Grid item xs={8}>
                         <TextField
                             autoComplete='username'
                             name="username"
@@ -49,7 +49,7 @@ class LoginForm extends React.Component {
                             onChange={this.handleChange}
                             />
                     </Grid>
-                    <Grid item xs={12}>
+                    <Grid item xs={8}>
                     <TextField
                         variant="outlined"
                         required
@@ -63,24 +63,27 @@ class LoginForm extends React.Component {
                         onChange={this.handleChange}
                     />
                     </Grid>
-                    <Button
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    color="primary"                  
-                    loading={loading}
-                    disabled={loading}>
-                    Login
-                    </Button>
-                </Grid>
-                <Grid containter justify="flex-end">
-                    <Grid item>
-                        <NavLink to="/signup" variant="body2">
-                            Creat account
-                        </NavLink>
+                    <Grid item xs={8}>
+                        <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        color="primary"                  
+                        loading={loading}
+                        disabled={loading}>
+                        Login
+                        </Button>
                     </Grid>
-                </Grid>
-            </form>
+                 </Grid>
+                  
+                <Grid container justyfiy="flex-end">
+                    <Grid item>
+                            <NavLink to="/signup" variant="body2">
+                                Creat account
+                            </NavLink>
+                    </Grid>
+                </Grid>               
+                </form>                 
             </div>
         )
     }

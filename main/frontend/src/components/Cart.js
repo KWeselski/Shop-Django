@@ -63,7 +63,7 @@ class Cart extends Component{
                                     <TableCell component="th" scope="row"><b>{item.name}</b></TableCell>
                                     <TableCell style={{ width: 160 }} align="right">{item.price}$</TableCell>
                                     <TableCell style={{ width: 160 }} align="right">{item.quantity}</TableCell>
-                                    <TableCell style={{ width: 160 }} align="right">{ this.getTotal(item.price,item.quantity)}$</TableCell>
+                                    <TableCell style={{ width: 160 }} align="right">{ this.getTotal(item.price,item.quantity).toFixed(2)}$</TableCell>
                                     <TableCell component="th" scope="row">
                                         <Link to="/cart"><i className="material-icons" onClick={()=>{this.handleAddQuantity(item.id)}}><ArrowDropUpIcon/></i></Link>
                                         <Link to="/cart"><i className="material-icons" onClick={()=>{this.handleSubtractQuantity(item.id)}}><ArrowDropDownIcon/></i></Link>

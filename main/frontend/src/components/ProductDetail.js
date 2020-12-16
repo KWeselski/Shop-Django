@@ -18,8 +18,6 @@ class ProductDetail extends Component{
         }   
     }
     componentDidMount(){
-        /*const { match : {params} } = this.props;
-        this.props.fetchProductsID(params.productID);*/
         this.getProductDetails();
     }
 
@@ -52,12 +50,8 @@ class ProductDetail extends Component{
         const {data} = this.state;   
         const item = data;
         const {total,products} = this.props;
-
-
-        let available = String(item.available) ? 'Dostępny' : 'Niedostępny'
-        
-        return(        
-            
+        let available = String(item.available) ? 'Dostępny' : 'Niedostępny'       
+        return(                  
                 <Grid container xs={12} style={{height:'80%'}}>
                     <Grid container xs={6}>
                         <Paper elevation={3} style={{width:'100%', height:'100%'}}>         
@@ -80,14 +74,8 @@ class ProductDetail extends Component{
                     <Link to="/cart">
                         <Button variant="contained" onClick={()=>{this.handleClick(item.id)}} color='primary'>Add to Cart</Button>
                      </Link>
-                    </Grid>
-                          
-                </Grid>
-                 
-                
-                 
-            
-           
+                    </Grid>                        
+                </Grid>       
         );
     }
 

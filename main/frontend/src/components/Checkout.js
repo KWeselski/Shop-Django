@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Button, Grid,Paper,Typography,TextField, MenuItem } from '@material-ui/core';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom'
-import {addCode,getLastOrder, addAddress} from './actions/cartActions'
+import {addCode,getLastOrder, addAddress, clearCart} from './actions/cartActions'
 
 class Checkout extends Component {
     state = {
@@ -12,38 +12,62 @@ class Checkout extends Component {
         postal_code: "",
         delivery_type: "",
         code: "",
+        delivery_cost: 0,
+        total_cost:0,  
     };
-
-    
 
     handleChange = e => {
         this.setState({ [e.target.name]: e.target.value });
       };
-
-    
+   
     handleSubmit = e => {
         e.preventDefault();
     };
 
+    checkTotalCost= (total, discount, delivery_cost, total_cost) =>{
+        let value = 0;        
+        if(discount.discount > 0){
+            value = discount.total_after_discount + delivery_cost;
+        }
+        else{
+            value = total + delivery_cost;
+        }
+        console.log('Value:', value)      
+        this.setState({total_cost : value})
+    }
+
+    handleSelect = e => {
+        this.setState({ [e.target.name]: e.target.value});
+        const { delivery_cost } = this.state;
+        if(e.target.value == "D"){
+            this.setState({ delivery_cost: 6} )           
+        }     
+        else{this.setState({ delivery_cost: 0});}      
+    };
+
+    
     handleSubmitCode = e => {
         const { code } = this.state;
         this.props.addCode(e, code);
-        this.setState({ code: "" });     
+        this.setState({ code: "" });
+             
       };
 
     handleAddAddress = () => {
         const { street_address, apartament_address, city, postal_code, delivery_type } = this.state;
         this.props.addAddress(street_address, apartament_address, city, postal_code, delivery_type);
+        this.props.clearCart();
     }
-
+              
     render(){
-        const {street_address, apartament_address, city, postal_code, delivery_type, code} = this.state;
+        const {street_address, apartament_address, city, postal_code, delivery_type, code, delivery_cost, total_cost, total_after_discount} = this.state;
         const {total, discount} = this.props
-        
+        //this.checkTotalCost(total,discount,delivery_cost,total_cost)
         const deliveryTypes = [
-            {value: 'P', label: 'Pickup in store'},
-            {value: 'D', label: 'Delivery'}
+            {value: 'P', label: 'Pickup in store (Free)'},
+            {value: 'D', label: 'Delivery (+6$)'}
         ]
+        
         return(
             <Grid container xs={12}>
             <Grid item xs={1}></Grid>
@@ -121,7 +145,7 @@ class Checkout extends Component {
                                 label="Delivery"
                                 required
                                 value={delivery_type}                           
-                                onChange={this.handleChange}>
+                                onChange={this.handleSelect}>
                                     {deliveryTypes.map((option)=> (
                                         <MenuItem key={option.value} value={option.value}>
                                             {option.label}
@@ -137,9 +161,10 @@ class Checkout extends Component {
                 <Paper style={{height:350}}>
                 <Grid containter style={{height:'100%', position:'relative'}}xs={12}>
                     <Grid item xs={12} style={{width:'100%', position:'absolute', marginTop: '15%'}}>
-                    <Typography variant='h5'>Total to pay: {this.props.total}<b>$</b></Typography>
-                    <Typography variant='h5'>Discount: {this.props.discount.discount}<b>%</b></Typography>
-                    <Typography variant='h5'>Total: {this.props.discount.total_after_discount}<b>$</b></Typography>
+                    <Typography variant='h5'>Total to pay: {total}<b>$</b></Typography>
+                    <Typography variant='h5'>Discount: {discount.discount}<b>%</b></Typography>
+                    <Typography variant='h5'>Delivery cost: {delivery_cost}<b>$</b></Typography>
+                    <Typography variant='h5'>Total: {(discount.total_after_discount).toFixed(2)}<b>$</b></Typography>
                     </Grid>
                     <Grid item xs={12}>
                     <form onSubmit={this.handleSubmitCode}>
@@ -181,7 +206,8 @@ const mapDispatchToProps = (dispatch) =>{
         addCode: (e,code)=> {dispatch(addCode(e,code))},
         lastOrder: () => {dispatch(getLastOrder())},
         addAddress: (street_address, apartament_address, city, postal_code, delivery_type) =>
-         {dispatch(addAddress(street_address, apartament_address, city, postal_code, delivery_type))}
+         {dispatch(addAddress(street_address, apartament_address, city, postal_code, delivery_type))},
+        clearCart : () => {dispatch(clearCart())}
     }
 }
 export default connect(mapStateToProps,mapDispatchToProps)(Checkout)

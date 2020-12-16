@@ -1,4 +1,4 @@
-import { ADD_TO_CART,REMOVE_ITEM,SUB_QUANTITY,ADD_QUANTITY,ADD_SHIPPING, PRODUCTS_NAMES, ORDERS_NAMES,CODE_NAMES, DISCOUNT_NAMES} from './action-types/cart-actions'
+import { ADD_TO_CART,REMOVE_ITEM,SUB_QUANTITY,ADD_QUANTITY,CLEAR_CART, PRODUCTS_NAMES, ORDERS_NAMES,CODE_NAMES, DISCOUNT_NAMES} from './action-types/cart-actions'
 import {productListURL,productDetailURL, addCodeURL, lastOrderURL} from "../constants";
 import axios from 'axios'
 
@@ -173,4 +173,8 @@ export const finishAddCode = () => ({
 export const failAddCode = error => ({
     type: CODE_NAMES.FAIL_CODE,
     error: error
+})
+
+export const clearCart = () => ({
+    type : CLEAR_CART
 })

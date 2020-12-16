@@ -31,7 +31,7 @@ class Registration extends React.Component{
         }
         return(
         <div>
-            <Typography style={{padding:30}} variant="h4">Signup to your account</Typography>
+            <Typography style={{padding:30}} variant="h4">Register your account</Typography>
             <form onSubmit={this.handleSubmit}>
                 <Grid container spacing={2} textAlign="center"
                 style={{ height: "50vh" }}

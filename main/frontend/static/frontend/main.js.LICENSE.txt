@@ -22,6 +22,8 @@
 
 /*! export BrowserRouter [provided] [no usage info] [missing usage info prevents renaming] */
 
+/*! export CLEAR_CART [provided] [no usage info] [missing usage info prevents renaming] */
+
 /*! export CODE_NAMES [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export Children [provided] [no usage info] [missing usage info prevents renaming] */
@@ -217,6 +219,8 @@
 /*! export categoryListURL [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export checkAuthTimeout [provided] [no usage info] [missing usage info prevents renaming] */
+
+/*! export clearCart [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export cloneElement [provided] [no usage info] [missing usage info prevents renaming] */
 

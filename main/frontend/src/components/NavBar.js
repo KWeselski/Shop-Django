@@ -34,12 +34,16 @@ const styles = theme => ({
 class NavBar extends Component {
     render(){
         const {classes, authenticated,items} = this.props;
-        console.log(this.props)
         return(      
             <div id="navbar">
+                <div style={{ width:'100%', height:150, backgroundImage: "url(" + "./static/images/food.jpg" + ")",
+                backgroundPosition: 'top',
+                backgroundSize: 'cover',
+                backgroundRepeat: 'no-repeat' }}>
+                </div>                
                 <AppBar id="appbar" position="static"> 
                 <Toolbar variant="dense">       
-                        <Typography variant='h3' className={classes.typographyStyles}>
+                        <Typography style={{marginLeft:450}} variant='h3' className={classes.typographyStyles}>
                             <Link style={{textDecoration: 'none', color:'white'}} to="/"><Typography variant='h4'>Shop</Typography></Link> 
                         </Typography>
                         <IconButton className={classes.cartButton} size='medium' color='inherit'>
@@ -50,11 +54,11 @@ class NavBar extends Component {
                           </Link>
                         </IconButton>
                         {authenticated ?(
-                            <span style={{marignRight:40}}>
+                            <span>
                             <Typography className={classes.iconsbar} onClick={() => this.props.logout()}> Logout </Typography>
                             </span>
                         ):(
-                            <div style={{marignRight:40, display:'flex'}}>
+                            <div style={{display:'flex'}}>
                                 <Link style={{textDecoration:"none", color:'white'}} to='/login'><Typography className={classes.iconsbar}>Login</Typography></Link>
                                 <Link style={{textDecoration:"none", color:'white'}} to='/signup'><Typography className={classes.iconsbar}>Signup</Typography></Link>
                             </div>

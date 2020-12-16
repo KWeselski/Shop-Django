@@ -1,4 +1,4 @@
-import { ADD_TO_CART,REMOVE_ITEM,SUB_QUANTITY,ADD_QUANTITY,ADD_SHIPPING, PRODUCTS_NAMES, ORDERS_NAMES,CODE_NAMES, DISCOUNT_NAMES} from '../actions/action-types/cart-actions'
+import { ADD_TO_CART,REMOVE_ITEM,SUB_QUANTITY,ADD_QUANTITY,CLEAR_CART, PRODUCTS_NAMES, ORDERS_NAMES,CODE_NAMES, DISCOUNT_NAMES} from '../actions/action-types/cart-actions'
 import {productListURL} from '../constants'
 
 const initState = {
@@ -7,7 +7,7 @@ const initState = {
     error:null,
     addedItems:[],
     total: 0,
-    discount: [0,0]
+    discount: {'discount':0, 'total_after_discount':0}
 }
 
 const cartReducer=(state= initState, action)=>{   
@@ -27,7 +27,14 @@ const cartReducer=(state= initState, action)=>{
             items: state.items.concat(action.payload.products),
             loading:false
         });
-       
+         
+    }
+
+    if(action.type == CLEAR_CART){
+        return{...state,
+            addedItems:[],
+            total:0,
+            discount: {'discount':0, 'total_after_discount':0}}
     }
 
     if(action.type == DISCOUNT_NAMES.START_DISCOUNT){
@@ -79,7 +86,7 @@ const cartReducer=(state= initState, action)=>{
             addedItem.quantity += 1
             return{
                 ...state,
-                total: Number(state.total) + Number(addedItem.price)
+                total: (Number(state.total) + Number(addedItem.price)).toFixed(2)
             }
         }
         else{ 
@@ -89,7 +96,7 @@ const cartReducer=(state= initState, action)=>{
             return {
                 ...state,
                 addedItems: [...state.addedItems, addedItem],
-                total: newTotal,
+                total: newTotal.toFixed(2),
             }
         }
     }
@@ -103,7 +110,7 @@ const cartReducer=(state= initState, action)=>{
         return{
             ...state,
             addedItems: new_items,
-            total: newTotal
+            total: newTotal.toFixed(2)
         }
     }
     
@@ -115,7 +122,7 @@ const cartReducer=(state= initState, action)=>{
           let newTotal = Number(state.total) + Number(addedItem.price)
           return{
               ...state,
-              total: newTotal
+              total: newTotal.toFixed(2)
           }
     }
     if(action.type=== SUB_QUANTITY){  
@@ -127,7 +134,7 @@ const cartReducer=(state= initState, action)=>{
             return{
                 ...state,
                 addedItems: new_items,
-                total: newTotal
+                total: newTotal.toFixed(2)
             }
         }
         else {
@@ -135,7 +142,7 @@ const cartReducer=(state= initState, action)=>{
             let newTotal = Number(state.total) - Number(addedItem.price)
             return{
                 ...state,
-                total: newTotal
+                total: newTotal.toFixed(2)
             }
         }       
     }

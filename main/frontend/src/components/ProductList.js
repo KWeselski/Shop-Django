@@ -35,6 +35,7 @@ class ProductList extends Component{
             </Grid>);         
         }
         };
+        
 const mapStateToProps = state => ({
         products: state.cart.items,
         loading: state.cart.loading,

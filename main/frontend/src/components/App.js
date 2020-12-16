@@ -34,7 +34,7 @@ class App extends Component{
                     <Grid container direction="row" xs={12} >
                       <Grid item xs={1}></Grid>  
                       <Grid item xs={2}><CategoryList/></Grid>  
-                                
+                      <Grid item xs={1}></Grid>            
                       <Grid container xs={6}>                  
                         <Switch>
                             <Route exact path='/' component={ProductList}/>
