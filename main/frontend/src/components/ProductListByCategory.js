@@ -13,8 +13,7 @@ class ProductListByCategory extends Component{
          data:[],
         };      
     }
-        getProductDetails() {
-            
+        getProductDetails() {         
             const { match : {params} } = this.props;
             fetch(productListByCategoryURL(params.categoryID)).then(response => {
                    if (response.status > 400) {

@@ -10,6 +10,7 @@ from django.utils.html import escape
 from django.contrib.auth.models import User, AnonymousUser
 from .forms import CouponForm
 from django.core.exceptions import ObjectDoesNotExist
+from django.db.models import Q
 
 @api_view(['GET', 'POST'])
 def products_list(request):
@@ -161,3 +162,14 @@ def add_address(request):
             return Response(serializer.data)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET'])
+def get_products_by_search(request):
+    if request.method == 'GET':
+        print(request)
+        query = request.get('q')
+        data = Product.objects.filter(Q(name__icontains=query) | Q(state__icontains=query))
+        serializer = ProductSerializer(data, context={'request': request},many=True)
+        return Response(serializer.data)
+

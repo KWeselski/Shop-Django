@@ -23,7 +23,6 @@ body {
 }
 
 .MuiAppBar-root{
-    
     height: 60px;
 }
 
@@ -47,16 +46,26 @@ body {
 }
 
 .ProductDiv{
-    width: 265px;
+    width: 255px;
+    height: 320px;
+    transition: transform 1s;
+    transform-style: preserve-3d;
+    cursor: pointer;
+    position: relative;   
+}
+
+.ProductDiv h1, h2 {
+    text-align: center;
+    font-family: 'Nunito', sans-serif;
 }
 
 #ProductImg{
-    object-fit: contain;
-    width: 100%;
     height: 180px;
 }
-
-
+#ProductImg > img {
+    object-fit: contain;
+    width: 100%;
+}
 
 #productDetail{
     width:300px;
@@ -70,3 +79,48 @@ body {
     font-size: 26px;
     text-align: center;
 }
+
+.CardDescription{
+    margin: 10% 5% 5% 5%;
+    text-indent: 1.5em;
+    position:'absolute';
+    height:100%;
+    
+}
+.CardDescription p{
+    color:black;
+    text-align:"center";
+}
+
+.CardContent{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width:100%;
+    height: 100%;
+}
+
+.CardDescription {
+    opacity: 0;
+    transition: all 0.5s;
+}
+
+.ProductDiv:hover{
+    transition: all 0.7s;
+    background-color: rgba(77,77,77,0.5); 
+}
+
+.ProductDiv:hover .ProductContent{
+    opacity: 1; 
+}
+.ProductDiv:hover .CardDescription{
+    opacity: 1;
+}
+.ProductDiv:hover #ProductImg {
+    opacity:0;
+}
+
+
+
+
+

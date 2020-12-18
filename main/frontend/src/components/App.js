@@ -44,6 +44,7 @@ class App extends Component{
                             <Route exact path='/signup' component={Registration}/>
                             <Route exact path='/login' component={LoginForm}/>
                             <Route exact path='/checkout' component={Checkout}/>
+                            <Route exact path='/search/:query' component={ProductListByCategory}/>
                         </Switch>
                       </Grid>
                       <Grid item xs={2}></Grid>

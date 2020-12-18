@@ -9,6 +9,7 @@ import { fetchProductsID } from "./actions/cartActions";
 import { Link } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import { Typography } from '@material-ui/core';
+import RatingStar from './RatingStar';
 
 class ProductDetail extends Component{
     constructor(props){
@@ -60,8 +61,11 @@ class ProductDetail extends Component{
                         <Typography align='center' variant="h5">{item.category_name}</Typography>   
                         <Typography align='justify' variant="h6">{item.description}</Typography>    
                         <Typography align='left' variant="h5">{item.price}$ </Typography>   
-                        <Typography align='left' variant="h6">{available}</Typography>   
-                        </span> 
+                        <Typography align='left' variant="h6">{available}</Typography> 
+                        <Typography align='left' variant="h6">Rating: {}</Typography>    
+                        </span>
+
+                        <RatingStar/>
                         </Paper>             
                     </Grid> 
                     <Grid item xs={2}></Grid>           
