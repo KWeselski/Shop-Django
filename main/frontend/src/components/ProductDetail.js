@@ -51,11 +51,12 @@ class ProductDetail extends Component{
         const {data} = this.state;   
         const item = data;
         const {total,products} = this.props;
+        const { match : {params} } = this.props;
         let available = String(item.available) ? 'Dostępny' : 'Niedostępny'       
         return(                  
-                <Grid container xs={12} style={{height:'80%'}}>
+                <Grid container xs={12} style={{height:'40%'}}>
                     <Grid container xs={6}>
-                        <Paper elevation={3} style={{width:'100%', height:'100%'}}>         
+                        <Paper elevation={3} style={{width:'100%', height:'50%'}}>         
                         <span>
                         <Typography align='center' variant="h2">{item.name}</Typography>                       
                         <Typography align='center' variant="h5">{item.category_name}</Typography>   
@@ -63,12 +64,13 @@ class ProductDetail extends Component{
                         <Typography align='left' variant="h5">{item.price}$ </Typography>   
                         <Typography align='left' variant="h6">{available}</Typography> 
                         <Typography align='left' variant="h6">Rating: {}</Typography>    
-                        </span>
-
-                        <RatingStar/>
-                        </Paper>             
+                        </span> 
+                        </Paper> 
+                        <RatingStar productid = {params.productID}/>
                     </Grid> 
-                    <Grid item xs={2}></Grid>           
+                    <Grid item xs={2}>
+                        
+                    </Grid>           
                     <Grid item xs={3}>
                         <Paper elevation={3} style={{width:'100%'}}>       
                         <div id="productDetailImg">

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category,Product,Order, OrderItem, Coupon,Address
+from .models import Category,Product,Order, OrderItem, Coupon,Address, Opinion
 # Register your models here.
 
 @admin.register(Category)
@@ -10,7 +10,7 @@ class CategoryAdmin(admin.ModelAdmin):
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     list_display = ['name', 'slug','category', 'price',
-                'available','created','updated']
+                'available','created','updated','rating']
     list_filter = ['available','created','updated']
     list_editable = ['price', 'available']
     prepopulated_fields = {'slug': ('name',)}
@@ -48,3 +48,8 @@ class AddressAdmin(admin.ModelAdmin):
         'postal_code','delivery_type',]
     list_filter = ['delivery_type', 'city']
     search_fields = ['user', 'street_address', 'apartment_address', 'postal_code']
+
+@admin.register(Opinion)
+class OpinionAdmin(admin.ModelAdmin):
+    list_display = ['user','product', 'opinion', 'rating']
+

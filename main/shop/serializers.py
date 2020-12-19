@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Product, Category, Order, OrderItem, Address
+from .models import Product, Category, Order, OrderItem, Address,Opinion
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -62,3 +62,10 @@ class AddressSerializer(serializers.ModelSerializer):
              'postal_code','delivery_type'
          )
           
+class OpinionSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model= Opinion
+        fields = (
+            'id','product','opinion','rating'
+        )

@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
-from .models import Product, Category, OrderItem, Order, Profile,Coupon,Address
+from .models import Product, Category, OrderItem, Order, Profile,Coupon,Address, Opinion
 from .serializers import *
 from django.utils import timezone
 from rest_framework.authtoken.models import Token
@@ -173,3 +173,15 @@ def get_products_by_search(request):
         serializer = ProductSerializer(data, context={'request': request},many=True)
         return Response(serializer.data)
 
+@api_view(['GET','POST'])
+def post_opinion(request):
+    if request.method == "POST":
+        user = get_user_from_token(request)
+        serializer = OpinionSerializer(data = request.data)
+        if serializer.is_valid():
+            serializer.save(user=user)
+            return Response(serializer.data)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    
