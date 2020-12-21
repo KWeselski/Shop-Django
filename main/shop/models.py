@@ -34,7 +34,6 @@ class Product(models.Model):
     available = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-    rating = models.IntegerField(default=0, null=True)
 
     class Meta:
         ordering = ('name',)
@@ -42,6 +41,7 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+
 
 class OrderItem(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete= models.CASCADE)    
@@ -98,6 +98,7 @@ class Order(models.Model):
             total += order_item.get_final_price()
         return total
 
+
 class Address(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     street_address = models.CharField(max_length=75)
@@ -117,6 +118,11 @@ class Opinion(models.Model):
     opinion = models.CharField(max_length=250)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     rating = models.IntegerField()
+    date_added = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.user.username
+
+
+
+

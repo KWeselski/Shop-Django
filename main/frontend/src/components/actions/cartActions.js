@@ -51,7 +51,21 @@ export const orderAdd = (order_items) =>{
 export const postOpinion = (rating,opinion,productid) => {
     return dispatch => {
         dispatch(startAddOrder());
-        axios.post("http://127.0.0.1:8000/api/post_opinion/",{
+        axios.post(`http://127.0.0.1:8000/api/post_opinion/${productid}`,{
+            rating: rating,
+            opinion : opinion,
+            product: productid
+        },{headers: {
+            Authorization: `${localStorage.getItem("token")}`}
+        }).then(()=>{dispatch(finishAddOrder())
+        }).catch(error => dispatch(failAddOrder(error)));
+    }
+}
+
+export const putOpinion = (rating,opinion,productid) => {
+    return dispatch => {
+        dispatch(startAddOrder());
+        axios.put(`http://127.0.0.1:8000/api/post_opinion/${productid}`,{
             rating: rating,
             opinion : opinion,
             product: productid

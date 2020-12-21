@@ -21,7 +21,6 @@ class ProductList extends Component{
         if (loading){
             return <div>Loading...</div>
         }
-        console.log(products)
         return(   
             <Grid container spacing={2}>        
                 {products.map((value,index) => {                    

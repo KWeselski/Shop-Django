@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import Product, Category, Order, OrderItem, Address,Opinion
-
+from django.contrib.auth.models import User
 
 class CategorySerializer(serializers.ModelSerializer):
     category = serializers.CharField(read_only=True)
@@ -10,11 +10,23 @@ class CategorySerializer(serializers.ModelSerializer):
 
 class ProductSerializer(serializers.ModelSerializer):
     category_name = serializers.CharField(source='category.name', read_only=True)
+    rating = serializers.SerializerMethodField('get_ratings')
 
     class Meta:
         model = Product
         fields = ('id','name','category_name','image','description',
-        'price','available')
+        'price','available','rating')
+
+    def get_ratings(self,obj):
+        rating = 0
+        opinions = Opinion.objects.filter(product = obj)
+        for opinion in opinions:
+            rating += opinion.rating
+        if(len(opinions) == 0):
+            return 0
+        else:
+            return rating / len(opinions)
+
 
 class OrderItemSerializer(serializers.ModelSerializer):
     #item = serializers.SerializerMethodField()
@@ -61,11 +73,21 @@ class AddressSerializer(serializers.ModelSerializer):
              'id','street_address','apartment_address','city',
              'postal_code','delivery_type'
          )
-          
+
+
 class OpinionSerializer(serializers.ModelSerializer):
+
+    user = serializers.SerializerMethodField('get_user')
 
     class Meta:
         model= Opinion
         fields = (
-            'id','product','opinion','rating'
+            'id','user','product','opinion','rating'
         )
+
+    def get_user(self,obj):
+        return obj.user.username
+
+    
+     
+    

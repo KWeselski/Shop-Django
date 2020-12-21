@@ -11,6 +11,8 @@ from django.contrib.auth.models import User, AnonymousUser
 from .forms import CouponForm
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import api_view, permission_classes
 
 @api_view(['GET', 'POST'])
 def products_list(request):
@@ -173,11 +175,24 @@ def get_products_by_search(request):
         serializer = ProductSerializer(data, context={'request': request},many=True)
         return Response(serializer.data)
 
-@api_view(['GET','POST'])
-def post_opinion(request):
+@api_view(['PUT','POST'])
+def post_opinion(request,pk):
     if request.method == "POST":
         user = get_user_from_token(request)
         serializer = OpinionSerializer(data = request.data)
+        if serializer.is_valid():
+            serializer.save(user=user)
+            return Response(serializer.data)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    if request.method == "PUT":
+        try:
+            product_ = Product.objects.get(pk=pk)
+        except Product.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        user = get_user_from_token(request)
+        opinion = Opinion.objects.filter(user = user, product=product_).first()
+        serializer = OpinionSerializer(opinion, data = request.data ,context={'request': request})
         if serializer.is_valid():
             serializer.save(user=user)
             return Response(serializer.data)
@@ -195,3 +210,11 @@ def get_opinions(request,pk):
         opinions = Opinion.objects.filter(product=product_)
         serializer = OpinionSerializer(opinions, context={'request':request},many=True)
         return Response(serializer.data)
+    
+
+@api_view(['GET'])
+def get_user_by_token(request):
+    token = request.headers['Authorization']
+    user_id = Token.objects.get(key=token).user_id
+    user = User.objects.get(id=user_id)
+    return Response(user.username)

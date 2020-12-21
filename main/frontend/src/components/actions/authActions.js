@@ -7,10 +7,11 @@ export const authStart = () => {
     };
 };
 
-export const authSuccess = token => {
+export const authSuccess = (token,username) => {
     return {
         type: actionTypes.AUTH_SUCCESS,
-        token: token
+        token: token,
+        username: username
     };
 };
 
@@ -31,8 +32,7 @@ export const logout = () => {
       axios
         .get("http://127.0.0.1:8000/rest-auth/logout/", {
         })
-        .then(() => {
-          
+        .then(() => {         
       localStorage.removeItem('token');
       localStorage.removeItem('expirationDate');
       dispatch(authLogout())
@@ -63,7 +63,7 @@ export const authLogin = (username, password) => {
           const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
           localStorage.setItem("token", token);
           localStorage.setItem("expirationDate", expirationDate);
-          dispatch(authSuccess(token));
+          dispatch(authSuccess(token,username));
           dispatch(checkAuthTimeout(3600));
         })
         .catch(err => {
@@ -87,7 +87,7 @@ export const authLogin = (username, password) => {
           const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
           localStorage.setItem("token", token);
           localStorage.setItem("expirationDate", expirationDate);
-          dispatch(authSuccess(token));
+          dispatch(authSuccess(token,username));
           dispatch(checkAuthTimeout(3600));
         })
         .catch(err => {
@@ -106,13 +106,13 @@ export const authCheckState = () => {
         if (expirationDate <= new Date()) {
           dispatch(logout());
         } else {
-          dispatch(authSuccess(token));
-          dispatch(
-            checkAuthTimeout(
-              (expirationDate.getTime() - new Date().getTime()) / 1000
-            )
-          );
+          axios
+          .get("http://127.0.0.1:8000/api/user_by_token/", {
+            headers: {Authorization: `${localStorage.getItem("token")}`}}).then(res =>{      
+                dispatch(authSuccess(token,res.data));
+               dispatch(checkAuthTimeout((expirationDate.getTime() - new Date().getTime()) / 1000));
+            })
         }
       }
     };
-  };
+};

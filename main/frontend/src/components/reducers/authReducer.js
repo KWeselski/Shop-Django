@@ -3,7 +3,8 @@ import { AUTH_START ,AUTH_SUCCESS, AUTH_FAIL,AUTH_LOGOUT} from '../actions/actio
 const initialState = {
     token: null,
     error: null,
-    loading: false
+    loading: false,
+    username: null
 }
 
 const authReducer = (state= initialState, action) => {
@@ -17,7 +18,8 @@ const authReducer = (state= initialState, action) => {
         return{...state,
          token: action.token,
          error: null,
-         loading: false}
+         loading: false,
+         username: action.username}
      }
      if(action.type == AUTH_FAIL){
         return{...state,

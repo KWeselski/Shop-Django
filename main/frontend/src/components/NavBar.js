@@ -77,10 +77,10 @@ class NavBar extends Component {
     }
 
     render(){
-        const {classes, authenticated,items} = this.props;
+        const {classes, authenticated,items,username} = this.props;
         return(      
             <div id="navbar">
-                <div style={{ width:'100%', height:150, backgroundImage: "url(" + "./static/images/food.jpg" + ")",
+                <div style={{ width:'100%', height:150, backgroundImage: "url(" + "\static/images/food.jpg" + ")",
                 backgroundPosition: 'top',
                 backgroundSize: 'cover',
                 backgroundRepeat: 'no-repeat' }}>
@@ -94,8 +94,7 @@ class NavBar extends Component {
                             <div className={classes.searchIcon}>
                             <SearchIcon />
                             </div>
-                            <InputBase
-
+                             <InputBase
                             placeholder="Search…"
                             classes={{
                                 root: classes.inputRoot,
@@ -113,8 +112,9 @@ class NavBar extends Component {
                              </Badge>
                           </Link>
                         </IconButton>
-                        {authenticated ?(
+                        {authenticated ?(             
                             <span>
+                            <Typography className={classes.iconsbar}> {username} </Typography>
                             <Typography className={classes.iconsbar} onClick={() => this.props.logout()}> Logout </Typography>
                             </span>
                         ):(
@@ -134,6 +134,7 @@ const mapStateToProps = state => {
     return {
         authenticated: state.auth.token !== null,
         items: state.cart.addedItems,
+        username: state.auth.username,
     };
 };
 
@@ -144,13 +145,3 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default compose(connect(mapStateToProps, mapDispatchToProps),withStyles(styles),)(NavBar);
-
-
-/*
-                      )
-                            :(
-                                <div>
-                                    <Link to='/login'><Typography class="icon">Login</Typography></Link>
-                                    <Link to='/signup'><Typography  class="icon">Signup</Typography></Link>
-                                </div>
-                            )}     */

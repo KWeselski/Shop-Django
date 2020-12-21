@@ -40,10 +40,8 @@ class ProductListByCategory extends Component{
             if(this.props.location !== prevProps.location){             
                 this.getProductDetails()
             }
-        }
-      
-     render(){
-        
+        }    
+     render(){   
         const {data} = this.state;    
         return(   
             <Grid container spacing={2}>
@@ -60,10 +58,6 @@ const mapStateToProps = state => ({
         loading: state.loading,
         error: state.error
 });
-/*const mapDispatchToProps= (dispatch)=>{    
-    return{
-        fetchProducts : dispatch(fetchProducts())
-    }
-}*/
+
  
 export default connect(mapStateToProps)(ProductListByCategory);    
