@@ -31,8 +31,7 @@ class Checkout extends Component {
         }
         else{
             value = total + delivery_cost;
-        }
-        console.log('Value:', value)      
+        }   
         this.setState({total_cost : value})
     }
 
@@ -62,7 +61,6 @@ class Checkout extends Component {
     render(){
         const {street_address, apartament_address, city, postal_code, delivery_type, code, delivery_cost, total_cost, total_after_discount} = this.state;
         const {total, discount} = this.props
-        //this.checkTotalCost(total,discount,delivery_cost,total_cost)
         const deliveryTypes = [
             {value: 'P', label: 'Pickup in store (Free)'},
             {value: 'D', label: 'Delivery (+6$)'}

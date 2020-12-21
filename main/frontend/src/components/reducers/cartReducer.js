@@ -1,4 +1,4 @@
-import { ADD_TO_CART,REMOVE_ITEM,SUB_QUANTITY,ADD_QUANTITY,CLEAR_CART, PRODUCTS_NAMES, ORDERS_NAMES,CODE_NAMES, DISCOUNT_NAMES} from '../actions/action-types/cart-actions'
+import { ADD_TO_CART,REMOVE_ITEM,SUB_QUANTITY,ADD_QUANTITY,CLEAR_CART, PRODUCTS_NAMES, ORDERS_NAMES,CODE_NAMES, DISCOUNT_NAMES, OPINION_NAMES} from '../actions/action-types/cart-actions'
 import {productListURL} from '../constants'
 
 const initState = {
@@ -73,6 +73,16 @@ const cartReducer=(state= initState, action)=>{
         return { ...state, loading:false,error:action.error }
     }
     if(action.type == CODE_NAMES.FINISH_CODE){
+        return { ...state, loading:false,error:null }
+    }
+
+    if(action.type == OPINION_NAMES.START_ADD){
+        return { ...state, loading:true,error:null }
+    }
+    if(action.type == OPINION_NAMES.FAIL_ADD){
+        return { ...state, loading:false,error:action.error }
+    }
+    if(action.type == OPINION_NAMES.FINISH_ADD){
         return { ...state, loading:false,error:null }
     }
 

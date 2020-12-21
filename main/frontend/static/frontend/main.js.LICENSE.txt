@@ -1,67 +1,3 @@
-/*! CommonJS bailout: exports.unstable_now(...) prevents optimization as exports is passed as call context at 10:121-141 */
-
-/*! CommonJS bailout: exports.unstable_now(...) prevents optimization as exports is passed as call context at 11:504-524 */
-
-/*! CommonJS bailout: exports.unstable_now(...) prevents optimization as exports is passed as call context at 12:312-332 */
-
-/*! CommonJS bailout: exports.unstable_now(...) prevents optimization as exports is passed as call context at 13:15-35 */
-
-/*! CommonJS bailout: exports.unstable_now(...) prevents optimization as exports is passed as call context at 16:248-268 */
-
-/*! CommonJS bailout: exports.unstable_now(...) prevents optimization as exports is passed as call context at 19:56-76 */
-
-/*! CommonJS bailout: exports.unstable_shouldYield(...) prevents optimization as exports is passed as call context at 16:106-134 */
-
-/*! CommonJS bailout: module.exports is used directly at 103:0-14 */
-
-/*! CommonJS bailout: module.exports is used directly at 10:0-14 */
-
-/*! CommonJS bailout: module.exports is used directly at 12:0-14 */
-
-/*! CommonJS bailout: module.exports is used directly at 13:0-14 */
-
-/*! CommonJS bailout: module.exports is used directly at 15:0-14 */
-
-/*! CommonJS bailout: module.exports is used directly at 16:0-14 */
-
-/*! CommonJS bailout: module.exports is used directly at 18:2-16 */
-
-/*! CommonJS bailout: module.exports is used directly at 19:0-14 */
-
-/*! CommonJS bailout: module.exports is used directly at 1:0-14 */
-
-/*! CommonJS bailout: module.exports is used directly at 22:0-14 */
-
-/*! CommonJS bailout: module.exports is used directly at 23:0-14 */
-
-/*! CommonJS bailout: module.exports is used directly at 27:0-14 */
-
-/*! CommonJS bailout: module.exports is used directly at 2:2-16 */
-
-/*! CommonJS bailout: module.exports is used directly at 328:0-14 */
-
-/*! CommonJS bailout: module.exports is used directly at 3:0-14 */
-
-/*! CommonJS bailout: module.exports is used directly at 50:0-14 */
-
-/*! CommonJS bailout: module.exports is used directly at 52:0-14 */
-
-/*! CommonJS bailout: module.exports is used directly at 57:0-14 */
-
-/*! CommonJS bailout: module.exports is used directly at 5:0-14 */
-
-/*! CommonJS bailout: module.exports is used directly at 65:0-14 */
-
-/*! CommonJS bailout: module.exports is used directly at 6:0-14 */
-
-/*! CommonJS bailout: module.exports is used directly at 7:0-14 */
-
-/*! CommonJS bailout: module.exports is used directly at 95:0-14 */
-
-/*! CommonJS bailout: module.exports is used directly at 98:0-14 */
-
-/*! CommonJS bailout: module.exports is used directly at 9:0-14 */
-
 /*! default exports */
 
 /*! dynamic exports */
@@ -153,6 +89,8 @@
 /*! export MemoryRouter [provided] [no usage info] [missing usage info prevents renaming] -> ./node_modules/react-router/esm/react-router.js .MemoryRouter */
 
 /*! export NavLink [provided] [no usage info] [missing usage info prevents renaming] */
+
+/*! export OPINION_NAMES [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export ORDERS_NAMES [provided] [no usage info] [missing usage info prevents renaming] */
 
@@ -380,6 +318,8 @@
 
 /*! export failFetchDiscount [provided] [no usage info] [missing usage info prevents renaming] */
 
+/*! export failFetchOpinions [provided] [no usage info] [missing usage info prevents renaming] */
+
 /*! export failFetchProducts [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export fetchProducts [provided] [no usage info] [missing usage info prevents renaming] */
@@ -395,6 +335,8 @@
 /*! export finishAddOrder [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export finishFetchDiscount [provided] [no usage info] [missing usage info prevents renaming] */
+
+/*! export finishFetchOpinions [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export finishFetchProducts [provided] [no usage info] [missing usage info prevents renaming] */
 
@@ -431,6 +373,8 @@
 /*! export getOffsetLeft [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export getOffsetTop [provided] [no usage info] [missing usage info prevents renaming] */
+
+/*! export getOpinions [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export getTransitionProps [provided] [no usage info] [missing usage info prevents renaming] */
 
@@ -591,6 +535,8 @@
 /*! export startAddOrder [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export startFetchDiscount [provided] [no usage info] [missing usage info prevents renaming] */
+
+/*! export startFetchOpinions [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export startFetchProducts [provided] [no usage info] [missing usage info prevents renaming] */
 
@@ -914,6 +860,10 @@
 
 /*!****************************************!*\
   !*** ./src/components/CategoryList.js ***!
+  \****************************************/
+
+/*!****************************************!*\
+  !*** ./src/components/OpinionsForm.js ***!
   \****************************************/
 
 /*!*****************************************!*\

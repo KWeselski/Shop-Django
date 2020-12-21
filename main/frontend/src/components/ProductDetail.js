@@ -5,26 +5,37 @@ import Paper from '@material-ui/core/Paper'
 import {productDetailURL, ProductDetailURL} from "./constants";
 import {connect} from 'react-redux'
 import { addToCart } from './actions/cartActions'
-import { fetchProductsID } from "./actions/cartActions";
+import { fetchProductsID, getOpinions } from "./actions/cartActions";
 import { Link } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import { Typography } from '@material-ui/core';
 import RatingStar from './RatingStar';
+import axios from 'axios'
+import OpinionsForm from './OpinionsForm'
 
 class ProductDetail extends Component{
     constructor(props){
         super (props);
         this.state = {
-            data:[]     
+            data:[], 
+            opinions_:[]  
         }   
     }
     componentDidMount(){
         this.getProductDetails();
+        this.getOpinion();
+          
     }
 
     handleClick = (id) => {    
         this.props.addToCart(id);
     }
+
+   getOpinion(){
+        const { match : {params} } = this.props;
+        this.getOpinions(params.productID);      
+        }
+    
 
     getProductDetails() {
         const { match : {params} } = this.props;
@@ -41,18 +52,31 @@ class ProductDetail extends Component{
              this.setState(() => {
                  return { 
                      data,
-                     loaded:true
                  };
              });
          });       
         }  
 
+    getOpinions(productId){
+                axios.get(`http://127.0.0.1:8000/api/get_opinions/${productId}`, {
+                    headers: {Authorization: `${localStorage.getItem("token")}`}
+                }).then(res => {           
+                    return res.data          
+                }).then(data => {
+                    this.setState(()=> {
+                        return {
+                            opinions_:data
+                        }
+                    })
+                })
+                .catch(error => console.log(error));
+            }
+
     render(){
-        const {data} = this.state;   
+        const {data,opinions_} = this.state;   
         const item = data;
-        const {total,products} = this.props;
         const { match : {params} } = this.props;
-        let available = String(item.available) ? 'Dostępny' : 'Niedostępny'       
+        let available = String(item.available) ? 'Dostępny' : 'Niedostępny'    
         return(                  
                 <Grid container xs={12} style={{height:'40%'}}>
                     <Grid container xs={6}>
@@ -67,6 +91,15 @@ class ProductDetail extends Component{
                         </span> 
                         </Paper> 
                         <RatingStar productid = {params.productID}/>
+                        <Grid container spacing={2}>        
+                        {opinions_.map((value,index) => {                    
+                            return(
+                            <Grid item >
+                                <OpinionsForm temp={opinions_[index]}/>
+                            </Grid>
+                            ) 
+                        })}                    
+                    </Grid> 
                     </Grid> 
                     <Grid item xs={2}>
                         
@@ -80,8 +113,9 @@ class ProductDetail extends Component{
                     <Link to="/cart">
                         <Button variant="contained" onClick={()=>{this.handleClick(item.id)}} color='primary'>Add to Cart</Button>
                      </Link>
-                    </Grid>                        
-                </Grid>       
+                    </Grid>
+                   
+                </Grid>      
         );
     }
 
@@ -97,10 +131,10 @@ const mapDispatchToProps = (dispatch) => {
     return{
       fetchProductsID: (id) => {
             dispatch(fetchProductsID(id))
-         },  
+      },  
       addToCart: (id) => {
          dispatch(addToCart(id))
-      }
+      },
     }
 }
 

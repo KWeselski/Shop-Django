@@ -1,4 +1,4 @@
-import { ADD_TO_CART,REMOVE_ITEM,SUB_QUANTITY,ADD_QUANTITY,CLEAR_CART, PRODUCTS_NAMES, ORDERS_NAMES,CODE_NAMES, DISCOUNT_NAMES} from './action-types/cart-actions'
+import { ADD_TO_CART,REMOVE_ITEM,SUB_QUANTITY,ADD_QUANTITY,CLEAR_CART, PRODUCTS_NAMES, ORDERS_NAMES,CODE_NAMES, DISCOUNT_NAMES, OPINION_NAMES} from './action-types/cart-actions'
 import {productListURL,productDetailURL, addCodeURL, lastOrderURL} from "../constants";
 import axios from 'axios'
 
@@ -17,8 +17,6 @@ export function fetchProducts() {
     };
 }
 
-
-
 export function fetchProductsID(id) {
     return dispatch => {
       dispatch(startFetchProducts());
@@ -27,8 +25,7 @@ export function fetchProductsID(id) {
         .then(res => res.json())
         .then(json => {       
             dispatch(
-                finishFetchProducts(json));
-            
+                finishFetchProducts(json));           
             return json;
         })
         .catch(error => dispatch(failFetchProducts(error)));
@@ -65,10 +62,17 @@ export const postOpinion = (rating,opinion,productid) => {
     }
 }
 
-
-
-
-
+export const getOpinions = (productId) => {
+    return dispatch => {
+        dispatch(startFetchOpinions());
+        axios.get(`http://127.0.0.1:8000/api/get_opinions/${productId}`, {
+            headers: {Authorization: `${localStorage.getItem("token")}`}
+        }).then(res => {           
+            dispatch(finishFetchOpinions(res.data));
+            return res.data          
+        }).catch(error => dispatch(failFetchOpinions(error)));
+    }
+}
 
 export const addAddress = (street_address,apartment_address,city,postal_code,delivery_type) => {
     return dispatch => {
@@ -107,7 +111,6 @@ export const getLastOrder =  () => {
          axios.get(lastOrderURL,{
             headers: {Authorization: `${localStorage.getItem("token")}`}
         }).then(res => {
-            console.log(res.data)
             dispatch(finishFetchDiscount(res.data));
             return res.data          
         }).catch(error => dispatch(failFetchDiscount(error)));
@@ -197,4 +200,15 @@ export const failAddCode = error => ({
 
 export const clearCart = () => ({
     type : CLEAR_CART
+})
+
+export const startFetchOpinions = () => ({
+    type: OPINION_NAMES.START_ADD
+})
+export const failFetchOpinions = error => ({
+    type: OPINION_NAMES.FAIL_ADD,
+    error: error
+})
+export const finishFetchOpinions = () => ({
+    type: OPINION_NAMES.FINISH_ADD
 })

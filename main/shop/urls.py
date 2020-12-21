@@ -14,5 +14,6 @@ urlpatterns = [
     path('get_last_order/',get_last_order),
     path('add_address/',add_address),
     path('search/',get_products_by_search),
-    path('post_opinion/', post_opinion)
+    path('post_opinion/', post_opinion),
+    path('get_opinions/<int:pk>',get_opinions)
 ]

@@ -184,4 +184,14 @@ def post_opinion(request):
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+@api_view(['GET'])
+def get_opinions(request,pk): 
+    try:
+        product_ = Product.objects.get(pk=pk)
+    except Product.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
     
+    if request.method == "GET":
+        opinions = Opinion.objects.filter(product=product_)
+        serializer = OpinionSerializer(opinions, context={'request':request},many=True)
+        return Response(serializer.data)
