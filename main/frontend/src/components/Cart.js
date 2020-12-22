@@ -42,6 +42,7 @@ class Cart extends Component{
 
     render(){         
         const {total} = this.props;
+
         let addedItems = this.props.items.length ?
             (         
                 <TableContainer>
@@ -56,8 +57,10 @@ class Cart extends Component{
                      </TableHead>
                     <TableBody>
                         {this.props.items.map(item=> {
+                            if(item.on_discount==true){
+                                item.price = item.discount_price
+                            }
                             return(
-
                                 <TableRow key={item.id}>
                                     <TableCell style={{width:60, height:60}}><img src={String(item.image).split('frontend')[1]} width="60" height="60"/></TableCell>
                                     <TableCell component="th" scope="row"><b>{item.name}</b></TableCell>

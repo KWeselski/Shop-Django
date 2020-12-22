@@ -103,8 +103,11 @@ class ProductDetail extends Component{
                         <span>
                         <Typography align='center' variant="h2">{item.name}</Typography>                       
                         <Typography align='center' variant="h5">{item.category_name}</Typography>   
-                        <Typography align='justify' variant="h6">{item.description}</Typography>    
-                        <Typography align='left' variant="h5">{item.price}$ </Typography>   
+                        <Typography align='justify' variant="h6">{item.description}</Typography>
+                        {item.on_discount ? (<span>
+                            <Typography align='left' variant="h5">Price: {item.price}$ </Typography>
+                            <Typography align='left' variant="h5">Discount price: {item.discount_price}$ </Typography></span> )
+                         : <Typography align='left' variant="h5">Price: {item.price}$ </Typography>}    
                         <Typography align='left' variant="h6">{available}</Typography> 
                         <Rating value={Number(item.rating)} readOnly='true'/>   
                         </span> 

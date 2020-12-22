@@ -41,7 +41,7 @@ class ProductDiv extends Component {
         let available = String(this.props.temp.available) ? 'Dostępny' : 'Niedostępny'  
         
         const backIsActive = this.state.hover ? 'shadow' : '';
-
+        console.log(this.props.temp)
         return(
         <Card className={`ProductDiv ${backIsActive}`} onMouseEnter={this.handleHoverOn} onMouseLeave={this.handleHoveroff}> 
             <div className={`CardDescription`}>   
@@ -66,9 +66,14 @@ class ProductDiv extends Component {
                         <Typography variant="body2" color="textSecondary" component="h2">
                             {this.props.temp.category_name}
                         </Typography>
-                        <Typography gutterBottom varian='h5' component='h1'>
+                        {this.props.temp.on_discount ? (
+                            <div style={{display:'flex',alignItems:'center', justifyContent:'center'}}>
+                            <Typography style={{textDecorationLine: 'line-through'}} gutterBottom component='h1'>{this.props.temp.price}$</Typography>
+                            <Typography style={{color:'red'}} gutterBottom variant='h5' component='h6'>{this.props.temp.discount_price} $</Typography></div>)
+                             : <Typography gutterBottom variant='h6' component='h1'>
                             {this.props.temp.price} $
                         </Typography>
+                        }                      
                     </div>
                     
                 <div className={`ProductContent`}>              

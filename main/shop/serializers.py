@@ -15,7 +15,7 @@ class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields = ('id','name','category_name','image','description',
-        'price','available','rating')
+        'price','on_discount','discount_price','available','rating')
 
     def get_ratings(self,obj):
         rating = 0

@@ -64,6 +64,13 @@ def user_id_view(request):
     print(request.user)
     return Response({'userID': request.data}, status=status.HTTP_200_OK)
 
+def get_user_from_token(request):
+    token = request.headers['Authorization']
+    user_id = Token.objects.get(key=token).user_id
+    user = User.objects.get(id=user_id)
+    return user
+
+
 @api_view(['GET','POST'])
 def orders_list(request):
     if request.method == "GET":
@@ -75,14 +82,8 @@ def orders_list(request):
 def create_order(request):
     if request.method == 'POST':
         ordered_date = timezone.now()     
-        token = request.headers['Authorization']
-        print(token)
-        if(token == "null"):         
-            order = Order.objects.create(user=AnonymousUser, ordered_date=ordered_date)
-        else:
-            user_id = Token.objects.get(key=token).user_id
-            user = User.objects.get(id=user_id)
-            order = Order.objects.create(user=user, ordered_date=ordered_date)
+        user = get_user_from_token(request)
+        order = Order.objects.create(user=user, ordered_date=ordered_date)
         for idx,order_item in enumerate(request.data['order_items']):
             data = {"item": order_item["id"] , "quantity": order_item["quantity"]}      
             item_ = OrderItemSerializer(data=data)
@@ -108,11 +109,6 @@ def get_coupon(request, code):
         print(request, "This coupon does not exist")
         return None
 
-def get_user_from_token(request):
-    token = request.headers['Authorization']
-    user_id = Token.objects.get(key=token).user_id
-    user = User.objects.get(id=user_id)
-    return user
 
 @api_view(['POST'])
 def add_code(request):

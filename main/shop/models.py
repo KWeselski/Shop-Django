@@ -30,6 +30,7 @@ class Product(models.Model):
     image = models.ImageField(upload_to='./frontend/static/images/products/', blank=True)
     description = models.TextField(blank=True)
     price = models.FloatField()
+    on_discount = models.BooleanField(default=False)
     discount_price = models.FloatField(blank=True, null=True)
     available = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
