@@ -13,6 +13,16 @@ import Checkout from './Checkout'
 import Footer from './Footer'
 import Payment from './Payment'
 import * as actions from './actions/authActions';
+import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+
+
+const theme = createMuiTheme({
+  typography: {
+    fontFamily: [
+      'Crimson Text',
+    ].join(','),
+  },});
+
 
 import {
     BrowserRouter as Router,
@@ -30,6 +40,7 @@ class App extends Component{
         const {isAuthenticated} = this.props;
      
         return(
+          <ThemeProvider theme={theme}>
             <div className="App">
             <Router>
                   <div>
@@ -50,13 +61,13 @@ class App extends Component{
                             <Route exact path='/payment' component={Payment}/>
                         </Switch>
                       </Grid>
-                      <Grid item xs={2}></Grid>
-                      
+                      <Grid item xs={2}></Grid>     
                     </Grid>                  
                     </div> 
                     <Footer/>                
             </Router>        
          </div>
+         </ThemeProvider>
         );
         }
 }

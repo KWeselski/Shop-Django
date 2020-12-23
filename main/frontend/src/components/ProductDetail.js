@@ -95,48 +95,59 @@ class ProductDetail extends Component{
         const {data,opinions_,opinion_exist} = this.state; 
         const item = data;
         const { match : {params} } = this.props;
+        let numberOpinions = opinions_.length;
         let available = String(item.available) ? 'Dostępny' : 'Niedostępny' 
-        return(                  
-                <Grid container xs={12} style={{height:'40%'}}>
-                    <Grid container xs={6}>
-                        <Paper elevation={3} style={{width:'100%', height:'50%'}}>         
-                        <span>
-                        <Typography align='center' variant="h2">{item.name}</Typography>                       
-                        <Typography align='center' variant="h5">{item.category_name}</Typography>   
-                        <Typography align='justify' variant="h6">{item.description}</Typography>
-                        {item.on_discount ? (<span>
-                            <Typography align='left' variant="h5">Price: {item.price}$ </Typography>
-                            <Typography align='left' variant="h5">Discount price: {item.discount_price}$ </Typography></span> )
-                         : <Typography align='left' variant="h5">Price: {item.price}$ </Typography>}    
-                        <Typography align='left' variant="h6">{available}</Typography> 
-                        <Rating value={Number(item.rating)} readOnly='true'/>   
-                        </span> 
-                        </Paper> 
-                        <RatingStar opinion_status={opinion_exist}  productid = {params.productID}/>
-                        <Grid container spacing={2}>        
-                        {opinions_.map((value,index) => {                    
-                            return(
-                            <Grid item xs={12} >
-                                <OpinionsForm temp={opinions_[index]}/>
-                            </Grid>
-                            ) 
-                        })}                    
+        return(  
+             <Grid container xs={12} style={{height:'40%'}}>
+                    <Grid item xs={2}>             
                     </Grid> 
-                    </Grid> 
+                    <Grid container xs={8}>
+                        <Grid item xs={6}>    
+                            <div style={{maxWidth: '100%', height:'auto'}}>
+                                <img src={String(item.image).split('frontend')[1]} style={{verticalAlign:'middle', width:'100%'}}/>                           
+                            </div>
+                            <div>
+                                <RatingStar opinion_status={opinion_exist}  productid = {params.productID}/>
+                                <Grid container spacing={2}>        
+                                {opinions_.map((value,index) => {                    
+                                    return(
+                                    <Grid item xs={12} >
+                                        <OpinionsForm temp={opinions_[index]}/>
+                                    </Grid>
+                                    ) 
+                                })} 
+                                </Grid>
+                            </div>
+                        </Grid>
+                        <Grid item xs={6}>   
+                            <div style={{display:'flex', flexDirection:'column', paddingLeft:0 , marginBottom:0}}>
+                                <div className={'Product-item'}>
+                                    <Typography align='center' variant="h6">{item.name}</Typography> 
+                                </div>
+                                <div className={'Product-item'} >
+                                    <Rating value={Number(item.rating)} readOnly='true'></Rating> ({numberOpinions}) Reviews
+                                </div>
+                                <div className={'Product-item'}>
+                                    {item.on_discount ? (<span>
+                                    <Typography align='left' variant="h8">Price: {item.price}$ </Typography>
+                                    <Typography align='left' variant="h8">Discount price: {item.discount_price}$ </Typography></span> )
+                                    : <Typography align='left' variant="h8">Price: {item.price}$ </Typography>}    
+                                </div>
+                                <div className={'Product-item'}>
+                                <Typography align='justify' variant="h8">{item.description}</Typography>
+                                </div>
+                                <div id="CartButton" >
+                                <Link to="/cart">
+                                <Button variant="contained" onClick={()=>{this.handleClick(item.id)}} color='primary'>Add to Cart</Button>
+                             </Link>
+                                </div> 
+                            </div>
+                        </Grid>                             
+                    </Grid>                           
                     <Grid item xs={2}>
-                   
-                    </Grid>           
-                    <Grid item xs={3}>
-                        <Paper elevation={3} style={{width:'100%'}}>       
-                        <div id="productDetailImg">
-                            <img src={String(item.image).split('frontend')[1]} width="300" height="300"/>
-                        </div>
-                        </Paper>
-                    <Link to="/cart">
-                        <Button variant="contained" onClick={()=>{this.handleClick(item.id)}} color='primary'>Add to Cart</Button>
-                     </Link>
+                        
                     </Grid>               
-                </Grid>      
+            </Grid>      
         );
     }
 

@@ -13,11 +13,11 @@ class OpinionsForm extends Component {
     render(){
         return(
             <Grid container xs={12}>
-                <Grid item xs={3}>
-                    <Typography align='left' variant="h5">{this.props.temp.user}</Typography>
+                <Grid item xs={4}>
+                    <Typography align='left' variant="h6">{this.props.temp.user}</Typography>
                     <Typography align='left' variant="h5"><Rating value={Number(this.props.temp.rating)} readOnly='true'/></Typography>                 
                 </Grid>
-                <Grid item xs={7}>
+                <Grid item xs={8}>
                     <Typography align='justify' variant="h6">{this.props.temp.opinion}</Typography>
                 </Grid>
             </Grid>

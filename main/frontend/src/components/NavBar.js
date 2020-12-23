@@ -87,8 +87,8 @@ class NavBar extends Component {
                 </div>                
                 <AppBar id="appbar" position="static"> 
                 <Toolbar variant="dense">
-                        <Link style={{textDecoration:"none", color:'white'}} to='/payment'><Typography className={classes.iconsbar}>Payment</Typography></Link>       
-                        <Typography style={{marginLeft:'7em'}} variant='h3' className={classes.typographyStyles}>
+                          
+                        <Typography style={{marginLeft:'2em' }} variant='h3' className={classes.typographyStyles}>
                             <Link style={{textDecoration: 'none', color:'white'}} to="/"><Typography variant='h4'>Shop</Typography></Link> 
                         </Typography>
                                         <div className={classes.search}>

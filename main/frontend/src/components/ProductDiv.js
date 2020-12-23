@@ -51,7 +51,7 @@ class ProductDiv extends Component {
         const backIsActive = this.state.hover ? 'shadow' : '';
         return(
         <div>  
-        <Card className={`ProductDiv ${backIsActive}`} onMouseEnter={this.handleHoverOn} onMouseLeave={this.handleHoveroff}> 
+        <div className={`ProductDiv ${backIsActive}`} onMouseEnter={this.handleHoverOn} onMouseLeave={this.handleHoveroff}> 
             <div className={`CardDescription`}>   
                 <Typography variant="body2" color="textSecondary" component="p">
                     {this.props.temp.description}
@@ -61,7 +61,7 @@ class ProductDiv extends Component {
                 <div>
                     <CardMedia id="ProductImg" component={'img'}
                     alt="Product"
-                    height="160"
+                    height="90"
                     image={image}
                     title={this.props.temp.name}
                     />
@@ -95,7 +95,7 @@ class ProductDiv extends Component {
                 </CardContent>                                
             </div>
             
-        </Card>
+        </div>
         <CartModal onClose={() =>{this.showModal()}} temp={this.props.temp} show={this.state.showModal}></CartModal> 
         </div>
     );

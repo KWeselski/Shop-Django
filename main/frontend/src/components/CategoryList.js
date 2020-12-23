@@ -55,18 +55,18 @@ class CategoryList extends Component{
             if (this.state.loaded == true){
                 let item = data;     
             return(
-                    <List style={{position:'sticky', top:0, zIndex: 2, backgroundColor: 'white'}}>
+                    <List id='categoryList'>
                     <div style={{display:'flex'}}>               
                         <Link className={classes.linkItem} to={'/'}>
                             <ListItem  className={classes.listItem} button>
-                                    <ListItemText disableTypography primary={<Typography variant='h6'>Wszystkie</Typography>}/> 
+                                    <ListItemText disableTypography primary={<Typography variant='h9'>Wszystkie</Typography>}/> 
                             </ListItem> 
                         </Link>                                   
                         {item.map((value,index) => {                   
                             return(                                                         
                                 <Link className={classes.linkItem} to={`/category/${value.slug}`}>  
                                     <ListItem className={classes.listItem} button>
-                                        <ListItemText disableTypography primary={<Typography variant='h6'>{value.name}</Typography>}/> 
+                                        <ListItemText disableTypography primary={<Typography variant='h9'>{value.name}</Typography>}/> 
                                     </ListItem> 
                                 </Link>                                                                                                                  
                             )          
@@ -75,7 +75,7 @@ class CategoryList extends Component{
                     </List>                       
             )
             }
-            else{return(<h1>Data is not working</h1>)}
+            else{return(<h1></h1>)}
         }
 }
 export default withStyles(styles)(CategoryList);

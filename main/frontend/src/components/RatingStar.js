@@ -52,7 +52,7 @@ class RatingStar extends Component {
         const {selectedValue,opinion,productId,opinion_exist } = this.state;
         return (
         <div>
-            <Typography style={{padding:30}} variant="h4">User Rating</Typography>
+            <Typography style={{padding:10 ,marginTop:10, textAlign:'center'}} variant="h6">User Rating</Typography>
             <form onSubmit={this.handleSubmit}>
                 <Grid container spacing={2} textAlign="center"
                 verticalAlign="middle">

@@ -231,16 +231,13 @@ def test_payment(request):
 
 @api_view(['POST'])
 def save_stripe_info(request):
-    data = request.data
-    print(data)
+    data = request.data   
     email = data['email']
     payment_method_id = data['payment_method_id']
     amount = data['amount']
     extra_msg = '' # add new variable to response message  # checking if customer with provided email already exists
-    customer_data = stripe.Customer.list(email=email).data   
-    print(amount)
+    customer_data = stripe.Customer.list(email=email).data      
     amount = str(amount).replace('.','')
-    print(amount)
     # if the array is empty it means the email has not been used yet  
     if len(customer_data) == 0:
     # creating customer
