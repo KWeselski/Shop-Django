@@ -55,7 +55,7 @@ class Checkout extends Component {
     handleAddAddress = () => {
         const { street_address, apartament_address, city, postal_code, delivery_type } = this.state;
         this.props.addAddress(street_address, apartament_address, city, postal_code, delivery_type);
-        this.props.clearCart();
+        
     }
               
     render(){
@@ -183,7 +183,7 @@ class Checkout extends Component {
                         <Button style={{width:'100%' ,position:'absolute', bottom:40}} variant="contained" color='primary' onClick={()=>{}}>Reedem Code</Button>
                     </Grid>
                     <Grid item xs={12}>                    
-                    <Link to=''><Button style={{width:'100%' ,position:'absolute', bottom:0}} variant="contained" color='primary' onClick={()=>{this.handleAddAddress()}}>Pay</Button></Link>
+                    <Link to='/payment'><Button style={{width:'100%' ,position:'absolute', bottom:0}} variant="contained" color='primary' onClick={()=>{this.handleAddAddress()}}>Pay</Button></Link>
                     </Grid>
                 </Grid>                                        
                 </Paper>

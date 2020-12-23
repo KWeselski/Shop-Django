@@ -129,4 +129,6 @@ dmypy.json
 .pyre/
 
 /node_modules
+config.py
 
+.env

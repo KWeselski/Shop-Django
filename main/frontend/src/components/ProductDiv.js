@@ -24,7 +24,7 @@ class ProductDiv extends Component {
     showModal = () => {
         this.setState({
             showModal: !this.state.showModal })
-        console.log(this.state.showModal)
+        
     }
 
     handleHoverOn = () => {

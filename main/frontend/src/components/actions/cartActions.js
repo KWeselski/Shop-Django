@@ -131,6 +131,9 @@ export const getLastOrder =  () => {
     };
 } 
 
+
+
+
 function handleErrors(response) {
     if (!response.ok) {
       throw Error(response.statusText);

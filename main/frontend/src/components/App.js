@@ -11,6 +11,7 @@ import Cart from './Cart'
 import ProductListByCategory from './ProductListByCategory'
 import Checkout from './Checkout'
 import Footer from './Footer'
+import Payment from './Payment'
 import * as actions from './actions/authActions';
 
 import {
@@ -46,6 +47,7 @@ class App extends Component{
                             <Route exact path='/login' component={LoginForm}/>
                             <Route exact path='/checkout' component={Checkout}/>
                             <Route exact path='/search/:query' component={ProductListByCategory}/>
+                            <Route exact path='/payment' component={Payment}/>
                         </Switch>
                       </Grid>
                       <Grid item xs={2}></Grid>

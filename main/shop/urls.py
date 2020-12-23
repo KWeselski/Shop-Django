@@ -16,5 +16,7 @@ urlpatterns = [
     path('search/',get_products_by_search),
     path('post_opinion/<int:pk>', post_opinion),
     path('get_opinions/<int:pk>',get_opinions),
-    path('user_by_token/',get_user_by_token)
+    path('user_by_token/',get_user_by_token),
+    path('test_payment/',test_payment),
+    path('save-stripe-info/', save_stripe_info),
 ]

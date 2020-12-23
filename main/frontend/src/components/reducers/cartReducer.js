@@ -49,7 +49,6 @@ const cartReducer=(state= initState, action)=>{
         discount:0}
     }
     if(action.type == DISCOUNT_NAMES.FINISH_DISCOUNT){
-        console.log(action)     
         return {...state,
             discount: action.payload.discount,
             loading:false

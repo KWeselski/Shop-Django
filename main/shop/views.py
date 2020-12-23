@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404
+from django.conf import settings
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
@@ -13,6 +14,10 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import api_view, permission_classes
+import stripe
+
+
+stripe.api_key = settings.STRIPE_SECRET_KEY
 
 @api_view(['GET', 'POST'])
 def products_list(request):
@@ -214,3 +219,42 @@ def get_user_by_token(request):
     user_id = Token.objects.get(key=token).user_id
     user = User.objects.get(id=user_id)
     return Response(user.username)
+
+@api_view(['POST'])
+def test_payment(request):
+    print(settings.STRIPE_SECRET_KEY)
+    test_payment_intent = stripe.PaymentIntent.create(
+        amount=1000, currency='pln', 
+        payment_method_types=['card'],
+        receipt_email='test@example.com')
+    return Response(status=status.HTTP_200_OK, data=test_payment_intent)
+
+@api_view(['POST'])
+def save_stripe_info(request):
+    data = request.data
+    print(data)
+    email = data['email']
+    payment_method_id = data['payment_method_id']
+    amount = data['amount']
+    extra_msg = '' # add new variable to response message  # checking if customer with provided email already exists
+    customer_data = stripe.Customer.list(email=email).data   
+    print(amount)
+    amount = str(amount).replace('.','')
+    print(amount)
+    # if the array is empty it means the email has not been used yet  
+    if len(customer_data) == 0:
+    # creating customer
+        customer = stripe.Customer.create(email=email, payment_method=payment_method_id)
+    else:
+        customer = customer_data[0]
+        extra_msg = "Customer already existed."
+
+    stripe.PaymentIntent.create(
+        customer=customer, 
+        payment_method=payment_method_id,  
+        currency='usd', # you can provide any currency you want
+        amount=amount,confirm=True)
+    return Response(status=status.HTTP_200_OK, 
+    data={'message': 'Success', 'data': {
+      'customer_id': customer.id, 'extra_msg': extra_msg}
+   })
