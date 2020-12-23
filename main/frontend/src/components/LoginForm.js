@@ -32,8 +32,8 @@ class LoginForm extends React.Component {
         return(
             <div>
             <Typography style={{padding:30}} variant="h4">Login to your account</Typography>
-            <form onSubmit={this.handleSubmit}>
-                <Grid container spacing={2} textAlign="center" style={{ height: "20vh" }}
+            <form onSubmit={this.handleSubmit} >
+                <Grid container spacing={2} textAlign="center" style={{ height: "30vh" }}
                 verticalAlign="middle">         
                     <Grid item xs={8}>
                         <TextField

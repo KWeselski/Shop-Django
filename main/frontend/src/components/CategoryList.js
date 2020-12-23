@@ -8,12 +8,13 @@ import {withStyles} from "@material-ui/core/styles";
 const styles = theme => ({
     linkItem: {
         textDecoration: 'none',
+        flexGrow:1,
     },
     listItem: {    
         display: 'grid',
         alignItems: 'center',
-        justifyContent: 'left',
-        height:'90'
+        justifyContent: 'center',
+        height:'60',
     }
 });
 
@@ -53,30 +54,23 @@ class CategoryList extends Component{
             const {data} = this.state;
             if (this.state.loaded == true){
                 let item = data;     
-            return(                      
-                    <List >
-                        <div>
-                        <Paper elevation={3}>   
-                        <Typography align='center' color='primary' variant='h4'>Categories</Typography>
-                        
+            return(
+                    <List style={{position:'sticky', top:0, zIndex: 2, backgroundColor: 'white'}}>
+                    <div style={{display:'flex'}}>               
                         <Link className={classes.linkItem} to={'/'}>
                             <ListItem  className={classes.listItem} button>
                                     <ListItemText disableTypography primary={<Typography variant='h6'>Wszystkie</Typography>}/> 
                             </ListItem> 
-                        </Link>
-                                      
+                        </Link>                                   
                         {item.map((value,index) => {                   
-                            return(
-                                                               
+                            return(                                                         
                                 <Link className={classes.linkItem} to={`/category/${value.slug}`}>  
                                     <ListItem className={classes.listItem} button>
                                         <ListItemText disableTypography primary={<Typography variant='h6'>{value.name}</Typography>}/> 
                                     </ListItem> 
-                                </Link>
-                                                                                                                   
+                                </Link>                                                                                                                  
                             )          
                         })}
-                        </Paper>
                         </div>
                     </List>                       
             )

@@ -182,8 +182,6 @@
 
 /*! export __esModule [not provided] [no usage info] [missing usage info prevents renaming] */
 
-/*! export __esModule [provided] [no usage info] [missing usage info prevents renaming] */
-
 /*! export addAddress [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export addCode [provided] [no usage info] [missing usage info prevents renaming] */
@@ -296,9 +294,9 @@
 
 /*! export decomposeColor [provided] [no usage info] [missing usage info prevents renaming] */
 
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! export default [not provided] [no usage info] [missing usage info prevents renaming] */
 
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] -> ./node_modules/@material-ui/core/esm/SvgIcon/SvgIcon.js .default */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export defaultMergeProps [provided] [no usage info] [missing usage info prevents renaming] */
 
@@ -768,6 +766,8 @@
 
 /*! other exports [not provided] [no usage info] */
 
+/*! runtime requirements:  */
+
 /*! runtime requirements: __webpack_exports__ */
 
 /*! runtime requirements: __webpack_exports__, __webpack_require__ */
@@ -813,6 +813,10 @@
   \********************************/
 
 /*!**********************************!*\
+  !*** ./src/components/Footer.js ***!
+  \**********************************/
+
+/*!**********************************!*\
   !*** ./src/components/NavBar.js ***!
   \**********************************/
 
@@ -826,6 +830,10 @@
 
 /*!*************************************!*\
   !*** ./node_modules/react/index.js ***!
+  \*************************************/
+
+/*!*************************************!*\
+  !*** ./src/components/CartModal.js ***!
   \*************************************/
 
 /*!*************************************!*\
@@ -1061,10 +1069,6 @@
   \*******************************************************/
 
 /*!********************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/extends.js ***!
-  \********************************************************/
-
-/*!********************************************************!*\
   !*** ./node_modules/@material-ui/icons/ArrowDropUp.js ***!
   \********************************************************/
 
@@ -1253,10 +1257,6 @@
   \*************************************************************/
 
 /*!*************************************************************!*\
-  !*** ./node_modules/@material-ui/core/esm/SvgIcon/index.js ***!
-  \*************************************************************/
-
-/*!*************************************************************!*\
   !*** ./node_modules/@material-ui/core/esm/colors/common.js ***!
   \*************************************************************/
 
@@ -1362,10 +1362,6 @@
 
 /*!****************************************************************!*\
   !*** ./node_modules/@material-ui/core/esm/utils/useForkRef.js ***!
-  \****************************************************************/
-
-/*!****************************************************************!*\
-  !*** ./node_modules/@material-ui/icons/utils/createSvgIcon.js ***!
   \****************************************************************/
 
 /*!****************************************************************!*\
@@ -1602,10 +1598,6 @@
 
 /*!**********************************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/esm/toConsumableArray.js ***!
-  \**********************************************************************/
-
-/*!**********************************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/interopRequireDefault.js ***!
   \**********************************************************************/
 
 /*!**********************************************************************!*\

@@ -10,6 +10,7 @@ import LoginForm from './LoginForm';
 import Cart from './Cart'
 import ProductListByCategory from './ProductListByCategory'
 import Checkout from './Checkout'
+import Footer from './Footer'
 import * as actions from './actions/authActions';
 
 import {
@@ -29,13 +30,13 @@ class App extends Component{
      
         return(
             <div className="App">
-            <Router>   
+            <Router>
+                  <div>
                     <Navbar/>
+                    <CategoryList/>
                     <Grid container direction="row" xs={12} >
-                      <Grid item xs={1}></Grid>  
-                      <Grid item xs={2}><CategoryList/></Grid>  
-                      <Grid item xs={1}></Grid>            
-                      <Grid container xs={6}>                  
+                      <Grid item xs={2}></Grid>             
+                      <Grid container xs={8}>                  
                         <Switch>
                             <Route exact path='/' component={ProductList}/>
                             <Route exact path='/product/:productID' component={ProductDetail}/>
@@ -48,9 +49,12 @@ class App extends Component{
                         </Switch>
                       </Grid>
                       <Grid item xs={2}></Grid>
-                    </Grid> 
+                      
+                    </Grid>                  
+                    </div> 
+                    <Footer/>                
             </Router>        
-         </div>          
+         </div>
         );
         }
 }
