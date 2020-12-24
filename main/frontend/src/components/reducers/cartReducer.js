@@ -86,8 +86,6 @@ const cartReducer=(state= initState, action)=>{
     }
 
     if(action.type == ADD_TO_CART){
-        
-
         let addedItem = state.items.find(item => item.id == action.id)
         if(addedItem.on_discount == true){
             addedItem.price = addedItem.discount_price;
@@ -125,8 +123,6 @@ const cartReducer=(state= initState, action)=>{
         }
     }
     
-
-
     if(action.type=== ADD_QUANTITY){
         let addedItem = state.items.find(item=> item.id === action.id)
           addedItem.quantity += 1 

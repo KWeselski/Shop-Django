@@ -25,7 +25,7 @@ class ProductList extends Component{
             <Grid container spacing={1} style={{marginTop:10}}>        
                 {products.map((value,index) => {                    
                 return(
-                        <Grid item xs={2}>
+                        <Grid item>
                             <ProductDiv temp={products[index]}/>
                         </Grid>
                     ) 

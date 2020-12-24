@@ -4,7 +4,7 @@ import {loadStripe} from '@stripe/stripe-js';
 import {CardElement, Elements, ElementsConsumer} from '@stripe/react-stripe-js';
 import axios from 'axios'
 import {connect} from 'react-redux';
-import {Button, Grid,Paper,Typography,TextField, MenuItem } from '@material-ui/core';
+import {Button, Grid,Typography,TextField, List, ListItem, ListItemText, Divider,  } from '@material-ui/core';
 
 class PaymentForm extends Component {
       
@@ -50,7 +50,10 @@ class PaymentForm extends Component {
 
       render() {
          const {email,error} = this.state;   
-         const {stripe} = this.props;
+         const {stripe, items , total, address} = this.props;
+
+         console.log(address)
+         console.log(this.props);
          return(
             <Grid container xs={12}>
                 <Grid item xs={6}>
@@ -75,7 +78,7 @@ class PaymentForm extends Component {
                             </Grid>
                             <Grid item xs={12}>      
                                 <Typography variant='h6'>Card Number</Typography>
-                                <CardElement id="card-element" style={{width:100, height:100}} onChange={this.handleChange}/>
+                                
                                 <div className="card-errors" role="alert">{error}</div>
                             </Grid>
                             <Grid item xs={12}>
@@ -85,7 +88,36 @@ class PaymentForm extends Component {
                     </form>
                 </Grid>
                 <Grid item xs={6}>
-                    <Typography></Typography>
+                    <Grid container xs={12}>
+                    <Grid item xs={12}>
+                        <Typography variant='h4'>Order</Typography>
+                    </Grid>
+                    <Grid item xs={6}>
+                        <List>
+                            <ListItemText disableTypography primary={<Typography variant='h9'>Street address: {address.street_address} </Typography>}/>
+                            <ListItemText disableTypography primary={<Typography variant='h9'>Apartament address: {address.apartment_address} </Typography>}/>
+                            <ListItemText disableTypography primary={<Typography variant='h9'>City: {address.city}</Typography>}/>
+                            <ListItemText disableTypography primary={<Typography variant='h9'>Postal code: {address.postal_code}</Typography>}/>
+                            <ListItemText disableTypography primary={<Typography variant='h9'>Delivery type: {address.delivery_type}</Typography>}/>
+                        </List>
+                    </Grid>
+                    <Grid item xs={6}>
+                        <List>
+                        {items.map((value,index) => {                   
+                            return(                                                                            
+                                    <ListItem>
+                                        <ListItemText disableTypography primary={<Typography variant='h9'>{value.quantity} x <b>{value.name}</b></Typography>}/>                                    
+                                    </ListItem>                                                                                                                
+                            )          
+                        })}
+                        <Divider/>
+                        <ListItem>
+                            <ListItemText disableTypography primary={<Typography variant='h9'>Total cost: <b>{total}$</b></Typography>}/> 
+                        </ListItem>
+                        </List>
+                        </Grid>
+                    
+                    </Grid>
                 </Grid>
             </Grid>    
          )
@@ -95,7 +127,8 @@ const mapStateToProps = (state) => {
     return{
         items: state.cart.addedItems,
         total :state.cart.total,
-        discount: state.cart.discount
+        discount: state.cart.discount,
+        address: state.address.data
     }
 }
 
@@ -104,26 +137,9 @@ export default connect(mapStateToProps)(PaymentForm)
 
 
 /*
-<Grid item xs={6}>
-                        <h3>P 24</h3>
-                        <P24BankElement options={P24_ELEMENT_OPTIONS}/>
-                </Grid>   
+
+<CardElement id="card-element" style={{width:100, height:100}} onChange={this.handleChange}/>*/
 
 
 
 
-
-*/
-/*const P24_ELEMENT_OPTIONS = {
-    // Custom styling can be passed to options when creating an Element
-    style: {
-      base: {
-        padding: '10px 12px',
-        color: '#32325d',
-        fontSize: '16px',
-        '::placeholder': {
-          color: '#aab7c4'
-        },
-      },
-    },
-  };*/

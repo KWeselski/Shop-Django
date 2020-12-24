@@ -23,27 +23,7 @@ class ProductListByType extends Component{
                     data: res.data})          
             })
         }
-        /*getProductDetails() {         
-            const { match : {params} } = this.props;
-            const selected_type = {type: params.type}
-            fetch(productListByTypeURL(params.type), {body:JSON.stringify(selected_type)}).then(response => {
-                   if (response.status > 400) {
-                       return this.setState(() => {
-                           console.log('error')
-                           return { placeholder: "Something went wrong"};
-                       });
-                   }
-                   return response.json();
-               })
-             .then(data => {
-                 this.setState(() => {
-                     return { 
-                         data,
-                     };
-                 });
-                
-             });       
-            } */        
+             
         componentDidMount(){
             this.getProducts();
         }
@@ -58,7 +38,7 @@ class ProductListByType extends Component{
             <Grid container spacing={1} style={{marginTop:10}}>
                 {data.map((value,index) => {                    
                 return(
-                    <Grid item xs={2}> <ProductDiv temp={data[index]}/></Grid>
+                    <Grid item > <ProductDiv temp={data[index]}/></Grid>
                     )          
                 })}
             </Grid>);

@@ -30,10 +30,12 @@ class LoginForm extends React.Component {
         }
 
         return(
-            <div>
+            <Grid container xs={12} style={{height:'40%'}}>
+            <Grid item xs={4}></Grid>
+            <Grid item xs={6}>
             <Typography style={{padding:30}} variant="h4">Login to your account</Typography>
             <form onSubmit={this.handleSubmit} >
-                <Grid container spacing={2} textAlign="center" style={{ height: "30vh" }}
+                <Grid container spacing={2} textAlign="center" style={{ height: "30vh"}}
                 verticalAlign="middle">         
                     <Grid item xs={8}>
                         <TextField
@@ -74,8 +76,7 @@ class LoginForm extends React.Component {
                         Login
                         </Button>
                     </Grid>
-                 </Grid>
-                  
+                 </Grid>               
                 <Grid container justyfiy="flex-end">
                     <Grid item>
                             <NavLink to="/signup" variant="body2">
@@ -83,8 +84,10 @@ class LoginForm extends React.Component {
                             </NavLink>
                     </Grid>
                 </Grid>               
-                </form>                 
-            </div>
+                </form>
+                </Grid> 
+                <Grid item xs={2}></Grid>                
+            </Grid>
         )
     }
 }

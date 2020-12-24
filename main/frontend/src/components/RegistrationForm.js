@@ -30,7 +30,9 @@ class Registration extends React.Component{
             return <Redirect to="/" />;
         }
         return(
-        <div>
+            <Grid container xs={12} style={{height:'40%'}}>
+            <Grid item xs={4}></Grid>
+            <Grid item xs={6}>
             <Typography style={{padding:30}} variant="h4">Register your account</Typography>
             <form onSubmit={this.handleSubmit}>
                 <Grid container spacing={2} textAlign="center"
@@ -113,7 +115,9 @@ class Registration extends React.Component{
                     </Grid>
                 </Grid>
             </form>
-        </div>
+            </Grid>
+            <Grid item xs={2}></Grid>
+        </Grid>
         )
     }
 }

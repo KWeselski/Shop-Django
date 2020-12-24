@@ -57,6 +57,7 @@ body {
 
 .ProductDiv{
     height: 250px;
+    width: 200px;
     transition: transform 1s;
     transform-style: preserve-3d;
     cursor: pointer;
@@ -147,12 +148,11 @@ body {
     left:50%;
     transform: translate(-50%,-50%);
 }
+
 .ModalDiv h4 {
     color:black;
     opacity: 1;
 }
-
-
 
 .Product-item{
     position:relative;

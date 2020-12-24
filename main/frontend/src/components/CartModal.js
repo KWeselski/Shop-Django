@@ -36,7 +36,7 @@ class CartModal extends Component {
                 </Grid>
                     <Grid item xs={4} style={{marginTop:'4em'}} >
                     <Typography variant='h6' style={{padding:'0.5em'}}>Items in cart:{total_items}</Typography>
-                    <Typography variant='h6' style={{padding:'0.5em'}}>Total cost in cart:{this.props.total}</Typography>           
+                    <Typography variant='h6' style={{padding:'0.5em'}}>Total cost in cart: {this.props.total}$</Typography>           
                     </Grid>
             <Grid item xs={12}>
                 <Grid container xs={12} style={{position:'absolute',bottom:10}}>

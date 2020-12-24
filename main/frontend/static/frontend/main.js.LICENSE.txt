@@ -2,6 +2,8 @@
 
 /*! dynamic exports */
 
+/*! export ADD_ADDRESS [provided] [no usage info] [missing usage info prevents renaming] */
+
 /*! export ADD_QUANTITY [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export ADD_SHIPPING [provided] [no usage info] [missing usage info prevents renaming] */
@@ -15,6 +17,8 @@
 /*! export AUTH_START [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export AUTH_SUCCESS [provided] [no usage info] [missing usage info prevents renaming] */
+
+/*! export AddAddress [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export AsyncMode [provided] [no usage info] [missing usage info prevents renaming] */
 
@@ -61,6 +65,14 @@
 /*! export Element [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export Element [provided] [no usage info] [provision prevents renaming (no use info)] -> ./node_modules/react-is/cjs/react-is.production.min.js .Element */
+
+/*! export FAIL_ADDRESS [provided] [no usage info] [missing usage info prevents renaming] */
+
+/*! export FINISH_ADDRESS [provided] [no usage info] [missing usage info prevents renaming] */
+
+/*! export FailAddress [provided] [no usage info] [missing usage info prevents renaming] */
+
+/*! export FinishAddress [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export ForwardRef [provided] [no usage info] [missing usage info prevents renaming] */
 
@@ -1028,6 +1040,10 @@
   !*** ./src/components/ProductListByCategory.js ***!
   \*************************************************/
 
+/*!*************************************************!*\
+  !*** ./src/components/actions/addressAction.js ***!
+  \*************************************************/
+
 /*!**************************************************!*\
   !*** ../../node_modules/redux-thunk/es/index.js ***!
   \**************************************************/
@@ -1054,6 +1070,10 @@
 
 /*!***************************************************!*\
   !*** ./node_modules/is-in-browser/dist/module.js ***!
+  \***************************************************/
+
+/*!***************************************************!*\
+  !*** ./src/components/reducers/addressReducer.js ***!
   \***************************************************/
 
 /*!****************************************************!*\
@@ -1377,6 +1397,10 @@
   \**************************************************************/
 
 /*!***************************************************************!*\
+  !*** ./node_modules/@material-ui/core/esm/Divider/Divider.js ***!
+  \***************************************************************/
+
+/*!***************************************************************!*\
   !*** ./node_modules/@material-ui/core/esm/InputBase/utils.js ***!
   \***************************************************************/
 
@@ -1458,6 +1482,10 @@
 
 /*!****************************************************************!*\
   !*** ./node_modules/tiny-invariant/dist/tiny-invariant.esm.js ***!
+  \****************************************************************/
+
+/*!****************************************************************!*\
+  !*** ./src/components/actions/action-types/address-actions.js ***!
   \****************************************************************/
 
 /*!*****************************************************************!*\

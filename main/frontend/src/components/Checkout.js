@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import {Button, Grid,Paper,Typography,TextField, MenuItem } from '@material-ui/core';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom'
-import {addCode,getLastOrder, addAddress, clearCart} from './actions/cartActions'
+import {addCode,getLastOrder, clearCart} from './actions/cartActions'
+import {addAddress} from './actions/addressAction'
 
 class Checkout extends Component {
     state = {
@@ -183,7 +184,7 @@ class Checkout extends Component {
                         <Button style={{width:'100%' ,position:'absolute', bottom:40}}  type="submit" variant="contained" color='primary' onClick={()=>{this.handleSubmitCode()}}>Reedem Code</Button>
                     </Grid>
                     <Grid item xs={12}>                    
-                    <Link to='/payment'><Button style={{width:'100%' ,position:'absolute', bottom:0}} variant="contained" color='primary' onClick={()=>{this.handleAddAddress()}}>Pay</Button></Link>
+                    <Link temp = {this.state} to='/payment'><Button style={{width:'100%' ,position:'absolute', bottom:0}} variant="contained" color='primary' onClick={()=>{this.handleAddAddress()}}>Pay</Button></Link>
                     </Grid>
                 </Grid>                                        
             </Grid>
