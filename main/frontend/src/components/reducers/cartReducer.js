@@ -89,7 +89,9 @@ const cartReducer=(state= initState, action)=>{
         
 
         let addedItem = state.items.find(item => item.id == action.id)
-        
+        if(addedItem.on_discount == true){
+            addedItem.price = addedItem.discount_price;
+        }
         let existingItem = state.addedItems.find(item => action.id == item.id)
         if(existingItem){
             addedItem.quantity += 1

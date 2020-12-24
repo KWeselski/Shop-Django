@@ -156,12 +156,12 @@ class Checkout extends Component {
             </Grid>
             <Grid item xs={2}></Grid>
             <Grid item xs={3}>   
-                <Paper style={{height:350}}>
-                <Grid containter style={{height:'100%', position:'relative'}}xs={12}>
-                    <Grid item xs={12} style={{width:'100%', position:'absolute', marginTop: '15%'}}>
+                <Grid containter style={{height:'80%', position:'relative'}}xs={12}>
+                    <Grid item xs={12} style={{width:'100%', position:'absolute', marginTop: '6rem'}}>
                     <Typography variant='h5'>Total to pay: {total}<b>$</b></Typography>
                     <Typography variant='h5'>Discount: {discount.discount}<b>%</b></Typography>
-                    <Typography variant='h5'>Delivery cost: {delivery_cost}<b>$</b></Typography>
+                    <Typography style={{border: '1px solid rgba(0,0,0,0.5)',
+                        borderWidth: '0 0 1px'}} variant='h5'>Delivery cost: {delivery_cost}<b>$</b></Typography>
                     <Typography variant='h5'>Total: {(discount.total_after_discount).toFixed(2)}<b>$</b></Typography>
                     </Grid>
                     <Grid item xs={12}>
@@ -180,13 +180,12 @@ class Checkout extends Component {
                             onChange={this.handleChange}
                             />
                     </form>               
-                        <Button style={{width:'100%' ,position:'absolute', bottom:40}} variant="contained" color='primary' onClick={()=>{}}>Reedem Code</Button>
+                        <Button style={{width:'100%' ,position:'absolute', bottom:40}}  type="submit" variant="contained" color='primary' onClick={()=>{this.handleSubmitCode()}}>Reedem Code</Button>
                     </Grid>
                     <Grid item xs={12}>                    
                     <Link to='/payment'><Button style={{width:'100%' ,position:'absolute', bottom:0}} variant="contained" color='primary' onClick={()=>{this.handleAddAddress()}}>Pay</Button></Link>
                     </Grid>
                 </Grid>                                        
-                </Paper>
             </Grid>
         </Grid>
         )

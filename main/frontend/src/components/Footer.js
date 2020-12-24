@@ -7,11 +7,13 @@ import {Typography, Grid} from '@material-ui/core';
 export default class Footer extends Component{
     render(){
         return(
-            <Grid style={{position:'absolute', bottom:0,height:100, backgroundColor:'#3f50b5', color:'white',display:'block'}}container xs={12}>
-                <Grid item xs={12}>Help</Grid> 
-                <Grid item xs={12}>Contact</Grid>
-                <Grid item xs={12}>About</Grid>
-                <Grid item xs={12}>FAQ</Grid>
+            <Grid style={{position:'absolute', bottom:0,height:75, backgroundColor:'#3f50b5', color:'white'}}container xs={12}>
+                <div style={{display:'flex',margin:'auto', letterSpacing:'0.1rem'}}>
+                <Grid item xs={12}><Typography className={'footerItem'} variant='h6'>Help</Typography></Grid> 
+                <Grid item xs={12}><Typography className={'footerItem'} variant='h6'>Contact</Typography></Grid>
+                <Grid item xs={12}><Typography className={'footerItem'} variant='h6'>About</Typography></Grid>
+                <Grid item xs={12}><Typography className={'footerItem'} variant='h6'>FAQ</Typography></Grid>
+                </div>
             </Grid>)
     }
 }

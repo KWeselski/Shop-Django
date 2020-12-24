@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {AppBar, Toolbar, Typography, Button, Badge, IconButton} from '@material-ui/core/';
+import {AppBar, Toolbar, Typography, TextField, Button, Badge, IconButton} from '@material-ui/core/';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
@@ -67,17 +67,37 @@ const styles = theme => ({
         height: 36,
       },
 
+    searchContainer: {
+        display:'flex',
+        backgroundColor: fade(theme.palette.common.white, 0.15),
+        paddingLeft: "20px",
+        paddingRight: "20px",
+        marignTop: "5px",
+        marginBottom: "5px"
+    }
+
 });
 
 class NavBar extends Component {
 
+    state= {
+        search: ""
+    }
+
 
     handleSearch(){
-
+        const {search} = this.state;
+        console.log(search);
+        <Link to='search/'></Link>
     }
+
+    handleChange = e => {
+        this.setState({ [e.target.name]: e.target.value });
+    };
 
     render(){
         const {classes, authenticated,items,username} = this.props;
+        const {search} = this.state;
         return(      
             <div id="navbar">
                 <div style={{ width:'100%', height:150, backgroundImage: "url(" + "\static/images/food.jpg" + ")",
@@ -91,19 +111,27 @@ class NavBar extends Component {
                         <Typography style={{marginLeft:'2em' }} variant='h3' className={classes.typographyStyles}>
                             <Link style={{textDecoration: 'none', color:'white'}} to="/"><Typography variant='h4'>Shop</Typography></Link> 
                         </Typography>
-                                        <div className={classes.search}>
+                        <div className={classes.search}>
                             <div className={classes.searchIcon}>
                             <SearchIcon />
                             </div>
-                             <InputBase
-                            placeholder="Search…"
-                            classes={{
-                                root: classes.inputRoot,
-                                input: classes.inputInput,
-                            }}
-                          
-                            inputProps={{ 'aria-label': 'search' }}
-                            />
+                        <form onSubmit={this.handleSearch()}>
+                                <TextField classes={{
+                                    root: classes.inputRoot,
+                                    input: classes.inputInput}}
+                                autoComplete='search'
+                                name="search"
+                                variant="outlined"
+                                required
+                                fullWidth
+                                id="search"
+                                label="Search"
+                                autoFocus
+                                value={search}
+                                inputProps={{ maxLength: 50 }}
+                                onChange={this.handleChange}
+                                />
+                        </form>
                         </div>
                         <div className={classes.typographyStyles} />
                         <IconButton className={classes.cartButton} size='medium' color='inherit'>

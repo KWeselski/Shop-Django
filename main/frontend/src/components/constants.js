@@ -10,7 +10,7 @@ export const productListURL = `${endpoint}/products/`;
 export const productDetailURL = id => `${endpoint}/products/${id}`;
 export const categoryListURL =`${endpoint}/category/`;
 export const productListByCategoryURL = id =>`${endpoint}/category/${id}`;
-
+export const productListByTypeURL = id =>`${endpoint}/type/${id}`;
 
 export const loginUrl = `${authEndpoint}/login/`;
 export const signUpUrl = `${authEndpoint}/registration/`;

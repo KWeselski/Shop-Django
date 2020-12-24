@@ -181,3 +181,7 @@ body {
     border: 1px solid rgba(0,0,0,0.125);
     border-width: 0 0 1px;
 }
+
+.footerItem {
+    padding:20px;
+}

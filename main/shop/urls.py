@@ -13,10 +13,10 @@ urlpatterns = [
     path('add_code/',add_code),
     path('get_last_order/',get_last_order),
     path('add_address/',add_address),
-    path('search/',get_products_by_search),
     path('post_opinion/<int:pk>', post_opinion),
     path('get_opinions/<int:pk>',get_opinions),
     path('user_by_token/',get_user_by_token),
     path('test_payment/',test_payment),
     path('save-stripe-info/', save_stripe_info),
+    path('type/<str:type>', products_by_type)
 ]

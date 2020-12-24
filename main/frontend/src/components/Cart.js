@@ -92,19 +92,15 @@ class Cart extends Component{
                          </div>
                     </Grid>  
                     <Grid item xs={2}>
-                    <Paper style={{height:350}}>
                         <Grid containter style={{height:'100%', position:'relative'}}xs={12}>
-                            <Grid item xs={12} style={{width:'100%', position:'absolute', marginTop: '15%'}}>
+                            <Grid item xs={12} style={{width:'100%',marginTop: '15%'}}>
                             <Typography variant='h5'>Total to pay: {this.props.total}<b>$</b></Typography>
                             </Grid>
-                            <Grid item xs={12}>
-
-                            </Grid>
+                            
                             <Grid item xs={12}>                    
-                            <Link to='/checkout'><Button style={{width:'100%' ,position:'absolute', bottom:0}} variant="contained" color='primary' onClick={()=>{this.handleMakeOrder(this.props.items)}}>Make Order</Button></Link>
+                            <Link to='/checkout'><Button style={{width:'100%'}} variant="contained" color='primary' onClick={()=>{this.handleMakeOrder(this.props.items)}}>Make Order</Button></Link>
                             </Grid>
                         </Grid>                                        
-                    </Paper>
                     </Grid> 
                 </Grid>             
             )

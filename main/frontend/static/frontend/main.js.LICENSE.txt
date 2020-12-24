@@ -524,6 +524,8 @@
 
 /*! export productListByCategoryURL [provided] [no usage info] [missing usage info prevents renaming] */
 
+/*! export productListByTypeURL [provided] [no usage info] [missing usage info prevents renaming] */
+
 /*! export productListURL [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export pureFinalPropsSelectorFactory [provided] [no usage info] [missing usage info prevents renaming] */
@@ -968,6 +970,10 @@
 
 /*!*********************************************!*\
   !*** ./node_modules/object-assign/index.js ***!
+  \*********************************************/
+
+/*!*********************************************!*\
+  !*** ./src/components/ProductListByType.js ***!
   \*********************************************/
 
 /*!**********************************************!*\

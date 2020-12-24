@@ -52,6 +52,8 @@ class CategoryList extends Component{
         render(){
             const {classes} = this.props;
             const {data} = this.state;
+            let newType = 'new';
+            let discountType = 'discount';
             if (this.state.loaded == true){
                 let item = data;     
             return(
@@ -61,7 +63,17 @@ class CategoryList extends Component{
                             <ListItem  className={classes.listItem} button>
                                     <ListItemText disableTypography primary={<Typography variant='h9'>Wszystkie</Typography>}/> 
                             </ListItem> 
-                        </Link>                                   
+                        </Link>  
+                        <Link className={classes.linkItem} to={`/type/${discountType}`}>
+                            <ListItem  className={classes.listItem} button>
+                                    <ListItemText disableTypography primary={<Typography style={{color:'red'}} variant='h9'>Promocje</Typography>}/> 
+                            </ListItem> 
+                        </Link> 
+                        <Link className={classes.linkItem} to={`/type/${newType}`}>
+                            <ListItem  className={classes.listItem} button>
+                                    <ListItemText disableTypography primary={<Typography style={{color:'red'}} variant='h9'>Nowości</Typography>}/> 
+                            </ListItem> 
+                        </Link>                                 
                         {item.map((value,index) => {                   
                             return(                                                         
                                 <Link className={classes.linkItem} to={`/category/${value.slug}`}>  

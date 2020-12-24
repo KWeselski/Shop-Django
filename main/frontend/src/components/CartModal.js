@@ -27,7 +27,10 @@ class CartModal extends Component {
                         </Grid>
                         <Grid item xs={5} style={{ marginTop: '3em' }}>
                         <Typography variant='h6' style={{ borderRight: '0.1em solid black', padding: '0.5em' }}>{this.props.temp.name}</Typography>
-                        <Typography variant='h6' style={{ borderRight: '0.1em solid black', padding: '0.5em' }}>Price: {this.props.temp.price} $</Typography>
+                        {this.props.temp.on_discount ? (
+                            <Typography style={{ borderRight: '0.1em solid black', padding: '0.5em' }} variant="h6">Discount price: {this.props.temp.discount_price}$ </Typography>)
+                            : <Typography style={{ borderRight: '0.1em solid black', padding: '0.5em' }} variant="h6">Price: {this.props.temp.price}$ </Typography>}    
+        
                         </Grid>
                     </Grid>
                 </Grid>

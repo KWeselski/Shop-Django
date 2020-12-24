@@ -8,5 +8,6 @@ urlpatterns = [
     path('cart',index),
     path('signup',index),
     path('login',index),
-    path('checkout',index)
+    path('checkout',index),
+    path('type/<str:type>',index),
 ]

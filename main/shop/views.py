@@ -6,6 +6,7 @@ from rest_framework import status
 from .models import Product, Category, OrderItem, Order, Profile,Coupon,Address, Opinion
 from .serializers import *
 from django.utils import timezone
+from datetime import datetime, timedelta
 from rest_framework.authtoken.models import Token
 from django.utils.html import escape
 from django.contrib.auth.models import User, AnonymousUser
@@ -62,6 +63,21 @@ def category_product_list(request,slug):
         products = Product.objects.filter(category=category_)
         serializer = ProductSerializer(products, context={'request':request},many=True)
         return Response(serializer.data)
+
+@api_view(['GET'])
+def products_by_type(request,type):
+    print(type)
+    if request.method == 'GET':
+        if(type == 'discount'):
+            products = Product.objects.filter(on_discount=True)
+        if(type == 'new'):
+            last_month = datetime.today() - timedelta(days=14)
+            products = Product.objects.filter(created__gte=last_month)
+
+        serializer = ProductSerializer(products, context={'request':request},many=True)
+        return Response(serializer.data)
+
+
 
 
 @api_view(["POST"])
