@@ -25,7 +25,7 @@ class Registration extends React.Component{
     render(){
         const {username, email, password1, password2} = this.state;
         const {error, loading, token} = this.props;
-        console.log(token)
+        
         if(token){
             return <Redirect to="/" />;
         }

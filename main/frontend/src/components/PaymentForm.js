@@ -78,7 +78,7 @@ class PaymentForm extends Component {
                             </Grid>
                             <Grid item xs={12}>      
                                 <Typography variant='h6'>Card Number</Typography>
-                                
+                                <CardElement></CardElement>
                                 <div className="card-errors" role="alert">{error}</div>
                             </Grid>
                             <Grid item xs={12}>
@@ -133,12 +133,6 @@ const mapStateToProps = (state) => {
 }
 
 export default connect(mapStateToProps)(PaymentForm)
-
-
-
-/*
-
-<CardElement id="card-element" style={{width:100, height:100}} onChange={this.handleChange}/>*/
 
 
 

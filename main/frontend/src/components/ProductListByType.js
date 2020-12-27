@@ -38,7 +38,7 @@ class ProductListByType extends Component{
             <Grid container spacing={1} style={{marginTop:10}}>
                 {data.map((value,index) => {                    
                 return(
-                    <Grid item > <ProductDiv temp={data[index]}/></Grid>
+                    <Grid item> <ProductDiv temp={data[index]}/></Grid>
                     )          
                 })}
             </Grid>);

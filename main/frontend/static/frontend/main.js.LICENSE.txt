@@ -536,6 +536,8 @@
 
 /*! export productListByCategoryURL [provided] [no usage info] [missing usage info prevents renaming] */
 
+/*! export productListBySearchURL [provided] [no usage info] [missing usage info prevents renaming] */
+
 /*! export productListByTypeURL [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export productListURL [provided] [no usage info] [missing usage info prevents renaming] */
@@ -1002,6 +1004,10 @@
 
 /*!***********************************************!*\
   !*** ./node_modules/axios/lib/core/settle.js ***!
+  \***********************************************/
+
+/*!***********************************************!*\
+  !*** ./src/components/ProductListBySearch.js ***!
   \***********************************************/
 
 /*!***********************************************!*\

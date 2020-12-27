@@ -18,5 +18,6 @@ urlpatterns = [
     path('user_by_token/',get_user_by_token),
     path('test_payment/',test_payment),
     path('save-stripe-info/', save_stripe_info),
-    path('type/<str:type>', products_by_type)
+    path('type/<str:type>', products_by_type),
+    path('search/<str:query>',products_search)
 ]

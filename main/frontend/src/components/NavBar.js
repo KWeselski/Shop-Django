@@ -3,7 +3,7 @@ import {AppBar, Toolbar, Typography, TextField, Button, Badge, IconButton} from 
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
-import { Link, withRouter } from "react-router-dom";
+import { NavLink, Link, withRouter } from "react-router-dom";
 import {connect} from "react-redux";
 import {compose} from 'redux'
 import { logout } from './actions/authActions';
@@ -15,6 +15,7 @@ const styles = theme => ({
         flex: 1
     },
     search: {
+        display:'flex',
         position: 'relative',
         borderRadius: theme.shape.borderRadius,
         backgroundColor: fade(theme.palette.common.white, 0.15),
@@ -81,23 +82,16 @@ const styles = theme => ({
 class NavBar extends Component {
 
     state= {
-        search: ""
+        query: ""
     }
-
-
-    handleSearch(){
-        const {search} = this.state;
-        console.log(search);
-        <Link to='search/'></Link>
-    }
-
+    
     handleChange = e => {
         this.setState({ [e.target.name]: e.target.value });
     };
 
     render(){
         const {classes, authenticated,items,username} = this.props;
-        const {search} = this.state;
+        const {query} = this.state;
         return(      
             <div id="navbar">
                 <div style={{ width:'100%', height:150, backgroundImage: "url(" + "\static/images/food.jpg" + ")",
@@ -114,23 +108,23 @@ class NavBar extends Component {
                         <div className={classes.search}>
                             <div className={classes.searchIcon}>
                             <SearchIcon />
+                            
                             </div>
-                        <form onSubmit={this.handleSearch()}>
-                                <TextField classes={{
-                                    root: classes.inputRoot,
-                                    input: classes.inputInput}}
-                                autoComplete='search'
-                                name="search"
-                                variant="outlined"
-                                required
-                                fullWidth
-                                id="search"
-                                label="Search"
-                                autoFocus
-                                value={search}
-                                inputProps={{ maxLength: 50 }}
-                                onChange={this.handleChange}
-                                />
+                        <form  style = {{display:'flex'}} onSubmit={e => { e.preventDefault(); }}>
+                            <TextField classes={{
+                                root: classes.inputRoot,
+                                input: classes.inputInput}}    
+                            name="query"
+                            variant="outlined"
+                            required
+                            fullWidth       
+                            label="Search"
+                            autoFocus
+                            value={query}
+                            inputProps={{ maxLength: 50 }}
+                            onChange={this.handleChange}
+                            />
+                            <Link to={`/search/${query}`}><Button type="submit" varaint="contained">Search</Button></Link>
                         </form>
                         </div>
                         <div className={classes.typographyStyles} />

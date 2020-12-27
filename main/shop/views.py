@@ -13,7 +13,6 @@ from django.contrib.auth.models import User, AnonymousUser
 from .forms import CouponForm
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q
-from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import api_view, permission_classes
 import stripe
 
@@ -66,19 +65,23 @@ def category_product_list(request,slug):
 
 @api_view(['GET'])
 def products_by_type(request,type):
-    print(type)
     if request.method == 'GET':
         if(type == 'discount'):
             products = Product.objects.filter(on_discount=True)
         if(type == 'new'):
             last_month = datetime.today() - timedelta(days=14)
             products = Product.objects.filter(created__gte=last_month)
-
         serializer = ProductSerializer(products, context={'request':request},many=True)
         return Response(serializer.data)
 
-
-
+@api_view(['GET'])
+def products_search(request,query):   
+    print('HELLLO')
+    if request.method == "GET":
+        products = Product.objects.filter(name__contains=query)
+    serializer = ProductSerializer(products, context={'request': request}, many=True)
+    print(products)
+    return Response(serializer.data)
 
 @api_view(["POST"])
 def user_id_view(request):

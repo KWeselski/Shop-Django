@@ -41,8 +41,7 @@ class Cart extends Component{
       };
 
     render(){         
-        const {total} = this.props;
-
+        const {total, isAuthenticated} = this.props;
         let addedItems = this.props.items.length ?
             (         
                 <TableContainer>
@@ -98,7 +97,14 @@ class Cart extends Component{
                             </Grid>
                             
                             <Grid item xs={12}>                    
-                            <Link to='/checkout'><Button style={{width:'100%'}} variant="contained" color='primary' onClick={()=>{this.handleMakeOrder(this.props.items)}}>Make Order</Button></Link>
+                            {isAuthenticated  ? <Link to='/checkout'><Button style={{width:'100%'}} variant="contained" color='primary' onClick={()=>{this.handleMakeOrder(this.props.items)}}>Make Order</Button></Link>:
+                            <div style={{textAlign:'center'}}>
+                            <Button style={{width:'100%'}} disabled variant="contained" color='primary' onClick={()=>{this.handleMakeOrder(this.props.items)}}>Make Order</Button>
+                                <Link to="/login" variant="h6">
+                                Please login
+                                </Link>
+                            </div>
+                            }
                             </Grid>
                         </Grid>                                        
                     </Grid> 
@@ -111,6 +117,7 @@ const mapStateToProps = (state) => {
     return{
         items: state.cart.addedItems,
         total :state.cart.total,
+        isAuthenticated: state.auth.token !== null
     }
 }
 

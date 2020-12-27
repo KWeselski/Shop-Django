@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Button, Grid,Paper,Typography,TextField, MenuItem } from '@material-ui/core';
 import {connect} from 'react-redux';
-import {Link} from 'react-router-dom'
+import {Link, Redirect } from 'react-router-dom'
 import {addCode,getLastOrder, clearCart} from './actions/cartActions'
 import {addAddress} from './actions/addressAction'
 
@@ -14,7 +14,8 @@ class Checkout extends Component {
         delivery_type: "",
         code: "",
         delivery_cost: 0,
-        total_cost:0,  
+        total_cost:0, 
+        completed : false
     };
 
     handleChange = e => {
@@ -23,6 +24,7 @@ class Checkout extends Component {
    
     handleSubmit = e => {
         e.preventDefault();
+
     };
 
     checkTotalCost= (total, discount, delivery_cost, total_cost) =>{
@@ -53,27 +55,30 @@ class Checkout extends Component {
              
       };
 
-    handleAddAddress = () => {
+    handleAddAddress = e => {
+        e.preventDefault()
         const { street_address, apartament_address, city, postal_code, delivery_type } = this.state;
         this.props.addAddress(street_address, apartament_address, city, postal_code, delivery_type);
-        
+        this.setState({ completed: true });
     }
               
     render(){
-        const {street_address, apartament_address, city, postal_code, delivery_type, code, delivery_cost, total_cost, total_after_discount} = this.state;
-        const {total, discount} = this.props
+        const {street_address, apartament_address, city, postal_code, delivery_type, code, delivery_cost, total_cost, total_after_discount,completed} = this.state;
+        const {total, discount, isAuthenticated} = this.props
         const deliveryTypes = [
             {value: 'P', label: 'Pickup in store (Free)'},
             {value: 'D', label: 'Delivery (+6$)'}
         ]
-        
+        if(completed){
+            return <Redirect to="/payment" />;
+        }
         return(
             <Grid container xs={12}>
             <Grid item xs={1}></Grid>
             <Grid item xs={6}>
                 <Typography  style={{padding:30}} variant="h4" align='center'>Add your address</Typography>
                 
-                <form onSubmit={this.handleSubmit}>         
+                <form onSubmit={this.handleAddAddress}>         
                     <Grid container spacing={1} textAlign="center"
                     style={{ height: "50vh" }}
                     verticalAlign="middle">
@@ -151,7 +156,11 @@ class Checkout extends Component {
                                         </MenuItem>
                                     ))}
                                 </TextField>
-                    </Grid>
+                        </Grid>
+                        <Grid item xs={12}>
+                        <Button type="submit" fullWidth variant="contained" color="primary" disabled={!isAuthenticated}>Pay</Button>  
+                                
+                        </Grid>
                     </Grid>
                 </form>
             </Grid>
@@ -183,8 +192,9 @@ class Checkout extends Component {
                     </form>               
                         <Button style={{width:'100%' ,position:'absolute', bottom:40}}  type="submit" variant="contained" color='primary' onClick={()=>{this.handleSubmitCode()}}>Reedem Code</Button>
                     </Grid>
-                    <Grid item xs={12}>                    
-                    <Link temp = {this.state} to='/payment'><Button style={{width:'100%' ,position:'absolute', bottom:0}} variant="contained" color='primary' onClick={()=>{this.handleAddAddress()}}>Pay</Button></Link>
+                    <Grid item xs={12}> 
+                              
+
                     </Grid>
                 </Grid>                                        
             </Grid>
@@ -196,7 +206,8 @@ const mapStateToProps = (state) => {
     return{
         items: state.cart.addedItems,
         total :state.cart.total,
-        discount: state.cart.discount
+        discount: state.cart.discount,
+        isAuthenticated: state.auth.token !== null
     }
 }
 const mapDispatchToProps = (dispatch) =>{

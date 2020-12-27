@@ -10,4 +10,5 @@ urlpatterns = [
     path('login',index),
     path('checkout',index),
     path('type/<str:type>',index),
+    path('search/<str:query>',index)
 ]
