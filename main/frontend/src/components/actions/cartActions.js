@@ -47,6 +47,19 @@ export const orderAdd = (order_items) =>{
     };
 };
 
+export const orderPayed = () =>{  
+    return dispatch => {
+        dispatch(startAddOrder());
+        axios.put("http://127.0.0.1:8000/api/create_order/",
+        {},
+            {headers: {
+                Authorization: `${localStorage.getItem("token")}`}
+        }).then(()=>{     
+            dispatch(finishAddOrder())
+        }).catch(error => dispatch(failAddOrder(error)));
+    };
+};
+
 
 export const postOpinion = (rating,opinion,productid) => {
     return dispatch => {

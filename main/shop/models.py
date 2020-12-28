@@ -5,8 +5,8 @@ from decimal import Decimal
 # Create your models here.
 
 DELIVERY_CHOICES = (
-    ('D','Delivery'),
-    ('P','Pickup in store'),
+    ('S','Store'),
+    ('O','Online'),
 )
 
 class Profile(models.Model):
@@ -69,7 +69,6 @@ class Coupon(models.Model):
                                 MaxValueValidator(100)])
     active = models.BooleanField()
 
-
     def __str__(self):
         return self.code
 
@@ -79,6 +78,7 @@ class Order(models.Model):
     start_date = models.DateTimeField(auto_now_add=True)
     ordered_date = models.DateTimeField()
     ordered = models.BooleanField(default=False)
+    paid = models.BooleanField(default=False)
     delivery_address = models.ForeignKey('Address', verbose_name=("delivery_adresses"), on_delete=models.SET_NULL, blank=True, null=True)
     coupon = models.ForeignKey(Coupon, related_name='orders',on_delete=models.SET_NULL, null=True,blank=True)
     discount = models.IntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(100)])

@@ -42,6 +42,7 @@ class Cart extends Component{
 
     render(){         
         const {total, isAuthenticated} = this.props;
+        console.log(this.props.items.length)
         let addedItems = this.props.items.length ?
             (         
                 <TableContainer>
@@ -56,16 +57,17 @@ class Cart extends Component{
                      </TableHead>
                     <TableBody>
                         {this.props.items.map(item=> {
+                            let price = item.price;
                             if(item.on_discount==true){
-                                item.price = item.discount_price
+                                price = item.discount_price;
                             }
                             return(
                                 <TableRow key={item.id}>
                                     <TableCell style={{width:60, height:60}}><img src={String(item.image).split('frontend')[1]} width="60" height="60"/></TableCell>
                                     <TableCell component="th" scope="row"><b>{item.name}</b></TableCell>
-                                    <TableCell style={{ width: 160 }} align="right">{item.price}$</TableCell>
+                                    <TableCell style={{ width: 160 }} align="right">{price}$</TableCell>
                                     <TableCell style={{ width: 160 }} align="right">{item.quantity}</TableCell>
-                                    <TableCell style={{ width: 160 }} align="right">{ this.getTotal(item.price,item.quantity).toFixed(2)}$</TableCell>
+                                    <TableCell style={{ width: 160 }} align="right">{ this.getTotal(price,item.quantity).toFixed(2)}$</TableCell>
                                     <TableCell component="th" scope="row">
                                         <Link to="/cart"><i className="material-icons" onClick={()=>{this.handleAddQuantity(item.id)}}><ArrowDropUpIcon/></i></Link>
                                         <Link to="/cart"><i className="material-icons" onClick={()=>{this.handleSubtractQuantity(item.id)}}><ArrowDropDownIcon/></i></Link>
@@ -96,15 +98,14 @@ class Cart extends Component{
                             <Typography variant='h5'>Total to pay: {this.props.total}<b>$</b></Typography>
                             </Grid>
                             
-                            <Grid item xs={12}>                    
-                            {isAuthenticated  ? <Link to='/checkout'><Button style={{width:'100%'}} variant="contained" color='primary' onClick={()=>{this.handleMakeOrder(this.props.items)}}>Make Order</Button></Link>:
-                            <div style={{textAlign:'center'}}>
-                            <Button style={{width:'100%'}} disabled variant="contained" color='primary' onClick={()=>{this.handleMakeOrder(this.props.items)}}>Make Order</Button>
+                            <Grid item xs={12}>
+                            <Button style={{width:'100%'}} component={Link} to={'/checkout'} disabled={!isAuthenticated || this.props.items.length < 1} variant="contained" color='primary' onClick={()=>{this.handleMakeOrder(this.props.items)}}>Make Order</Button>
+                            {!isAuthenticated ? <div style={{textAlign:'center'}}>
                                 <Link to="/login" variant="h6">
                                 Please login
                                 </Link>
-                            </div>
-                            }
+                            </div>:<div></div>}
+                            
                             </Grid>
                         </Grid>                                        
                     </Grid> 

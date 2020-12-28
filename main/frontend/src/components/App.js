@@ -14,6 +14,7 @@ import Footer from './Footer'
 import Payment from './Payment'
 import ProductListByType from './ProductListByType'
 import ProductListBySearch from './ProductListBySearch'
+import Completed from './Completed'
 import * as actions from './actions/authActions';
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
@@ -61,6 +62,7 @@ class App extends Component{
                             <Route exact path='/checkout' component={Checkout}/>
                             <Route exact path='/type/:type' component={ProductListByType}/>
                             <Route exact path='/search/:query' component={ProductListBySearch}/>
+                            <Route exact path='/completed' component={Completed}/>
                             <Route exact path='/payment' component={Payment}/>
                         </Switch>
                       </Grid>

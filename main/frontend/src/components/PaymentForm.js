@@ -5,6 +5,8 @@ import {CardElement, Elements, ElementsConsumer} from '@stripe/react-stripe-js';
 import axios from 'axios'
 import {connect} from 'react-redux';
 import {Button, Grid,Typography,TextField, List, ListItem, ListItemText, Divider,  } from '@material-ui/core';
+import {Redirect} from "react-router-dom"
+import {orderPayed} from './actions/cartActions'
 
 class PaymentForm extends Component {
       
@@ -12,7 +14,8 @@ class PaymentForm extends Component {
         super(props);
         this.state = {
             error:null, 
-            email:""
+            email:"",
+            success: ""
         };
     }
          
@@ -24,15 +27,13 @@ class PaymentForm extends Component {
           }
       }
 
-    
-
     saveStripeInfo = (email , payment_method, total) => {
         axios.post("http://127.0.0.1:8000/api/save-stripe-info/",{
             email: email,
             payment_method_id : payment_method,
             amount: total
         }).then(response => {
-            console.log(response.data);
+            this.setState({success: response.data.message});
         }).catch(error => {
             console.log(error)
         })
@@ -43,17 +44,18 @@ class PaymentForm extends Component {
         const {stripe, elements, total} = this.props;
         const {email} = this.state;
         const {error, paymentMethod} = await stripe.createPaymentMethod({
-            type: ['card'],
+            type: 'card',
             card: elements.getElement(CardElement),});
         this.saveStripeInfo(email,paymentMethod.id,total)
     };
 
       render() {
-         const {email,error} = this.state;   
+         const {email,error,success} = this.state;   
          const {stripe, items , total, address} = this.props;
-
-         console.log(address)
-         console.log(this.props);
+         if(success == "Success"){
+            this.props.orderPayed();
+            return <Redirect to="/completed"></Redirect>
+         }
          return(
             <Grid container xs={12}>
                 <Grid item xs={6}>
@@ -78,7 +80,7 @@ class PaymentForm extends Component {
                             </Grid>
                             <Grid item xs={12}>      
                                 <Typography variant='h6'>Card Number</Typography>
-                                <CardElement></CardElement>
+                                <CardElement id="card-element" onChange={this.handleChange} />
                                 <div className="card-errors" role="alert">{error}</div>
                             </Grid>
                             <Grid item xs={12}>
@@ -115,8 +117,7 @@ class PaymentForm extends Component {
                             <ListItemText disableTypography primary={<Typography variant='h9'>Total cost: <b>{total}$</b></Typography>}/> 
                         </ListItem>
                         </List>
-                        </Grid>
-                    
+                        </Grid>             
                     </Grid>
                 </Grid>
             </Grid>    
@@ -132,7 +133,13 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps)(PaymentForm)
+const mapDispatchToProps = (dispatch) =>{
+    return{
+        orderPayed: () => {dispatch(orderPayed())}
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PaymentForm)
 
 
 

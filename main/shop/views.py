@@ -76,7 +76,6 @@ def products_by_type(request,type):
 
 @api_view(['GET'])
 def products_search(request,query):   
-    print('HELLLO')
     if request.method == "GET":
         products = Product.objects.filter(name__contains=query)
     serializer = ProductSerializer(products, context={'request': request}, many=True)
@@ -102,7 +101,7 @@ def orders_list(request):
         serializer = OrderSerializer(orders, context={'request': request}, many=True)
         return Response(serializer.data)
 
-@api_view(['GET','POST'])
+@api_view(['GET','POST','PUT'])
 def create_order(request):
     if request.method == 'POST':
         ordered_date = timezone.now()     
@@ -115,10 +114,19 @@ def create_order(request):
                 item_.save(user=user)
                #order_item = OrderItem.objects.create(user = user,item_serializer
                 ord_item = OrderItem.objects.filter(id=item_.data["id"])
-                order.items.add(ord_item[0])
-         
+                order.items.add(ord_item[0])       
         return Response(item_.data)
 
+    if request.method == "PUT":
+        user = get_user_from_token(request)
+        try:
+            order = Order.objects.filter(user = user, ordered=True).last()
+            order.paid = True
+            order.save()
+            return Response("Order payed")
+        except ObjectDoesNotExist:
+            return Response("Error paid")
+        
     if request.method == "GET":
         order_items = OrderItem.objects.all()
         serializer = OrderItemSerializer(order_items, context={'request': request}, many=True)
@@ -185,15 +193,6 @@ def add_address(request):
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-
-@api_view(['GET'])
-def get_products_by_search(request):
-    if request.method == 'GET':
-        print(request)
-        query = request.get('q')
-        data = Product.objects.filter(Q(name__icontains=query) | Q(state__icontains=query))
-        serializer = ProductSerializer(data, context={'request': request},many=True)
-        return Response(serializer.data)
 
 @api_view(['PUT','POST'])
 def post_opinion(request,pk):

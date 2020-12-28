@@ -522,6 +522,8 @@
 
 /*! export orderAdd [provided] [no usage info] [missing usage info prevents renaming] */
 
+/*! export orderPayed [provided] [no usage info] [missing usage info prevents renaming] */
+
 /*! export ownerDocument [provided] [no usage info] [missing usage info prevents renaming] -> ./node_modules/@material-ui/core/esm/utils/ownerDocument.js .default */
 
 /*! export ownerWindow [provided] [no usage info] [missing usage info prevents renaming] -> ./node_modules/@material-ui/core/esm/utils/ownerWindow.js .default */
@@ -892,6 +894,10 @@
 
 /*!*************************************!*\
   !*** ./src/components/CartModal.js ***!
+  \*************************************/
+
+/*!*************************************!*\
+  !*** ./src/components/Completed.js ***!
   \*************************************/
 
 /*!*************************************!*\

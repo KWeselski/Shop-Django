@@ -87,10 +87,27 @@ const cartReducer=(state= initState, action)=>{
 
     if(action.type == ADD_TO_CART){
         let addedItem = state.items.find(item => item.id == action.id)
-        if(addedItem.on_discount == true){
-            addedItem.price = addedItem.discount_price;
-        }
         let existingItem = state.addedItems.find(item => action.id == item.id)
+
+        if(addedItem.on_discount == true){
+            if(existingItem){
+                addedItem.quantity += 1
+                return{
+                    ...state,
+                    total: (Number(state.total) + Number(addedItem.discount_price)).toFixed(2)
+                }
+            }
+            else{ 
+                addedItem.quantity = 1;    
+                let newTotal = Number(state.total) + Number(addedItem.discount_price)       
+                return {
+                    ...state,
+                    addedItems: [...state.addedItems, addedItem],
+                    total: newTotal.toFixed(2),
+                }
+            }
+        }
+        else{      
         if(existingItem){
             addedItem.quantity += 1
             return{
@@ -100,8 +117,7 @@ const cartReducer=(state= initState, action)=>{
         }
         else{ 
             addedItem.quantity = 1;    
-            let newTotal = Number(state.total) + Number(addedItem.price)
-            
+            let newTotal = Number(state.total) + Number(addedItem.price)       
             return {
                 ...state,
                 addedItems: [...state.addedItems, addedItem],
@@ -109,12 +125,16 @@ const cartReducer=(state= initState, action)=>{
             }
         }
     }
+    }
     if(action.type === REMOVE_ITEM){
         let itemToRemove= state.addedItems.find(item=> action.id === item.id)
         let new_items = state.addedItems.filter(item=> action.id !== item.id)
-        
+        let newTotal = 0
         //calculating the total
-        let newTotal = Number((state.total)) - Number((itemToRemove.price * itemToRemove.quantity ))
+        if (itemToRemove.on_discount == true){
+            newTotal = Number((state.total)) - Number((itemToRemove.discount_price * itemToRemove.quantity))
+        }else
+        {newTotal = Number((state.total)) - Number((itemToRemove.price * itemToRemove.quantity ))}
         
         return{
             ...state,
@@ -125,19 +145,22 @@ const cartReducer=(state= initState, action)=>{
     
     if(action.type=== ADD_QUANTITY){
         let addedItem = state.items.find(item=> item.id === action.id)
-          addedItem.quantity += 1 
-          let newTotal = Number(state.total) + Number(addedItem.price)
-          return{
-              ...state,
-              total: newTotal.toFixed(2)
-          }
+        let newTotal = 0
+        addedItem.quantity += 1 
+        if (addedItem.on_discount == true){newTotal = Number(state.total) + Number(addedItem.discount_price)}
+        else{newTotal = Number(state.total) + Number(addedItem.price)}
+        return{
+            ...state,
+            total: newTotal.toFixed(2)
+        }
     }
     if(action.type=== SUB_QUANTITY){  
         let addedItem = state.items.find(item=> item.id === action.id) 
-        //if the qt == 0 then it should be removed
+        let newTotal = 0
         if(addedItem.quantity === 1){
             let new_items = state.addedItems.filter(item=>item.id !== action.id)
-            let newTotal = Number(state.total) - Number(addedItem.price)
+            if (addedItem.on_discount == true){newTotal = Number(state.total) - Number(addedItem.discount_price)}
+            else{newTotal = Number(state.total) - Number(addedItem.price)}
             return{
                 ...state,
                 addedItems: new_items,
@@ -146,7 +169,8 @@ const cartReducer=(state= initState, action)=>{
         }
         else {
             addedItem.quantity -= 1
-            let newTotal = Number(state.total) - Number(addedItem.price)
+            if (addedItem.on_discount == true){newTotal = Number(state.total) - Number(addedItem.discount_price)}
+            else{newTotal = Number(state.total) - Number(addedItem.price)}
             return{
                 ...state,
                 total: newTotal.toFixed(2)

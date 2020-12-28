@@ -13,7 +13,6 @@ class Checkout extends Component {
         postal_code: "",
         delivery_type: "",
         code: "",
-        delivery_cost: 0,
         total_cost:0, 
         completed : false
     };
@@ -27,24 +26,19 @@ class Checkout extends Component {
 
     };
 
-    checkTotalCost= (total, discount, delivery_cost, total_cost) =>{
+    checkTotalCost= (total, discount, total_cost) =>{
         let value = 0;        
         if(discount.discount > 0){
-            value = discount.total_after_discount + delivery_cost;
+            value = discount.total_after_discount;
         }
         else{
-            value = total + delivery_cost;
+            value = total;
         }   
         this.setState({total_cost : value})
     }
 
     handleSelect = e => {
         this.setState({ [e.target.name]: e.target.value});
-        const { delivery_cost } = this.state;
-        if(e.target.value == "D"){
-            this.setState({ delivery_cost: 6} )           
-        }     
-        else{this.setState({ delivery_cost: 0});}      
     };
 
     
@@ -63,13 +57,16 @@ class Checkout extends Component {
     }
               
     render(){
-        const {street_address, apartament_address, city, postal_code, delivery_type, code, delivery_cost, total_cost, total_after_discount,completed} = this.state;
+        const {street_address, apartament_address, city, postal_code, delivery_type, code, total_cost, total_after_discount,completed} = this.state;
         const {total, discount, isAuthenticated} = this.props
         const deliveryTypes = [
-            {value: 'P', label: 'Pickup in store (Free)'},
-            {value: 'D', label: 'Delivery (+6$)'}
+            {value: 'S', label: 'Pay in store'},
+            {value: 'O', label: 'Pay online'}
         ]
         if(completed){
+            if(delivery_type == 'S'){
+                return <Redirect to="/completed" />;
+            }
             return <Redirect to="/payment" />;
         }
         return(
@@ -171,7 +168,7 @@ class Checkout extends Component {
                     <Typography variant='h5'>Total to pay: {total}<b>$</b></Typography>
                     <Typography variant='h5'>Discount: {discount.discount}<b>%</b></Typography>
                     <Typography style={{border: '1px solid rgba(0,0,0,0.5)',
-                        borderWidth: '0 0 1px'}} variant='h5'>Delivery cost: {delivery_cost}<b>$</b></Typography>
+                        borderWidth: '0 0 1px'}}></Typography>
                     <Typography variant='h5'>Total: {(discount.total_after_discount).toFixed(2)}<b>$</b></Typography>
                     </Grid>
                     <Grid item xs={12}>
@@ -216,7 +213,7 @@ const mapDispatchToProps = (dispatch) =>{
         lastOrder: () => {dispatch(getLastOrder())},
         addAddress: (street_address, apartament_address, city, postal_code, delivery_type) =>
          {dispatch(addAddress(street_address, apartament_address, city, postal_code, delivery_type))},
-        clearCart : () => {dispatch(clearCart())}
+        
     }
 }
 export default connect(mapStateToProps,mapDispatchToProps)(Checkout)
