@@ -61,24 +61,24 @@ class CategoryList extends Component{
                     <div style={{display:'flex'}}>               
                         <Link className={classes.linkItem} to={'/'}>
                             <ListItem  className={classes.listItem} button>
-                                    <ListItemText disableTypography primary={<Typography variant='h9'>Wszystkie</Typography>}/> 
+                                    <ListItemText disableTypography primary={<Typography variant='h9'>All</Typography>}/> 
                             </ListItem> 
                         </Link>  
                         <Link className={classes.linkItem} to={`/type/${discountType}`}>
                             <ListItem  className={classes.listItem} button>
-                                    <ListItemText disableTypography primary={<Typography style={{color:'red'}} variant='h9'>Promocje</Typography>}/> 
+                                    <ListItemText disableTypography primary={<Typography style={{color:'red'}} variant='h9'>On Discount</Typography>}/> 
                             </ListItem> 
                         </Link> 
                         <Link className={classes.linkItem} to={`/type/${newType}`}>
                             <ListItem  className={classes.listItem} button>
-                                    <ListItemText disableTypography primary={<Typography style={{color:'red'}} variant='h9'>Nowości</Typography>}/> 
+                                    <ListItemText disableTypography primary={<Typography style={{color:'red'}} variant='h9'>New</Typography>}/> 
                             </ListItem> 
                         </Link>                                 
                         {item.map((value,index) => {                   
                             return(                                                         
                                 <Link className={classes.linkItem} to={`/category/${value.slug}`}>  
                                     <ListItem className={classes.listItem} button>
-                                        <ListItemText disableTypography primary={<Typography variant='h9'>{value.name}</Typography>}/> 
+                                        <ListItemText disableTypography primary={<Typography style={{color:'#212121'}} variant='h9'>{value.name}</Typography>}/> 
                                     </ListItem> 
                                 </Link>                                                                                                                  
                             )          

@@ -15,20 +15,13 @@ const styles = theme => ({
         flex: 1
     },
     search: {
-        display:'flex',
         position: 'relative',
         borderRadius: theme.shape.borderRadius,
         backgroundColor: fade(theme.palette.common.white, 0.15),
         '&:hover': {
           backgroundColor: fade(theme.palette.common.white, 0.25),
-        },
-        marginRight: theme.spacing(2),
-        marginLeft: 0,
-        width: '100%',
-        [theme.breakpoints.up('sm')]: {
-          marginLeft: theme.spacing(3),
-          width: 'auto',
-        },
+        },  
+        width: '17rem',
       },
       searchIcon: {
         padding: theme.spacing(0, 2),
@@ -42,41 +35,27 @@ const styles = theme => ({
       inputRoot: {
         color: 'inherit',
       },
-      inputInput: {
-        padding: theme.spacing(1, 1, 1, 0),
+      inputInput: {    
+        height:'100%', 
         // vertical padding + font size from searchIcon
         paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
         transition: theme.transitions.create('width'),
+        display:'flex',
         width: '100%',
-        [theme.breakpoints.up('md')]: {
-          width: '20ch',
-        },
       },
     iconsbar: {
         display: 'flex',
         padding: theme.spacing(0,2),
-
         alignItems: 'center',
         justifyContent: 'center'
 
     },
     cartButton:{
-        marginRight: theme.spacing(4),
     },
     largeIcon: {
         width: 36,
         height: 36,
       },
-
-    searchContainer: {
-        display:'flex',
-        backgroundColor: fade(theme.palette.common.white, 0.15),
-        paddingLeft: "20px",
-        paddingRight: "20px",
-        marignTop: "5px",
-        marginBottom: "5px"
-    }
-
 });
 
 class NavBar extends Component {
@@ -90,51 +69,49 @@ class NavBar extends Component {
     };
 
     render(){
-        const {classes, authenticated,items,username} = this.props;
+        const {classes, authenticated,items,username, total} = this.props;
         const {query} = this.state;
         return(      
             <div id="navbar">
-                <div style={{ width:'100%', height:150, backgroundImage: "url(" + "\static/images/food.jpg" + ")",
-                backgroundPosition: 'top',
+                <div style={{ width:'100%', height:200, backgroundImage: `url('${window.location.origin}/static/images/b1.jpg')`,
+                backgroundPosition: '60% 55%',
                 backgroundSize: 'cover',
                 backgroundRepeat: 'no-repeat' }}>
                 </div>                
                 <AppBar id="appbar" position="static"> 
-                <Toolbar variant="dense">
-                          
+                <Toolbar variant="dense">             
                         <Typography style={{marginLeft:'2em' }} variant='h3' className={classes.typographyStyles}>
-                            <Link style={{textDecoration: 'none', color:'white'}} to="/"><Typography variant='h4'>Shop</Typography></Link> 
+                            <Link style={{textDecoration: 'none', color:'white'}} to="/"><Typography variant='h4'>Valeé</Typography></Link> 
                         </Typography>
                         <div className={classes.search}>
                             <div className={classes.searchIcon}>
-                            <SearchIcon />
-                            
+                                <SearchIcon />
                             </div>
-                        <form  style = {{display:'flex'}} onSubmit={e => { e.preventDefault(); }}>
-                            <TextField classes={{
-                                root: classes.inputRoot,
-                                input: classes.inputInput}}    
-                            name="query"
-                            variant="outlined"
-                            required
-                            fullWidth       
-                            label="Search"
-                            autoFocus
-                            value={query}
-                            inputProps={{ maxLength: 50 }}
-                            onChange={this.handleChange}
-                            />
-                            <Link to={`/search/${query}`}><Button type="submit" varaint="contained">Search</Button></Link>
-                        </form>
+                            <div>
+                            <form  className={classes.inputInput} onSubmit={e => { e.preventDefault(); }}>
+                                <TextField style={{marginTop: 2}}   
+                                name="query"
+       
+                                required
+                                fullWidth       
+                                autoFocus
+                                value={query}
+                                inputProps={{ maxLength: 50 }}
+                                onChange={this.handleChange}
+                                />
+                                <Button style={{marginLeft: 8}} component={Link} to={`/search/${query}`} type="submit" color="secondary" variant="contained">Search</Button>
+                            </form>
+                            </div> 
                         </div>
                         <div className={classes.typographyStyles} />
-                        <IconButton className={classes.cartButton} size='medium' color='inherit'>
+                        <IconButton className={classes.cartButton} size='medium' >
                         <Link to='/cart'>    
                             <Badge badgeContent={items.length} color="secondary">
-                             <ShoppingCartIcon className={classes.largeIcon}/>
+                             <ShoppingCartIcon color="secondary" className={classes.largeIcon}/>
                              </Badge>
                           </Link>
                         </IconButton>
+                        <Typography className={classes.iconsbar}>{total} $</Typography>
                         {authenticated ?(             
                             <span>
                             <Typography className={classes.iconsbar}> {username} </Typography>
@@ -145,7 +122,7 @@ class NavBar extends Component {
                                 <Link style={{textDecoration:"none", color:'white'}} to='/login'><Typography className={classes.iconsbar}>Login</Typography></Link>
                                 <Link style={{textDecoration:"none", color:'white'}} to='/signup'><Typography className={classes.iconsbar}>Signup</Typography></Link>
                             </div>
-                        )}                                                                 
+                        )}                                                                                  
                 </Toolbar>                                         
                 </AppBar>                
             </div>
@@ -158,6 +135,7 @@ const mapStateToProps = state => {
         authenticated: state.auth.token !== null,
         items: state.cart.addedItems,
         username: state.auth.username,
+        total: state.cart.total,
     };
 };
 

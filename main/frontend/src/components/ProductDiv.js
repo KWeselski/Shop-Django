@@ -12,6 +12,7 @@ import {connect} from 'react-redux'
 import {addToCart} from './actions/cartActions'
 import CartModal from './CartModal'
 
+
 class ProductDiv extends Component {
     constructor(props){
         super (props);
@@ -40,7 +41,7 @@ class ProductDiv extends Component {
 
     handleClick = (id) => {    
         this.props.addToCart(id);
-        this.showModal();
+        //this.showModal();
     }
 
     
@@ -58,6 +59,7 @@ class ProductDiv extends Component {
                 </Typography>
              </div>
              <div className={`CardContent`}>
+                
                 <div>
                     <CardMedia id="ProductImg" component={'img'}
                     alt="Product"
@@ -68,7 +70,7 @@ class ProductDiv extends Component {
                 </div>
                 <CardContent>
                 <Link style={{textDecoration:'none'}} to={`/product/${this.props.temp.id}`}>
-                    <Typography  gutterBottom varian='h5' component='h2'>
+                    <Typography color="primary" gutterBottom varian='h5' component='h2'>
                         {this.props.temp.name}     
                     </Typography>
                     </Link>  

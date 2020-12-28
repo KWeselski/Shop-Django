@@ -24,7 +24,16 @@ const theme = createMuiTheme({
     fontFamily: [
       'Crimson Text',
     ].join(','),
-  },});
+  },
+  palette: {
+    primary: {
+      main: '#212121',
+    },
+    secondary: {
+      main: "#fafafa"
+    }
+  }
+  ,});
 
 
 import {

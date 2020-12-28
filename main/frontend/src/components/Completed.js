@@ -8,9 +8,8 @@ class Completed extends Component {
         super(props);
         
     }
-
     render(){
-        this.clearCart();
+        this.props.clearCart();
         return(
             <Grid container xs={12}>
                 <Typography variant="h4"> Payment Completed</Typography>        
