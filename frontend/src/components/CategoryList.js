@@ -30,7 +30,7 @@ class CategoryList extends Component{
         }  
 
         async componentDidMount(){
-           fetch(categoryListURL).then(response => {
+           fetch("/api/category/").then(response => {
                if (response.status > 400) {
                    return this.setState(() => {
                        console.log('error')

@@ -30,7 +30,7 @@ export const logout = () => {
   return dispatch => {
     dispatch(authStart());
       axios
-        .get("http://127.0.0.1:8000/rest-auth/logout/", {
+        .get("/api/rest-auth/logout/", {
         })
         .then(() => {         
       localStorage.removeItem('token');
@@ -54,7 +54,7 @@ export const authLogin = (username, password) => {
     return dispatch => {
       dispatch(authStart());
       axios
-        .post("http://127.0.0.1:8000/rest-auth/login/", {
+        .post("/api/rest-auth/login/", {
           username: username,
           password: password,
         })
@@ -76,7 +76,7 @@ export const authLogin = (username, password) => {
     return dispatch => {
       dispatch(authStart());
       axios
-        .post("http://127.0.0.1:8000/rest-auth/registration/", {
+        .post("/api/rest-auth/registration/", {
           username: username,
           email: email,
           password1: password1,
@@ -107,7 +107,7 @@ export const authCheckState = () => {
           dispatch(logout());
         } else {
           axios
-          .get("http://127.0.0.1:8000/api/user_by_token/", {
+          .get("/api/user_by_token/", {
             headers: {Authorization: `${localStorage.getItem("token")}`}}).then(res =>{      
                 dispatch(authSuccess(token,res.data));
                dispatch(checkAuthTimeout((expirationDate.getTime() - new Date().getTime()) / 1000));

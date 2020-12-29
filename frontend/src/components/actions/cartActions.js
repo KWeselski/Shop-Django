@@ -2,41 +2,37 @@ import { ADD_TO_CART,REMOVE_ITEM,SUB_QUANTITY,ADD_QUANTITY,CLEAR_CART, PRODUCTS_
 import {productListURL,productDetailURL, addCodeURL, lastOrderURL} from "../constants";
 import axios from 'axios'
 
-export function fetchProducts() {
+export const fetchProducts = () => {
     return dispatch => {
       dispatch(startFetchProducts());
-      return fetch(productListURL).
+      axios.get(`/api/products/`)
         then(handleErrors)
-        .then(res => res.json())
-        .then(json => {       
-            dispatch(
-                finishFetchProducts(json));        
-            return json;
+        .then(res => { 
+            dispatch(finishFetchProducts(res.data));        
+            return res.data
         })
         .catch(error => dispatch(failFetchProducts(error)));
     };
 }
 
-export function fetchProductsID(id) {
+export const fetchProductsID = () => {
     return dispatch => {
-      dispatch(startFetchProducts());
-      return fetch(productDetailURL(id)).
-        then(handleErrors)
-        .then(res => res.json())
-        .then(json => {       
-            dispatch(
-                finishFetchProducts(json));           
-            return json;
-        })
-        .catch(error => dispatch(failFetchProducts(error)));
-    };
-}
+        dispatch(startFetchProducts());
+        axios.get(`/api/products/${id}`)
+          then(handleErrors)
+          .then(res => { 
+              dispatch(finishFetchProducts(res.data));        
+              return res.data
+          })
+          .catch(error => dispatch(failFetchProducts(error)));
+      };
+  }
 
 
 export const orderAdd = (order_items) =>{  
     return dispatch => {
         dispatch(startAddOrder());
-        axios.post("http://127.0.0.1:8000/api/create_order/",{
+        axios.post("/api/create_order/",{
             order_items:order_items,            
             },
             {headers: {
@@ -50,7 +46,7 @@ export const orderAdd = (order_items) =>{
 export const orderPayed = () =>{  
     return dispatch => {
         dispatch(startAddOrder());
-        axios.put("http://127.0.0.1:8000/api/create_order/",
+        axios.put("/api/create_order/",
         {},
             {headers: {
                 Authorization: `${localStorage.getItem("token")}`}
@@ -64,7 +60,7 @@ export const orderPayed = () =>{
 export const postOpinion = (rating,opinion,productid) => {
     return dispatch => {
         dispatch(startAddOrder());
-        axios.post(`http://127.0.0.1:8000/api/post_opinion/${productid}`,{
+        axios.post(`/api/post_opinion/${productid}`,{
             rating: rating,
             opinion : opinion,
             product: productid
@@ -78,7 +74,7 @@ export const postOpinion = (rating,opinion,productid) => {
 export const putOpinion = (rating,opinion,productid) => {
     return dispatch => {
         dispatch(startAddOrder());
-        axios.put(`http://127.0.0.1:8000/api/post_opinion/${productid}`,{
+        axios.put(`/api/post_opinion/${productid}`,{
             rating: rating,
             opinion : opinion,
             product: productid
@@ -92,7 +88,7 @@ export const putOpinion = (rating,opinion,productid) => {
 export const getOpinions = (productId) => {
     return dispatch => {
         dispatch(startFetchOpinions());
-        axios.get(`http://127.0.0.1:8000/api/get_opinions/${productId}`, {
+        axios.get(`/api/get_opinions/${productId}`, {
             headers: {Authorization: `${localStorage.getItem("token")}`}
         }).then(res => {           
             dispatch(finishFetchOpinions(res.data));
@@ -104,7 +100,7 @@ export const getOpinions = (productId) => {
 export const addAddress = (street_address,apartment_address,city,postal_code,delivery_type) => {
     return dispatch => {
         dispatch(startAddOrder());
-        axios.post("http://127.0.0.1:8000/api/add_address/",{
+        axios.post("/api/add_address/",{
             street_address : street_address,
             apartment_address : apartment_address,
             city : city,

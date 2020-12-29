@@ -7,7 +7,7 @@ export const addAddress = (street_address,apartment_address,city,postal_code,del
      'city': city, 'postalCode': postal_code, 'deliveryType': delivery_type, 'totalCost': 0}
     return dispatch => {
         dispatch(AddAddress());
-        axios.post("http://127.0.0.1:8000/api/add_address/",{
+        axios.post("/api/add_address/",{
             street_address : street_address,
             apartment_address : apartment_address,
             city : city,
