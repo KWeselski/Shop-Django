@@ -17,7 +17,7 @@ import ProductListBySearch from './ProductListBySearch'
 import Completed from './Completed'
 import * as actions from './actions/authActions';
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-
+import axios from 'axios'
 
 const theme = createMuiTheme({
   typography: {
@@ -42,6 +42,7 @@ import {
     Route,
   } from "react-router-dom";
 
+axios.defaults.baseURL = window.location.origin;
 
 class App extends Component{
     componentDidMount() {
