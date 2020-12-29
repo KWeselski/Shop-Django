@@ -3,7 +3,7 @@ django-allauth==0.44.0
 django-filter==2.4.0
 django-rest-auth==0.9.5
 djangorestframework==3.12.2
-gunicorn==19.9.0
+gunicorn==19.7.1
 requests==2.22.0
 requests-oauthlib==1.2.0
 social-auth-app-django==2.1.0
@@ -14,3 +14,5 @@ django-cors-headers==3.5.0
 django-heroku == 0.3.1
 whitenoise == 5.2.0
 Pillow == 6.2.0
+dj-database-url==0.4.2
+psycopg2==2.7.1
