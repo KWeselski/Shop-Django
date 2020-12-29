@@ -143,5 +143,5 @@ ACCOUNT_LOGOUT_ON_GET = True
 STRIPE_SECRET_KEY = config('STRIPE_SECRET_KEY')
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
-CORS_ORIGIN_WHITELIST = "127:0.0.1:8000",
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ORIGIN_WHITELIST = ("http//:localhost:8000",)
