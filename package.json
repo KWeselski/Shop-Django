@@ -3,11 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "proxy": "http://valee-shop.herokuapp.com",
   "scripts": {
     "dev": "webpack --mode development --watch",
-    "build": "webpack --mode production",
-    "postinstal": "npm run build"
+    "build": "webpack --mode production"
   },
   "keywords": [],
   "author": "",

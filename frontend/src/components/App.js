@@ -42,7 +42,12 @@ import {
     Route,
   } from "react-router-dom";
 
-axios.defaults.baseURL = window.location.origin;
+if (window.location.origin === "http://127.0.0.1:8000") {
+    axios.defaults.baseURL = "http://127.0.0.1:8000";
+  } else {
+    axios.defaults.baseURL = window.location.origin;
+  }
+  
 
 class App extends Component{
     componentDidMount() {

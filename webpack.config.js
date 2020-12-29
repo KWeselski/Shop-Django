@@ -4,8 +4,9 @@ const webpack = require("webpack");
 module.exports = {
   entry: "./frontend/src/index.js",
   output: {
-    path: path.resolve(__dirname, "./static/frontend"),
+    path: path.resolve(__dirname, "./frontend/static/frontend"),
     filename: "[name].js",
+    publicPath: './static'
   },
   module: {
     rules: [

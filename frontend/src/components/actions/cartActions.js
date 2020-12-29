@@ -6,7 +6,6 @@ export const fetchProducts = () => {
     return dispatch => {
       dispatch(startFetchProducts());
       axios.get(`/api/products/`)
-        then(handleErrors)
         .then(res => { 
             dispatch(finishFetchProducts(res.data));        
             return res.data
@@ -19,7 +18,6 @@ export const fetchProductsID = () => {
     return dispatch => {
         dispatch(startFetchProducts());
         axios.get(`/api/products/${id}`)
-          then(handleErrors)
           .then(res => { 
               dispatch(finishFetchProducts(res.data));        
               return res.data

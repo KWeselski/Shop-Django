@@ -30,7 +30,7 @@ export const logout = () => {
   return dispatch => {
     dispatch(authStart());
       axios
-        .get("/api/rest-auth/logout/", {
+        .get("/rest-auth/logout/", {
         })
         .then(() => {         
       localStorage.removeItem('token');
@@ -54,7 +54,7 @@ export const authLogin = (username, password) => {
     return dispatch => {
       dispatch(authStart());
       axios
-        .post("/api/rest-auth/login/", {
+        .post("/rest-auth/login/", {
           username: username,
           password: password,
         })
@@ -76,7 +76,7 @@ export const authLogin = (username, password) => {
     return dispatch => {
       dispatch(authStart());
       axios
-        .post("/api/rest-auth/registration/", {
+        .post("/rest-auth/registration/", {
           username: username,
           email: email,
           password1: password1,
