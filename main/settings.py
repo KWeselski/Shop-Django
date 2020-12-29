@@ -154,7 +154,6 @@ if os.getcwd() == '/app':
     # Static asset configuration
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-MEDIA_URL = 'D:/Projects/Shop-Django/'
-print(MEDIA_URL)
+MEDIA_URL = ''
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 

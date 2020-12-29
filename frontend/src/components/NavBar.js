@@ -81,7 +81,7 @@ class NavBar extends Component {
                 <AppBar id="appbar" position="static"> 
                 <Toolbar variant="dense">             
                         <Typography style={{marginLeft:'2em' }} variant='h3' className={classes.typographyStyles}>
-                            <Link style={{textDecoration: 'none', color:'white'}} to="/"><Typography variant='h4'>NOT WORKING</Typography></Link> 
+                            <Link style={{textDecoration: 'none', color:'white'}} to="/"><Typography variant='h4'>Valeé</Typography></Link> 
                         </Typography>
                         <div className={classes.search}>
                             <div className={classes.searchIcon}>
@@ -107,7 +107,7 @@ class NavBar extends Component {
                         <IconButton className={classes.cartButton} size='medium' >
                         <Link to='/cart'>    
                             <Badge badgeContent={items.length} color="secondary">
-                             <ShoppingCartIcon color="primary" className={classes.largeIcon}/>
+                             <ShoppingCartIcon color="secondary" className={classes.largeIcon}/>
                              </Badge>
                           </Link>
                         </IconButton>
