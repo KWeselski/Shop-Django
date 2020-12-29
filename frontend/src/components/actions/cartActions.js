@@ -138,16 +138,6 @@ export const getLastOrder =  () => {
     };
 } 
 
-
-
-
-function handleErrors(response) {
-    if (!response.ok) {
-      throw Error(response.statusText);
-    }
-    return response;
-  };
-
 export const addToCart = (id) => {
     return{
         type:ADD_TO_CART,

@@ -28,7 +28,7 @@ class PaymentForm extends Component {
       }
 
     saveStripeInfo = (email , payment_method, total) => {
-        axios.post("http://127.0.0.1:8000/api/save-stripe-info/",{
+        axios.post("/api/save-stripe-info/",{
             email: email,
             payment_method_id : payment_method,
             amount: total

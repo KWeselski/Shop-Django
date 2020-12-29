@@ -60,7 +60,7 @@ class ProductDetail extends Component{
         }  
 
     getOpinions(productId){
-                axios.get(`http://127.0.0.1:8000/api/get_opinions/${productId}`, {
+                axios.get(`/api/get_opinions/${productId}`, {
                     headers: {Authorization: `${localStorage.getItem("token")}`}
                 }).then(res => {           
                     return res.data          
@@ -96,7 +96,7 @@ class ProductDetail extends Component{
         const item = data;
         const { match : {params} } = this.props;
         let numberOpinions = opinions_.length;
-        let available = String(item.available) ? 'Dostępny' : 'Niedostępny' 
+        let available = String(item.available) ? 'Avaiable' : 'Unavaiable' 
         return(  
              <Grid container xs={12} style={{height:'40%'}}>
                     <Grid item xs={2}>             
@@ -138,7 +138,7 @@ class ProductDetail extends Component{
                                 </div>
                                 <div id="CartButton" >
                                 <Link to="/cart">
-                                <Button variant="contained" onClick={()=>{this.handleClick(item.id)}} color='primary'>Add to Cart</Button>
+                                <Button variant="contained" disabled={!this.props.available} onClick={()=>{this.handleClick(item.id)}} color='primary'>Add to Cart</Button>
                              </Link>
                                 </div> 
                             </div>

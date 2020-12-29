@@ -3,6 +3,9 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {Typography, Button, TextField,Input} from '@material-ui/core/';
 import {removeItem, addQuantity, subtractQuantity, orderAdd} from './actions/cartActions'
+import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
+import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
+import DeleteIcon from '@material-ui/icons/Delete';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -67,9 +70,9 @@ class Cart extends Component{
                                     <TableCell style={{ width: 160 }} align="right">{item.quantity}</TableCell>
                                     <TableCell style={{ width: 160 }} align="right">{ this.getTotal(price,item.quantity).toFixed(2)}$</TableCell>
                                     <TableCell component="th" scope="row">
-                                        <Link to="/cart"><i className="material-icons" onClick={()=>{this.handleAddQuantity(item.id)}}>add</i></Link>
-                                        <Link to="/cart"><i className="material-icons" onClick={()=>{this.handleSubtractQuantity(item.id)}}>sub</i></Link>
-                                        <Button onClick={()=>{this.handleRemove(item.id)}}> delete</Button>
+                                        <Link to="/cart"><i className="material-icons" onClick={()=>{this.handleAddQuantity(item.id)}}><ArrowDropUpIcon/></i></Link>
+                                        <Link to="/cart"><i className="material-icons" onClick={()=>{this.handleSubtractQuantity(item.id)}}><ArrowDropDownIcon/></i></Link>
+                                        <Button onClick={()=>{this.handleRemove(item.id)}}><DeleteIcon/></Button>
                                     </TableCell>
                                 </TableRow> )                 
                         })}

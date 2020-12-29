@@ -2,8 +2,7 @@ import React, {Component} from 'react';
 import {AppBar, Toolbar, Typography, TextField, Button, Badge, IconButton} from '@material-ui/core/';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import SearchIcon from '@material-ui/icons/Search';
-import InputBase from '@material-ui/core/InputBase';
-import { NavLink, Link, withRouter } from "react-router-dom";
+import { Link, } from "react-router-dom";
 import {connect} from "react-redux";
 import {compose} from 'redux'
 import { logout } from './actions/authActions';

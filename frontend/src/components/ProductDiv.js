@@ -89,7 +89,7 @@ class ProductDiv extends Component {
                     </div>
                     
                 <div className={`ProductContent`}>                            
-                    <Button onClick={() => {this.handleClick(this.props.temp.id)}} style={{height:20, width:100}} variant="contained"  color='primary'>
+                    <Button disabled={!this.props.temp.available} onClick={() => {this.handleClick(this.props.temp.id)}} style={{height:20, width:100}} variant="contained"  color='primary'>
                         Add                 
                     </Button>
                       
