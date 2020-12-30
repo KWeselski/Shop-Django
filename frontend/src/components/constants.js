@@ -16,3 +16,5 @@ export const signUpUrl = `${authEndpoint}/registration/`;
 
 export const addCodeURL = `${endpoint}/add_code/`;
 export const lastOrderURL = `${endpoint}/get_last_order/`;
+
+export const AWSURL = 'https://valee-shop-bucket.s3.eu-central-1.amazonaws.com'

@@ -11,7 +11,7 @@ import {Link} from 'react-router-dom';
 import {connect} from 'react-redux'
 import {addToCart} from './actions/cartActions'
 import CartModal from './CartModal'
-
+import {AWSURL} from './constants'
 
 class ProductDiv extends Component {
     constructor(props){
@@ -46,7 +46,9 @@ class ProductDiv extends Component {
 
     
     render(){     
-        let image = String(this.props.temp.image).split('frontend')[1]
+        
+        let image_end_url = String(this.props.temp.image).split('static')[1]
+        let image = String(`${AWSURL}${image_end_url}`)  
         let available = String(this.props.temp.available) ? 'Dostępny' : 'Niedostępny'  
         
         const backIsActive = this.state.hover ? 'shadow' : '';

@@ -117,12 +117,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 
-
-
-
-
-
-
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, '/frontend/static')
+]
 
 
 SITE_ID = 1
@@ -140,9 +137,12 @@ REST_FRAMEWORK = {
 ACCOUNT_EMAIL_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = 'username'
 ACCOUNT_EMAIL_VERIFICATION = 'none'
-ACCOUNT_LOGOUT_ON_GET = True
+ACCOUNT_LOGOUT_ON_GET = True 
 
 
+
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL = None
 use_3 = False
 
 if use_3:
@@ -161,17 +161,18 @@ if use_3:
 
     STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
     STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-    DEFAULT_FILE_STORAGE = 'main.storages.MediaStore'
 else:
     STATIC_URL = '/static/'
     STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 #MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-#STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, '/frontend/static')
 ]
 MEDIA_URL = '/mediafiles/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
+
 
 STRIPE_SECRET_KEY = config('STRIPE_SECRET_KEY')
 
