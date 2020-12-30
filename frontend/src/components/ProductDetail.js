@@ -95,8 +95,9 @@ class ProductDetail extends Component{
         const {username} = this.props;
         const item = data;
         const { match : {params} } = this.props;
+        console.log(item.available)
         let numberOpinions = opinions_.length;
-        let available = String(item.available) ? 'Avaiable' : 'Unavaiable' 
+        let available = String(item.available) ? 'Available' : 'Unavailable' 
         return(  
              <Grid container xs={12} style={{height:'40%'}}>
                     <Grid item xs={2}>             
@@ -130,15 +131,18 @@ class ProductDetail extends Component{
                                 <div className={'Product-item'}>
                                     {item.on_discount ? (<span>
                                     <Typography align='left' variant="h8">Price: {item.price}$ </Typography>
-                                    <Typography align='left' variant="h8">Discount price: {item.discount_price}$ </Typography></span> )
+                                    <Typography align='left' variant="h8"><b>Discount price: {item.discount_price}$</b> </Typography></span> )
                                     : <Typography align='left' variant="h8">Price: {item.price}$ </Typography>}    
+                                </div>
+                                <div className={'Product-item'}>
+                                <Typography align='justify' variant="h9">{available}</Typography>
                                 </div>
                                 <div className={'Product-item'}>
                                 <Typography align='justify' variant="h8">{item.description}</Typography>
                                 </div>
                                 <div id="CartButton" >
                                 <Link to="/cart">
-                                <Button variant="contained" disabled={!this.props.available} onClick={()=>{this.handleClick(item.id)}} color='primary'>Add to Cart</Button>
+                                <Button variant="contained" disabled={!item.available} onClick={()=>{this.handleClick(item.id)}} color='primary'>Add to Cart</Button>
                              </Link>
                                 </div> 
                             </div>
