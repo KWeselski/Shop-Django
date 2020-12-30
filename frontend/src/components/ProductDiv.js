@@ -45,10 +45,17 @@ class ProductDiv extends Component {
     }
 
     
-    render(){     
-        
-        let image_end_url = String(this.props.temp.image).split('static')[1]
-        let image = String(`${AWSURL}${image_end_url}`)  
+    render(){ 
+        let image=""    
+        if(window.location.origin === "https://valee-shop.herokuapp.com/"){
+            let image_end_url = String(this.props.temp.image).split('static')[1]
+            let next_part = image_end_url.split('_')[0]
+            image = String(`${AWSURL}${image_end_url}` +'.jpg')         
+        }
+        else{
+            let image_end_url = String(this.props.temp.image).split('static')[1]
+            image = String(`${AWSURL}${image_end_url}`)
+        }
         let available = String(this.props.temp.available) ? 'Dostępny' : 'Niedostępny'  
         
         const backIsActive = this.state.hover ? 'shadow' : '';
