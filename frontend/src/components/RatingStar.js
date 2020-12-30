@@ -22,7 +22,7 @@ class RatingStar extends Component {
         const {selectedValue,opinion,productId} = this.state;
         let sel = Number(selectedValue)
         this.props.putOpinion(sel,opinion,productId)
-        
+        window.location.reload(); 
     }
     
     handleChange = event => {
@@ -33,16 +33,19 @@ class RatingStar extends Component {
         this.setState({ [e.target.name]: e.target.value });
       };
     
-      componentDidMount(){
-            this.setState({ productId : this.props.productid})
-      }
-      componentDidUpdate(prevPros){
-            if(prevPros.opinion_status !== this.props.opinion_status){
-                this.setState({opinion_exist: this.props.opinion_status})
-            }
-      }
+    componentDidMount(){
+        this.setState({ productId : this.props.productid})
+    }
+      
+    componentDidUpdate(prevPros){
+        if(prevPros.opinion_status !== this.props.opinion_status){
+            this.setState({opinion_exist: this.props.opinion_status})
+        }
+    }
+    
     render(){
         const {selectedValue,opinion,opinion_exist } = this.state;
+        const {isAuthenticated} = this.props;
         return (
         <div>
             <Typography style={{padding:10 ,marginTop:10, textAlign:'center'}} variant="h6">User Rating</Typography>
@@ -80,6 +83,7 @@ class RatingStar extends Component {
                             Update opinion
                         </Button>):<Button
                         type="submit"
+                        disabled={!isAuthenticated}
                         fullWidth
                         variant="contained"
                         color="primary">                  
@@ -91,10 +95,19 @@ class RatingStar extends Component {
             </div>)
     }
 }
+
+const mapStateToProps = (state) => {
+    return{
+        isAuthenticated: state.auth.token !== null
+    }
+}
+
 const mapDispatchToProps = (dispatch) =>{
     return{
         postOpinion : (rating,opinion,productid) => {dispatch(postOpinion(rating,opinion,productid))},
         putOpinion : (rating,opinion,productid) => {dispatch(putOpinion(rating,opinion,productid))}
     }
 }
-export default connect(null,mapDispatchToProps)(RatingStar)
+
+
+export default connect(mapStateToProps,mapDispatchToProps)(RatingStar)

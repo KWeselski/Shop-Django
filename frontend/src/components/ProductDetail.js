@@ -92,6 +92,7 @@ class ProductDetail extends Component{
 
     render(){
         const {data,opinions_,opinion_exist} = this.state; 
+        const {username} = this.props;
         const item = data;
         const { match : {params} } = this.props;
         let numberOpinions = opinions_.length;
