@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
-import {makeStyles} from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import Paper from '@material-ui/core/Paper'
-import {productDetailURL, ProductDetailURL} from "./constants";
+import {productDetailURL, getOpinionsURL} from "./constants";
 import {connect} from 'react-redux'
 import { addToCart } from './actions/cartActions'
 import { fetchProductsID } from "./actions/cartActions";
@@ -23,22 +21,23 @@ class ProductDetail extends Component{
             opinion_exist:false,  
         }   
     }
+
     componentDidMount(){
         this.getProductDetails();
-        this.getOpinion();
-          
+        this.getOpinion();         
     }
 
     handleClick = (id) => {    
         this.props.addToCart(id);
     }
 
-   getOpinion(){
+   
+    getOpinion(){
         const { match : {params} } = this.props;
         this.getOpinions(params.productID);      
-   }
+    }
     
-
+    /*Get product from api */
     getProductDetails() {
         const { match : {params} } = this.props;
         fetch(productDetailURL(params.productID)).then(response => {
@@ -57,10 +56,10 @@ class ProductDetail extends Component{
                  };
              });
          });       
-        }  
+    }  
 
     getOpinions(productId){
-                axios.get(`/api/get_opinions/${productId}`, {
+                axios.get(getOpinionsURL(productId), {
                     headers: {Authorization: `${localStorage.getItem("token")}`}
                 }).then(res => {           
                     return res.data          
@@ -77,18 +76,18 @@ class ProductDetail extends Component{
     componentDidUpdate(prevState){     
         if(prevState.opinions_ !== this.state.opinions_){
             if(this.state.opinion_exist == false){
-                this.checkExistingOpinion();
+                this.checkExistingOpinion();}
+            }
         }
-    }
-    }
+
     checkExistingOpinion(){
        const {opinions_ } = this.state;
        const {username} = this.props;
        {opinions_.map((value,index) => {                    
             if(value.user == username){
                 this.setState({opinion_exist:true})
-            }
-        })}  
+            }}
+        )}  
     }      
 
     render(){
@@ -144,9 +143,7 @@ class ProductDetail extends Component{
                             </div>
                         </Grid>                             
                     </Grid>                           
-                    <Grid item xs={2}>
-                        
-                    </Grid>               
+                    <Grid item xs={2}></Grid>               
             </Grid>      
         );
     }

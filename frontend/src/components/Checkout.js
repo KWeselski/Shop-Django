@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Button, Grid,Paper,Typography,TextField, MenuItem } from '@material-ui/core';
 import {connect} from 'react-redux';
 import {Link, Redirect } from 'react-router-dom'
-import {addCode,getLastOrder, clearCart} from './actions/cartActions'
+import {addCode,getLastOrder} from './actions/cartActions'
 import {addAddress} from './actions/addressAction'
 
 class Checkout extends Component {
@@ -169,10 +169,14 @@ class Checkout extends Component {
                     <Typography variant='h5'>Discount: {discount.discount}<b>%</b></Typography>
                     <Typography style={{border: '1px solid rgba(0,0,0,0.5)',
                         borderWidth: '0 0 1px'}}></Typography>
-                    <Typography variant='h5'>Total: {(discount.total_after_discount).toFixed(2)}<b>$</b></Typography>
+                    {discount.discount > 0 ? <Typography variant='h5'>Total: {(discount.total_after_discount).toFixed(2)}<b>$</b></Typography> :
+                    <Typography variant='h5'>Total: {total}<b>$</b></Typography>}
+                    
                     </Grid>
                     <Grid item xs={12}>
+                    
                     <form onSubmit={this.handleSubmitCode}>
+                        <Typography variant='h6' style={{width:'100%' ,position:'absolute', bottom:140}}>Reedem Code</Typography>
                         <TextField 
                             style={{width:'100%' ,position:'absolute', bottom:80}}
                             autoComplete='Code'
@@ -187,7 +191,7 @@ class Checkout extends Component {
                             onChange={this.handleChange}
                             />
                     </form>               
-                        <Button style={{width:'100%' ,position:'absolute', bottom:40}}  type="submit" variant="contained" color='primary' onClick={()=>{this.handleSubmitCode()}}>Reedem Code</Button>
+                        {/* <Button style={{width:'100%' ,position:'absolute', bottom:40}}  type="submit" variant="contained" color='primary' onClick={()=>{this.handleSubmitCode()}}>Reedem Code</Button> */}
                     </Grid>
                     <Grid item xs={12}> 
                               

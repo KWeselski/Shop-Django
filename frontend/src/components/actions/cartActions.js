@@ -1,11 +1,11 @@
 import { ADD_TO_CART,REMOVE_ITEM,SUB_QUANTITY,ADD_QUANTITY,CLEAR_CART, PRODUCTS_NAMES, ORDERS_NAMES,CODE_NAMES, DISCOUNT_NAMES, OPINION_NAMES} from './action-types/cart-actions'
-import {productListURL,productDetailURL, addCodeURL, lastOrderURL} from "../constants";
+import {productListURL,productDetailURL,createOrderURL,addAddressURL, postOpinionURL, addCodeURL,getOpinionsURL, lastOrderURL} from "../constants";
 import axios from 'axios'
 
 export const fetchProducts = () => {
     return dispatch => {
       dispatch(startFetchProducts());
-      axios.get(`/api/products/`)
+      axios.get(productListURL)
         .then(res => { 
             dispatch(finishFetchProducts(res.data));        
             return res.data
@@ -17,7 +17,7 @@ export const fetchProducts = () => {
 export const fetchProductsID = () => {
     return dispatch => {
         dispatch(startFetchProducts());
-        axios.get(`/api/products/${id}`)
+        axios.get(productDetailURL(id))
           .then(res => { 
               dispatch(finishFetchProducts(res.data));        
               return res.data
@@ -30,7 +30,7 @@ export const fetchProductsID = () => {
 export const orderAdd = (order_items) =>{  
     return dispatch => {
         dispatch(startAddOrder());
-        axios.post("/api/create_order/",{
+        axios.post(createOrderURL,{
             order_items:order_items,            
             },
             {headers: {
@@ -44,7 +44,7 @@ export const orderAdd = (order_items) =>{
 export const orderPayed = () =>{  
     return dispatch => {
         dispatch(startAddOrder());
-        axios.put("/api/create_order/",
+        axios.put(createOrderURL,
         {},
             {headers: {
                 Authorization: `${localStorage.getItem("token")}`}
@@ -58,7 +58,7 @@ export const orderPayed = () =>{
 export const postOpinion = (rating,opinion,productid) => {
     return dispatch => {
         dispatch(startAddOrder());
-        axios.post(`/api/post_opinion/${productid}`,{
+        axios.post(postOpinionURL(productid),{
             rating: rating,
             opinion : opinion,
             product: productid
@@ -72,7 +72,7 @@ export const postOpinion = (rating,opinion,productid) => {
 export const putOpinion = (rating,opinion,productid) => {
     return dispatch => {
         dispatch(startAddOrder());
-        axios.put(`/api/post_opinion/${productid}`,{
+        axios.put(postOpinionURL(productid),{
             rating: rating,
             opinion : opinion,
             product: productid
@@ -86,7 +86,7 @@ export const putOpinion = (rating,opinion,productid) => {
 export const getOpinions = (productId) => {
     return dispatch => {
         dispatch(startFetchOpinions());
-        axios.get(`/api/get_opinions/${productId}`, {
+        axios.get(getOpinionsURL(productId), {
             headers: {Authorization: `${localStorage.getItem("token")}`}
         }).then(res => {           
             dispatch(finishFetchOpinions(res.data));
@@ -98,7 +98,7 @@ export const getOpinions = (productId) => {
 export const addAddress = (street_address,apartment_address,city,postal_code,delivery_type) => {
     return dispatch => {
         dispatch(startAddOrder());
-        axios.post("/api/add_address/",{
+        axios.post(addAddressURL,{
             street_address : street_address,
             apartment_address : apartment_address,
             city : city,

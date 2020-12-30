@@ -13,7 +13,6 @@ const InjectedPaymentForm = () => (
     </ElementsConsumer>
 );
 
-
 const Payment = () => (
     <Elements stripe={stripePromise}>
         <InjectedPaymentForm/>

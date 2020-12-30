@@ -20,6 +20,7 @@ const styles = theme => ({
 
 
 class CategoryList extends Component{
+
     constructor(props){
         super (props)
         this.state = {
@@ -29,17 +30,17 @@ class CategoryList extends Component{
          }; 
         }  
 
-        async componentDidMount(){
-           fetch("/api/category/").then(response => {
-               if (response.status > 400) {
-                   return this.setState(() => {
-                       console.log('error')
-                       return { placeholder: "Something went wrong"};
-                   });
-               }
-               return response.json();
-           })
-         .then(data => {
+    async componentDidMount(){
+    
+        fetch(categoryListURL).then(response => {
+            if (response.status > 400) {
+                return this.setState(() => {
+                    console.log('error')
+                    return { placeholder: "Something went wrong"};
+                });
+            }
+            return response.json();
+        }).then(data => {
              this.setState(() => {
                  return { 
                      data,

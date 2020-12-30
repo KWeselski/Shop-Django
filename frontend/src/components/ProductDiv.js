@@ -11,7 +11,7 @@ import {Link} from 'react-router-dom';
 import {connect} from 'react-redux'
 import {addToCart} from './actions/cartActions'
 import CartModal from './CartModal'
-import {AWSURL} from './constants'
+import {awsURL} from './constants'
 
 class ProductDiv extends Component {
     constructor(props){
@@ -25,7 +25,6 @@ class ProductDiv extends Component {
     showModal = () => {
         this.setState({
             showModal: !this.state.showModal })
-        
     }
 
     handleHoverOn = () => {
@@ -33,6 +32,7 @@ class ProductDiv extends Component {
             hover:true        
         });
     }
+
     handleHoveroff = () => {
         this.setState({
             hover:false           
@@ -45,16 +45,16 @@ class ProductDiv extends Component {
     }
 
     
-    render(){ 
+    render() { 
         let image=""    
         if(window.location.origin === "https://valee-shop.herokuapp.com/"){
             let image_end_url = String(this.props.temp.image).split('static')[1]
             let next_part = image_end_url.split('_')[0]
-            image = String(`${AWSURL}${image_end_url}` +'.jpg')         
+            image = String(`${awsURL}${image_end_url}` +'.jpg')         
         }
         else{
             let image_end_url = String(this.props.temp.image).split('static')[1]
-            image = String(`${AWSURL}${image_end_url}`)
+            image = String(`${awsURL}${image_end_url}`)
         }
         let available = String(this.props.temp.available) ? 'Dostępny' : 'Niedostępny'  
         

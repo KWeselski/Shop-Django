@@ -55,8 +55,7 @@ class App extends Component{
     }
 
     render(){ 
-        const {isAuthenticated} = this.props;
-     
+        
         return(
           <ThemeProvider theme={theme}>
             <div className="App">

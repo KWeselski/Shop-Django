@@ -1,9 +1,6 @@
 import React, { Component} from 'react'
 import {Typography, Grid} from '@material-ui/core';
 
-
-
-
 export default class Footer extends Component{
     render(){
         return(

@@ -20,9 +20,7 @@ class OpinionsForm extends Component {
                 <Grid item xs={8}>
                     <Typography align='justify' variant="h6">{this.props.temp.opinion}</Typography>
                 </Grid>
-            </Grid>
-                
-            )
+            </Grid>)
     }
 }
 

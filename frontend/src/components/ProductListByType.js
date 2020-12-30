@@ -21,18 +21,20 @@ class ProductListByType extends Component{
                 console.log(res.data)
                 this.setState({
                     data: res.data})          
-            })
-        }
+        })
+    }
              
-        componentDidMount(){
-            this.getProducts();
+    componentDidMount(){
+        this.getProducts();
+    }
+
+    componentDidUpdate(prevProps){
+        if(this.props.location !== prevProps.location){             
+            this.getProducts()
         }
-        componentDidUpdate(prevProps){
-            if(this.props.location !== prevProps.location){             
-                this.getProducts()
-            }
-        }    
-     render(){   
+    }
+
+    render(){   
         const {data} = this.state;    
         return(   
             <Grid container spacing={1} style={{marginTop:10}}>
@@ -42,8 +44,8 @@ class ProductListByType extends Component{
                     )          
                 })}
             </Grid>);
-        }
-        };
+    }};
+
 const mapStateToProps = state => ({
         products: state.items,
         loading: state.loading,

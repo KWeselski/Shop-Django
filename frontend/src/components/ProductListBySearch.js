@@ -15,11 +15,10 @@ class ProductListBySearch extends Component{
 
     getProducts(){
         const { match : {params} } = this.props;
-        console.log("Params",{params})
         axios.get(productListBySearchURL(params.query),{
             params: {query:params.query}
             }).then(res => {
-            console.log(res.data)
+            
             this.setState({data: res.data})          
         })
 
@@ -36,8 +35,7 @@ class ProductListBySearch extends Component{
     } 
 
     render(){   
-        const {data} = this.state; 
-        console.log('Data:', data)   
+        const {data} = this.state;  
         return(   
             <Grid container spacing={1} style={{marginTop:10}}>
                 {data.map((value,index) => {                    
@@ -45,9 +43,9 @@ class ProductListBySearch extends Component{
                     <Grid item> <ProductDiv temp={data[index]}/></Grid>
                     )          
                 })}
-            </Grid>);
-        }
-        };
+            </Grid>);}
+    };
+    
 const mapStateToProps = state => ({
         products: state.items,
         loading: state.loading,

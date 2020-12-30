@@ -18,8 +18,6 @@
 
 /*! export AUTH_SUCCESS [provided] [no usage info] [missing usage info prevents renaming] */
 
-/*! export AWSURL [provided] [no usage info] [missing usage info prevents renaming] */
-
 /*! export AddAddress [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export AsyncMode [provided] [no usage info] [missing usage info prevents renaming] */
@@ -202,6 +200,8 @@
 
 /*! export addAddress [provided] [no usage info] [missing usage info prevents renaming] */
 
+/*! export addAddressURL [provided] [no usage info] [missing usage info prevents renaming] */
+
 /*! export addCode [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export addCodeURL [provided] [no usage info] [missing usage info prevents renaming] */
@@ -229,6 +229,8 @@
 /*! export authStart [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export authSuccess [provided] [no usage info] [missing usage info prevents renaming] */
+
+/*! export awsURL [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export batch [provided] [no usage info] [missing usage info prevents renaming] -> ./node_modules/react-dom/cjs/react-dom.production.min.js .unstable_batchedUpdates */
 
@@ -290,6 +292,8 @@
 
 /*! export createMemoryHistory [provided] [no usage info] [missing usage info prevents renaming] */
 
+/*! export createOrderURL [provided] [no usage info] [missing usage info prevents renaming] */
+
 /*! export createPath [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export createPortal [provided] [no usage info] [missing usage info prevents renaming] */
@@ -341,8 +345,6 @@
 /*! export easing [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export emphasize [provided] [no usage info] [missing usage info prevents renaming] */
-
-/*! export endpoint [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export fade [provided] [no usage info] [missing usage info prevents renaming] */
 
@@ -409,6 +411,8 @@
 /*! export getOffsetTop [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export getOpinions [provided] [no usage info] [missing usage info prevents renaming] */
+
+/*! export getOpinionsURL [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export getTransitionProps [provided] [no usage info] [missing usage info prevents renaming] */
 
@@ -550,6 +554,8 @@
 
 /*! export postOpinion [provided] [no usage info] [missing usage info prevents renaming] */
 
+/*! export postOpinionURL [provided] [no usage info] [missing usage info prevents renaming] */
+
 /*! export prefix [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export productDetailURL [provided] [no usage info] [missing usage info prevents renaming] */
@@ -605,6 +611,8 @@
 /*! export startFetchOpinions [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export startFetchProducts [provided] [no usage info] [missing usage info prevents renaming] */
+
+/*! export stripeURL [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export styles [provided] [no usage info] [missing usage info prevents renaming] */
 

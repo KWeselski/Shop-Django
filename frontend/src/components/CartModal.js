@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom';
 import {connect} from 'react-redux'
 
 class CartModal extends Component {
+    
     onClose = () => {this.props.onClose && this.props.onClose();};
 
     render() {
@@ -30,7 +31,6 @@ class CartModal extends Component {
                         {this.props.temp.on_discount ? (
                             <Typography style={{ borderRight: '0.1em solid black', padding: '0.5em' }} variant="h6">Discount price: {this.props.temp.discount_price}$ </Typography>)
                             : <Typography style={{ borderRight: '0.1em solid black', padding: '0.5em' }} variant="h6">Price: {this.props.temp.price}$ </Typography>}    
-        
                         </Grid>
                     </Grid>
                 </Grid>
@@ -41,9 +41,7 @@ class CartModal extends Component {
             <Grid item xs={12}>
                 <Grid container xs={12} style={{position:'absolute',bottom:10}}>
                     <Grid item xs={6} style={{position:'absolute',right:50,bottom:0}}><Link to='/cart'><Button onClick={this.onClose} variant="contained"  color='primary'>To cart</Button></Link></Grid>
-                    <Grid item xs={6} style={{position:'absolute',left:50,bottom:0}}><Button variant="contained" color='primary' onClick={this.onClose}>Continue shopping</Button></Grid>
-                    
-                    
+                    <Grid item xs={6} style={{position:'absolute',left:50,bottom:0}}><Button variant="contained" color='primary' onClick={this.onClose}>Continue shopping</Button></Grid>              
                 </Grid>           
             </Grid>
             </Grid>          

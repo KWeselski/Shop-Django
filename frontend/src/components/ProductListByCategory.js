@@ -32,16 +32,19 @@ class ProductListByCategory extends Component{
                  });
                 
              });       
-            }         
-        componentDidMount(){
+            }
+
+    componentDidMount(){
+        this.getProductDetails()
+    }
+
+    componentDidUpdate(prevProps){
+        if(this.props.location !== prevProps.location){             
             this.getProductDetails()
         }
-        componentDidUpdate(prevProps){
-            if(this.props.location !== prevProps.location){             
-                this.getProductDetails()
-            }
-        }    
-     render(){   
+    }
+
+    render(){   
         const {data} = this.state;    
         return(   
             <Grid container spacing={1} style={{marginTop:10}}>
@@ -51,8 +54,8 @@ class ProductListByCategory extends Component{
                     )          
                 })}
             </Grid>);
-        }
-        };
+    }};
+
 const mapStateToProps = state => ({
         products: state.items,
         loading: state.loading,

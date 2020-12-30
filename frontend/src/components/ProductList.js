@@ -9,10 +9,11 @@ class ProductList extends Component{
         super (props);
         this.state = {
         };     
-    }   
-             
-        render(){       
+    }            
+        
+    render(){       
         const {error, loading, products} = this.props;
+
         if (error){
             return<div>Error! {error.message}</div>
         }
@@ -27,11 +28,9 @@ class ProductList extends Component{
                             <ProductDiv temp={products[index]}/>
                         </Grid>
                     ) 
-                })}          
-                
-            </Grid>);         
+                })}</Grid>);         
         }
-        };
+    };
         
 const mapStateToProps = state => ({
         products: state.cart.items,

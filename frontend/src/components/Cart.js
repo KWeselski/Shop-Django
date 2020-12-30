@@ -43,7 +43,6 @@ class Cart extends Component{
 
     render(){         
         const {total, isAuthenticated} = this.props;
-        console.log(this.props.items.length)
         let addedItems = this.props.items.length ?
             (         
                 <TableContainer>
@@ -105,8 +104,8 @@ class Cart extends Component{
                                 <Link to="/login" variant="h6">
                                 Please login
                                 </Link>
-                            </div>:<div></div>}
-                            
+                            </div>
+                            :<div></div>}                  
                             </Grid>
                         </Grid>                                        
                     </Grid> 

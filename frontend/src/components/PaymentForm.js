@@ -1,6 +1,7 @@
 import React, { Component} from 'react'
 import ReactDOM from 'react-dom';
 import {loadStripe} from '@stripe/stripe-js';
+import {stripeURL} from './constants'
 import {CardElement, Elements, ElementsConsumer} from '@stripe/react-stripe-js';
 import axios from 'axios'
 import {connect} from 'react-redux';
@@ -19,16 +20,16 @@ class PaymentForm extends Component {
         };
     }
          
-      handleChange = (event) => {
+    handleChange = (event) => {
           if (event.error){
               this.setState({error: event.error.message});
           } else {
             this.setState({error: null});
           }
-      }
+    }
 
     saveStripeInfo = (email , payment_method, total) => {
-        axios.post("/api/save-stripe-info/",{
+        axios.post(stripeURL,{
             email: email,
             payment_method_id : payment_method,
             amount: total
@@ -49,7 +50,7 @@ class PaymentForm extends Component {
         this.saveStripeInfo(email,paymentMethod.id,total)
     };
 
-      render() {
+    render() {
          const {email,error,success} = this.state;   
          const {stripe, items , total, address} = this.props;
          if(success == "Success"){
@@ -96,20 +97,20 @@ class PaymentForm extends Component {
                     </Grid>
                     <Grid item xs={6}>
                         <List>
-                            <ListItemText disableTypography primary={<Typography variant='h9'>Street address: {address.street_address} </Typography>}/>
-                            <ListItemText disableTypography primary={<Typography variant='h9'>Apartament address: {address.apartment_address} </Typography>}/>
-                            <ListItemText disableTypography primary={<Typography variant='h9'>City: {address.city}</Typography>}/>
-                            <ListItemText disableTypography primary={<Typography variant='h9'>Postal code: {address.postal_code}</Typography>}/>
-                            <ListItemText disableTypography primary={<Typography variant='h9'>Delivery type: {address.delivery_type}</Typography>}/>
+                            <ListItemText disableTypography primary={<Typography variant='h7'>Street address: <b>{address.street_address}</b> </Typography>}/>
+                            <ListItemText disableTypography primary={<Typography variant='h7'>Apartament address: <b>{address.apartment_address}</b></Typography>}/>
+                            <ListItemText disableTypography primary={<Typography variant='h7'>City: <b>{address.city}</b></Typography>}/>
+                            <ListItemText disableTypography primary={<Typography variant='h7'>Postal code: <b>{address.postal_code}</b></Typography>}/>
+                            <ListItemText disableTypography primary={<Typography variant='h7'>Delivery type: <b>{address.delivery_type}</b></Typography>}/>
                         </List>
                     </Grid>
                     <Grid item xs={6}>
                         <List>
                         {items.map((value,index) => {                   
                             return(                                                                            
-                                    <ListItem>
-                                        <ListItemText disableTypography primary={<Typography variant='h9'>{value.quantity} x <b>{value.name}</b></Typography>}/>                                    
-                                    </ListItem>                                                                                                                
+                                <ListItem>
+                                    <ListItemText disableTypography primary={<Typography variant='h9'>{value.quantity} x <b>{value.name}</b></Typography>}/>                                    
+                                </ListItem>                                                                                                                
                             )          
                         })}
                         <Divider/>

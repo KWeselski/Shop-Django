@@ -1,16 +1,9 @@
 import React, { Component} from 'react'
-import StarBorderIcon from '@material-ui/icons/StarBorder';
-import StarIcon from '@material-ui/icons/Star';
-import Radio from '@material-ui/core/Radio';
-import axios from 'axios';
-import { FormControlLabel, RadioGroup } from '@material-ui/core';
-import { yellow, grey } from '@material-ui/core/colors';
 import {Button, Grid, TextField , Typography} from '@material-ui/core';
 import {connect} from 'react-redux';
 import {postOpinion ,putOpinion} from './actions/cartActions'
-import {Link} from 'react-router-dom'
 import Rating from '@material-ui/lab/Rating';
-import Box from '@material-ui/core/Box';
+
 
 class RatingStar extends Component {
  
@@ -49,7 +42,7 @@ class RatingStar extends Component {
             }
       }
     render(){
-        const {selectedValue,opinion,productId,opinion_exist } = this.state;
+        const {selectedValue,opinion,opinion_exist } = this.state;
         return (
         <div>
             <Typography style={{padding:10 ,marginTop:10, textAlign:'center'}} variant="h6">User Rating</Typography>
@@ -91,13 +84,11 @@ class RatingStar extends Component {
                         variant="contained"
                         color="primary">                  
                         Send opinion
-                    </Button>
-                    }                       
+                    </Button>}                       
                     </Grid>
                     </Grid>
                 </form>          
-            </div>
-            )
+            </div>)
     }
 }
 const mapDispatchToProps = (dispatch) =>{
