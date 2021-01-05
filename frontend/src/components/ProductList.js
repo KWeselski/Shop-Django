@@ -21,14 +21,16 @@ class ProductList extends Component{
             return <div>Loading...</div>
         }
         return(   
-            <Grid container spacing={1} style={{marginTop:10}}>        
+            <Grid container spacing={1} style={{marginTop:10}}>
+                      
                 {products.map((value,index) => {                    
-                return(
+                return(                    
                         <Grid item>
                             <ProductDiv temp={products[index]}/>
                         </Grid>
                     ) 
-                })}</Grid>);         
+                })}</Grid>);
+                         
         }
     };
         

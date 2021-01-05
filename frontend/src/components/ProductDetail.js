@@ -11,6 +11,30 @@ import RatingStar from './RatingStar';
 import axios from 'axios'
 import OpinionsForm from './OpinionsForm'
 import Rating from '@material-ui/lab/Rating';
+import {withStyles} from "@material-ui/core/styles";
+import {compose} from 'redux'
+
+const styles = theme => ({
+    productItem:{
+        position:'relative',
+        display:'block',
+        padding: '0.75rem 1.25rem 0.75rem 1.25rem',
+        border: '1px solid rgba(0,0,0,0.125)',
+        borderWidth: '0 0 1px'
+    },
+    productDetail: {
+        width: 300,
+        '& h1':{
+            fontSize: '3rem',
+            textAlign: 'center'
+        },
+        '& p':{
+            fontSize: '1.5rem',
+            textAlign: 'center'
+        }
+    }
+});
+
 
 class ProductDetail extends Component{
     constructor(props){
@@ -31,7 +55,6 @@ class ProductDetail extends Component{
         this.props.addToCart(id);
     }
 
-   
     getOpinion(){
         const { match : {params} } = this.props;
         this.getOpinions(params.productID);      
@@ -92,18 +115,18 @@ class ProductDetail extends Component{
 
     render(){
         const {data,opinions_,opinion_exist} = this.state; 
-        const {username} = this.props;
+        const {classes} = this.props;
         const item = data;
         const { match : {params} } = this.props;
-        console.log(item.available)
+       
         let numberOpinions = opinions_.length;
         let available = String(item.available) ? 'Available' : 'Unavailable' 
         return(  
-             <Grid container xs={12} style={{height:'40%'}}>
-                    <Grid item xs={2}>             
+             <Grid container xs={12} md={12} style={{height:'40%'}}>
+                    <Grid item xs={0} md={2}>             
                     </Grid> 
-                    <Grid container xs={8}>
-                        <Grid item xs={6}>    
+                    <Grid container xs={12} md={8}>
+                        <Grid item xs={12} md={6}>    
                             <div style={{maxWidth: '100%', height:'auto'}}>
                                 <img src={String(item.image).split('frontend')[1]} style={{verticalAlign:'middle', width:'100%'}}/>                           
                             </div>
@@ -120,24 +143,24 @@ class ProductDetail extends Component{
                                 </Grid>
                             </div>
                         </Grid>
-                        <Grid item xs={6}>   
+                        <Grid item xs={12} md={6}>   
                             <div style={{display:'flex', flexDirection:'column', paddingLeft:0 , marginBottom:0}}>
-                                <div className={'Product-item'}>
+                                <div className={classes.productItem}>
                                     <Typography align='center' variant="h6">{item.name}</Typography> 
                                 </div>
-                                <div className={'Product-item'} >
+                                <div className={classes.productItem} >
                                     <Rating value={Number(item.rating)} readOnly='true'></Rating> ({numberOpinions}) Reviews
                                 </div>
-                                <div className={'Product-item'}>
+                                <div className={classes.productItem}>
                                     {item.on_discount ? (<span>
                                     <Typography align='left' variant="h8">Price: {item.price}$ </Typography>
                                     <Typography align='left' variant="h8"><b>Discount price: {item.discount_price}$</b> </Typography></span> )
                                     : <Typography align='left' variant="h8">Price: {item.price}$ </Typography>}    
                                 </div>
-                                <div className={'Product-item'}>
+                                <div className={classes.productItem}>
                                 <Typography align='justify' variant="h9">{available}</Typography>
                                 </div>
-                                <div className={'Product-item'}>
+                                <div className={classes.productItem}>
                                 <Typography align='justify' variant="h8">{item.description}</Typography>
                                 </div>
                                 <div id="CartButton" >
@@ -148,7 +171,7 @@ class ProductDetail extends Component{
                             </div>
                         </Grid>                             
                     </Grid>                           
-                    <Grid item xs={2}></Grid>               
+                    <Grid item xs={0} md={2}></Grid>               
             </Grid>      
         );
     }
@@ -173,4 +196,5 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(ProductDetail);    
+export default compose(connect(mapStateToProps,mapDispatchToProps),withStyles(styles),)(ProductDetail);
+  

@@ -4,6 +4,30 @@ import {connect} from 'react-redux';
 import {Link, Redirect } from 'react-router-dom'
 import {addCode,getLastOrder} from './actions/cartActions'
 import {addAddress} from './actions/addressAction'
+import {withStyles} from "@material-ui/core/styles";
+import {compose} from 'redux'
+const styles = theme => ({
+    Code: { 
+        width:'100%',
+        position:'relative',
+        bottom:80,
+        marginTop:80,
+        [theme.breakpoints.up('sm')]:{
+            position:'absolute',
+            marginTop:0,
+        },
+    },
+    textCode: {
+        width:'100%',
+        position:'relative',
+        bottom:140,
+        marginTop:60,
+        [theme.breakpoints.up('sm')]:{
+            position:'absolute',
+        },
+    },
+})
+
 
 class Checkout extends Component {
     state = {
@@ -58,7 +82,7 @@ class Checkout extends Component {
               
     render(){
         const {street_address, apartament_address, city, postal_code, delivery_type, code, total_cost, total_after_discount,completed} = this.state;
-        const {total, discount, isAuthenticated} = this.props
+        const {total, discount, isAuthenticated,classes} = this.props
         const deliveryTypes = [
             {value: 'S', label: 'Pay in store'},
             {value: 'O', label: 'Pay online'}
@@ -70,14 +94,13 @@ class Checkout extends Component {
             return <Redirect to="/payment" />;
         }
         return(
-            <Grid container xs={12}>
-            <Grid item xs={1}></Grid>
-            <Grid item xs={6}>
-                <Typography  style={{padding:30}} variant="h4" align='center'>Add your address</Typography>
-                
+            <Grid container xs={12} md={12}>
+            <Grid item xs={2} md={1}></Grid>
+            <Grid item xs={12} md={6}>
+                <Typography variant="h4" align='center'>Add your address</Typography>          
                 <form onSubmit={this.handleAddAddress}>         
-                    <Grid container spacing={1} textAlign="center"
-                    style={{ height: "50vh" }}
+                    <Grid container textAlign="center"
+                    style={{ height: "70vh" }}
                     verticalAlign="middle">
                         <Grid item xs={12}>
                             <TextField
@@ -88,7 +111,7 @@ class Checkout extends Component {
                                 fullWidth
                                 id="streetAddress"
                                 label="Street Address"
-                                autoFocus
+                                
                                 value={street_address}
                                 onChange={this.handleChange}
                                 />
@@ -102,7 +125,7 @@ class Checkout extends Component {
                                 fullWidth
                                 id="apartamentAddress"
                                 label="Apartament Address"
-                                autoFocus
+                                
                                 value={apartament_address}
                                 onChange={this.handleChange}
                                 />
@@ -116,7 +139,7 @@ class Checkout extends Component {
                                 fullWidth
                                 id="city"
                                 label="City"
-                                autoFocus
+                                
                                 value={city}
                                 onChange={this.handleChange}
                                 />
@@ -130,7 +153,6 @@ class Checkout extends Component {
                                 fullWidth
                                 id="postalCode"
                                 label="Postal Code"
-                                autoFocus
                                 value={postal_code}
                                 onChange={this.handleChange}
                                 />
@@ -161,24 +183,22 @@ class Checkout extends Component {
                     </Grid>
                 </form>
             </Grid>
-            <Grid item xs={2}></Grid>
-            <Grid item xs={3}>   
-                <Grid containter style={{height:'80%', position:'relative'}}xs={12}>
-                    <Grid item xs={12} style={{width:'100%', position:'absolute', marginTop: '6rem'}}>
+            <Grid item xs={2} md={2}></Grid>
+            <Grid item xs={12} md={3}>   
+                <Grid containter style={{height:'100%', position:'relative'}} xs={12}>
+                    <Grid item xs={12} style={{width:'100%', position:'relative'}}>
                     <Typography variant='h5'>Total to pay: {total}<b>$</b></Typography>
                     <Typography variant='h5'>Discount: {discount.discount}<b>%</b></Typography>
                     <Typography style={{border: '1px solid rgba(0,0,0,0.5)',
                         borderWidth: '0 0 1px'}}></Typography>
                     {discount.discount > 0 ? <Typography variant='h5'>Total: {(discount.total_after_discount).toFixed(2)}<b>$</b></Typography> :
                     <Typography variant='h5'>Total: {total}<b>$</b></Typography>}
-                    
                     </Grid>
-                    <Grid item xs={12}>
-                    
-                    <form onSubmit={this.handleSubmitCode}>
-                        <Typography variant='h6' style={{width:'100%' ,position:'absolute', bottom:140}}>Reedem Code</Typography>
+                    <Grid item xs={12}>             
+                    <form  onSubmit={this.handleSubmitCode}>
+                        <Typography variant='h6'>Reedem Code</Typography>
                         <TextField 
-                            style={{width:'100%' ,position:'absolute', bottom:80}}
+                            className={classes.Code}
                             autoComplete='Code'
                             name="code"
                             variant="outlined"
@@ -192,10 +212,6 @@ class Checkout extends Component {
                             />
                     </form>               
                         {/* <Button style={{width:'100%' ,position:'absolute', bottom:40}}  type="submit" variant="contained" color='primary' onClick={()=>{this.handleSubmitCode()}}>Reedem Code</Button> */}
-                    </Grid>
-                    <Grid item xs={12}> 
-                              
-
                     </Grid>
                 </Grid>                                        
             </Grid>
@@ -220,4 +236,4 @@ const mapDispatchToProps = (dispatch) =>{
         
     }
 }
-export default connect(mapStateToProps,mapDispatchToProps)(Checkout)
+export default compose(connect(mapStateToProps,mapDispatchToProps),withStyles(styles),)(Checkout)

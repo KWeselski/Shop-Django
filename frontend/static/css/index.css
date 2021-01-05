@@ -18,121 +18,12 @@ body {
     height: 100%;
 }
 
-.App {
-    position: relative;
-    min-height: 100vh;
-    padding-bottom: 100px;
-}
-
-#navbar img{
-    width:fit-content;
-    height:120px;
-}
-
-.MuiAppBar-root{
-    height: 60px;
-}
-
-.icon{
-    float: right;
-    height: 48px;
-    color:white;
-}
-
-#titleShop{
-    text-decoration: none;
-    color:white;
-
-}
 
 .center {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-}
-
-.ProductDiv{
-    height: 300px;
-    width: 240px;
-    transition: transform 1s;
-    transform-style: preserve-3d;
-    cursor: pointer;
-    position: relative; 
-    z-index: 0; 
-    border: 1px solid black; 
-}
-
-.ProductDiv h1, h2 {
-    text-align: center;
-    font-family: 'Crimson Text', sans-serif;
-}
-
-.ProductContent{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-#ProductImg{
-    height: 160px;
-}
-#ProductImg > img {
-    object-fit: contain;
-    width: 100%;
-}
-
-#productDetail{
-    width:300px;
-}
-
-#productDetail h1{
-    font-size: 3em;
-    text-align: center;
-}
-#productDetail p{
-    font-size: 12px;
-    text-align: center;
-}
-
-.CardDescription{
-    margin: 10% 5% 5% 5%;
-    text-indent: 1.5em;
-    position:'absolute';
-    height:100%;
-    
-}
-.CardDescription p{
-    color:black;
-    text-align:"center";
-}
-
-.CardContent{
-    position: absolute;
-    top: 0;
-    left: 0;
-    width:100%;
-    height: 100%;
-}
-
-.CardDescription {
-    opacity: 0;
-    transition: all 0.5s;
-}
-
-.ProductDiv:hover{
-    transition: all 0.7s;
-    background-color: rgba(77,77,77,0.5); 
-}
-
-.ProductDiv:hover .ProductContent{
-    opacity: 1; 
-}
-.ProductDiv:hover .CardDescription{
-    opacity: 1;
-}
-.ProductDiv:hover #ProductImg {
-    opacity:0;
 }
 
 .ModalDiv{
@@ -151,33 +42,10 @@ body {
     opacity: 1;
 }
 
-.Product-item{
-    position:relative;
-    display:block;
-    padding: 0.75rem 1.25rem 0.75rem 1.25rem;
-    border: 1px solid rgba(0,0,0,0.125);
-    border-width: 0 0 1px;
-}
 
 #CartButton {
     position: relative;
     margin-left: auto;
     margin-right: auto;
     padding-top: 0.5em;
-}
-
-#categoryList{
-    position:'sticky';
-    top:0;
-    z-Index: 2;
-    background-color: 'white';
-    font-size: 17;
-    font-weight:600;
-    letter-spacing: '0.25em'; 
-    border: 1px solid rgba(0,0,0,0.125);
-    border-width: 0 0 1px;
-}
-
-.footerItem {
-    padding:20px;
 }

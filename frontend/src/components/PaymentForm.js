@@ -59,9 +59,9 @@ class PaymentForm extends Component {
          }
          return(
             <Grid container xs={12}>
-                <Grid item xs={6}>
-                    <form onSubmit={this.handleSubmit} style={{width:300}}>
-                        <Grid container spacing={1} textAlign="center" style={{height:"10vh"}}
+                <Grid item xs={12} md={6}>
+                    <form onSubmit={this.handleSubmit} style={{width:270}}>
+                        <Grid container spacing={1} textAlign="center" style={{height:"100%"}}
                         verticalAlign="middle">
                             <Grid item xs={12}>
                             <Typography variant='h6'>Payment</Typography>
@@ -90,12 +90,12 @@ class PaymentForm extends Component {
                         </Grid>
                     </form>
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={12} md={6}>
                     <Grid container xs={12}>
                     <Grid item xs={12}>
                         <Typography variant='h4'>Order</Typography>
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid item xs={12} md={6}>
                         <List>
                             <ListItemText disableTypography primary={<Typography variant='h7'>Street address: <b>{address.street_address}</b> </Typography>}/>
                             <ListItemText disableTypography primary={<Typography variant='h7'>Apartament address: <b>{address.apartment_address}</b></Typography>}/>
@@ -104,7 +104,7 @@ class PaymentForm extends Component {
                             <ListItemText disableTypography primary={<Typography variant='h7'>Delivery type: <b>{address.delivery_type}</b></Typography>}/>
                         </List>
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid item xs={12} md={6}>
                         <List>
                         {items.map((value,index) => {                   
                             return(                                                                            

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {AppBar, Toolbar, Typography, TextField, Button, Badge, IconButton} from '@material-ui/core/';
+import {AppBar, Grid, Toolbar, Typography, TextField, Button, Badge, IconButton} from '@material-ui/core/';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import SearchIcon from '@material-ui/icons/Search';
 import { Link, } from "react-router-dom";
@@ -8,10 +8,14 @@ import {compose} from 'redux'
 import { logout } from './actions/authActions';
 import {fade, withStyles} from "@material-ui/core/styles";
 
-
 const styles = theme => ({
-    typographyStyles: {
-        flex: 1
+    appBar:{
+        height:130,
+        [theme.breakpoints.up('sm')]:{
+            height:100},
+        [theme.breakpoints.up('md')]:{
+        height:60},
+        
     },
     search: {
         position: 'relative',
@@ -19,10 +23,12 @@ const styles = theme => ({
         backgroundColor: fade(theme.palette.common.white, 0.15),
         '&:hover': {
           backgroundColor: fade(theme.palette.common.white, 0.25),
-        },  
-        width: '17rem',
+        }, 
+        width:'16rem',
+        [theme.breakpoints.up('md')]:{
+            width:'17rem'}
       },
-      searchIcon: {
+    searchIcon: {
         padding: theme.spacing(0, 2),
         height: '100%',
         position: 'absolute',
@@ -30,18 +36,18 @@ const styles = theme => ({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-      },
-      inputRoot: {
+    },
+    inputRoot: {
         color: 'inherit',
-      },
-      inputInput: {    
+    },
+    inputInput: {    
         height:'100%', 
         // vertical padding + font size from searchIcon
         paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
         transition: theme.transitions.create('width'),
         display:'flex',
         width: '100%',
-      },
+    },
     iconsbar: {
         display: 'flex',
         padding: theme.spacing(0,2),
@@ -49,12 +55,50 @@ const styles = theme => ({
         justifyContent: 'center'
 
     },
-    cartButton:{
-    },
     largeIcon: {
         width: 36,
         height: 36,
       },
+    navbarBackground: {
+        width: '100%',
+        height: 70,
+        backgroundImage: `url('${window.location.origin}/static/images/b1.jpg')`,
+        backgroundPosition: '60% 55%',
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat',
+        [theme.breakpoints.up('md')]:{
+            height:200},
+    },
+    linkDecoration:{
+        textDecoration:"none",
+        color:'white'
+    },
+    title:{
+        [theme.breakpoints.up('md')]:{
+            marginLeft:'2em',
+            flex:1}
+    },
+    desktopBar:{
+        display:'none', 
+        [theme.breakpoints.up('sm')]:{
+                display:'none'},
+        [theme.breakpoints.up('md')]:{
+                display:'flex'},
+    },
+    smBar:{
+        display:'none',
+        [theme.breakpoints.up('sm')]:{
+            display:'flex'},
+        [theme.breakpoints.up('md')]:{
+            display:'none'},     
+    },
+    xsBar:{
+        display:'flex',
+        [theme.breakpoints.up('sm')]:{
+            display:'none'},
+        [theme.breakpoints.up('md')]:{
+            display:'none'},        
+    }
 });
 
 class NavBar extends Component {
@@ -71,16 +115,13 @@ class NavBar extends Component {
         const {classes, authenticated,items,username, total} = this.props;
         const {query} = this.state;
         return(      
-            <div id="navbar">
-                <div style={{ width:'100%', height:200, backgroundImage: `url('${window.location.origin}/static/images/b1.jpg')`,
-                backgroundPosition: '60% 55%',
-                backgroundSize: 'cover',
-                backgroundRepeat: 'no-repeat' }}>
+            <div >
+                <div className={classes.navbarBackground}>
                 </div>                
-                <AppBar id="appbar" position="static"> 
-                <Toolbar variant="dense">             
-                        <Typography style={{marginLeft:'2em' }} variant='h3' className={classes.typographyStyles}>
-                            <Link style={{textDecoration: 'none', color:'white'}} to="/"><Typography variant='h4'>Valeé</Typography></Link> 
+                <AppBar className={classes.appBar} position="static"> 
+                <Toolbar className={classes.desktopBar} variant="dense">             
+                        <Typography variant='h3' className={classes.title}>
+                            <Link className={classes.linkDecoration} to="/"><Typography variant='h4'>Valeé</Typography></Link> 
                         </Typography>
                         <div className={classes.search}>
                             <div className={classes.searchIcon}>
@@ -90,7 +131,6 @@ class NavBar extends Component {
                             <form  className={classes.inputInput} onSubmit={e => { e.preventDefault(); }}>
                                 <TextField style={{marginTop: 2}}   
                                 name="query"
-       
                                 required
                                 fullWidth       
                                 autoFocus
@@ -102,7 +142,7 @@ class NavBar extends Component {
                             </form>
                             </div> 
                         </div>
-                        <div className={classes.typographyStyles} />
+                        <div className={classes.title} />
                         <IconButton className={classes.cartButton} size='medium' >
                         <Link to='/cart'>    
                             <Badge badgeContent={items.length} color="secondary">
@@ -118,14 +158,125 @@ class NavBar extends Component {
                             </span>
                         ):(
                             <div style={{display:'flex'}}>
-                                <Link style={{textDecoration:"none", color:'white'}} to='/login'><Typography className={classes.iconsbar}>Login</Typography></Link>
-                                <Link style={{textDecoration:"none", color:'white'}} to='/signup'><Typography className={classes.iconsbar}>Signup</Typography></Link>
+                                <Link className={classes.linkDecoration} to='/login'><Typography className={classes.iconsbar}>Login</Typography></Link>
+                                <Link className={classes.linkDecoration} to='/signup'><Typography className={classes.iconsbar}>Signup</Typography></Link>
                             </div>
                         )}                                                                                  
                 </Toolbar>                                         
-                </AppBar>                
-            </div>
-        );
+                <Toolbar className={classes.smBar} variant='dense'>
+                    <Grid container xs={12}>
+                        <Grid container xs={8}>
+                            <Grid item xs={12}>
+                            <Typography variant='h3' className={classes.title}>
+                            <Link className={classes.linkDecoration} to="/"><Typography variant='h4'>Valeé</Typography></Link> 
+                            </Typography>
+                            </Grid>
+                            <Grid item xs={12}>
+                            <div className={classes.search}>
+                            <div className={classes.searchIcon}>
+                                <SearchIcon />
+                            </div>
+                            <div>
+                            <form  className={classes.inputInput} onSubmit={e => { e.preventDefault(); }}>
+                                <TextField style={{marginTop: 2}}   
+                                name="query"
+                                required
+                                fullWidth       
+                                autoFocus
+                                value={query}
+                                inputProps={{ maxLength: 50 }}
+                                onChange={this.handleChange}
+                                />
+                                <Button style={{marginLeft: 8}} component={Link} to={`/search/${query}`} type="submit" color="secondary" variant="contained">Search</Button>
+                            </form>
+                            </div> 
+                        </div>
+                            </Grid>
+                        </Grid>
+                        <Grid container xs={4}>
+                            <Grid container xs={12} direction="row" alignItems="center" justify="flex-end">   
+                                {authenticated ?(             
+                                    <Typography className={classes.iconsbar} onClick={() => this.props.logout()}> Logout </Typography>
+                                ):(
+                                    <div style={{display:'flex'}}>
+                                        <Link className={classes.linkDecoration} to='/login'><Typography variant='h7' className={classes.iconsbar}>Login</Typography></Link>
+                                        <Link className={classes.linkDecoration} to='/signup'><Typography variant='h7' className={classes.iconsbar}>Signup</Typography></Link>
+                                    </div>
+                                )} 
+                            </Grid>
+                            <Grid container xs={12} direction="row" alignItems="center" justify="flex-end">
+                                <div style={{display:'flex'}}>
+                                <IconButton className={classes.cartButton} size='medium' >
+                                    <Link to='/cart'>    
+                                    <Badge badgeContent={items.length} color="secondary">
+                                    <ShoppingCartIcon color="secondary" className={classes.largeIcon}/>
+                                    </Badge>
+                                    </Link>
+                                </IconButton>
+                                <Typography className={classes.iconsbar}>{total} $</Typography>
+                                </div>
+                            </Grid>                     
+                        </Grid>
+                    </Grid>                
+            </Toolbar>
+                <Toolbar className={classes.xsBar} variant='dense'>
+                <Grid container xs={12} direction="column" display="flex" justify="center">
+                    <Grid container xs={8} justify="center">
+                        <Grid item xs={12}>
+                        <Typography variant='h3'  className={classes.title}>
+                        <Link className={classes.linkDecoration} to="/"><Typography align="center" variant='h4'>Valeé</Typography></Link> 
+                        </Typography>
+                        </Grid>
+                        <Grid item xs={12}>
+                        <div className={classes.search}>
+                        <div className={classes.searchIcon}>
+                            <SearchIcon />
+                        </div>
+                        <div>
+                        <form  className={classes.inputInput} onSubmit={e => { e.preventDefault(); }}>
+                            <TextField style={{marginTop: 2}}   
+                            name="query"
+                            required
+                            fullWidth       
+                            autoFocus
+                            value={query}
+                            inputProps={{ maxLength: 50 }}
+                            onChange={this.handleChange}
+                            />
+                            <Button style={{marginLeft: 8}} component={Link} to={`/search/${query}`} type="submit" color="secondary" variant="contained">Search</Button>
+                        </form>
+                        </div> 
+                    </div>
+                        </Grid>
+                    </Grid>
+                    <Grid container xs={12} direction="row" alignItems="center" >
+                    <Grid container xs={6} justify="flex-start">               
+                        <IconButton className={classes.cartButton} size='medium' >
+                            <Link to='/cart'>    
+                            <Badge badgeContent={items.length} color="secondary">
+                            <ShoppingCartIcon color="secondary" className={classes.largeIcon}/>
+                            </Badge>
+                            </Link>
+                        </IconButton>
+                        <Typography className={classes.iconsbar}>{total} $</Typography>
+                    </Grid>
+                    <Grid container xs={6} justify="flex-end">   
+                        {authenticated ?(             
+                            <Typography className={classes.iconsbar} onClick={() => this.props.logout()}> Logout </Typography>
+                        ):(
+                            <div style={{display:'flex'}}>
+                                <Link className={classes.linkDecoration} to='/login'><Typography variant='h7' className={classes.iconsbar}>Login</Typography></Link>
+                                <Link className={classes.linkDecoration} to='/signup'><Typography variant='h7' className={classes.iconsbar}>Signup</Typography></Link>
+                            </div>
+                        )} 
+                    </Grid>
+                                         
+                </Grid>              
+                </Grid>   
+            </Toolbar>
+            </AppBar>                
+    </div>
+    );
     };
 }
 

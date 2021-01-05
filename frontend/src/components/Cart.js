@@ -12,9 +12,34 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-
+import {withStyles} from "@material-ui/core/styles";
+import {compose} from 'redux'
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper'
+
+const styles = theme => ({
+    tableCellImage: {
+        width:60,
+        height:60,
+        display:'none',
+        [theme.breakpoints.up('sm')]:{
+            display:'block'},
+        [theme.breakpoints.up('md')]:{
+            display:'block'},
+    },
+    tableCell: {
+        width: 60,
+        [theme.breakpoints.up('sm')]:{
+            width:160},
+        [theme.breakpoints.up('md')]:{
+            width:160},
+    },
+    totalPayTypography:{
+        width:'100%',
+        marginTop:'15%'
+    }
+    
+});
 
 class Cart extends Component{
 
@@ -42,7 +67,7 @@ class Cart extends Component{
       };
 
     render(){         
-        const {total, isAuthenticated} = this.props;
+        const {classes,isAuthenticated} = this.props;
         let addedItems = this.props.items.length ?
             (         
                 <TableContainer>
@@ -63,11 +88,11 @@ class Cart extends Component{
                             }
                             return(
                                 <TableRow key={item.id}>
-                                    <TableCell style={{width:60, height:60}}><img src={String(item.image).split('frontend')[1]} width="60" height="60"/></TableCell>
+                                    <TableCell className={classes.imageCell} ><img className={classes.tableCellImage} src={String(item.image).split('frontend')[1]}/></TableCell>
                                     <TableCell component="th" scope="row"><b>{item.name}</b></TableCell>
-                                    <TableCell style={{ width: 160 }} align="right">{price}$</TableCell>
-                                    <TableCell style={{ width: 160 }} align="right">{item.quantity}</TableCell>
-                                    <TableCell style={{ width: 160 }} align="right">{ this.getTotal(price,item.quantity).toFixed(2)}$</TableCell>
+                                    <TableCell className={classes.tableCell} align="right">{price}$</TableCell>
+                                    <TableCell className={classes.tableCell} align="right">{item.quantity}</TableCell>
+                                    <TableCell className={classes.tableCell} align="right">{ this.getTotal(price,item.quantity).toFixed(2)}$</TableCell>
                                     <TableCell component="th" scope="row">
                                         <Link to="/cart"><i className="material-icons" onClick={()=>{this.handleAddQuantity(item.id)}}><ArrowDropUpIcon/></i></Link>
                                         <Link to="/cart"><i className="material-icons" onClick={()=>{this.handleSubtractQuantity(item.id)}}><ArrowDropDownIcon/></i></Link>
@@ -80,25 +105,23 @@ class Cart extends Component{
             ):(
                 <p>Nothing.</p>
             )
+
             return(
-                <Grid container xs={12}>
-                    <Grid item xs={12}>
+                <Grid container xs={12} md={12}>
+                    <Grid item xs={12} md={12}>
                         <Typography variant='h3'>You have ordered:</Typography>
                     </Grid>
-                    <Grid item xs={10}>
-                        <div className="cart">      
-                        <ul className="collection">
+                    <Grid item xs={12} md={10}>
+                        <React.Fragment>     
                             {addedItems}
-                        </ul>
-                         </div>
+                        </React.Fragment> 
                     </Grid>  
-                    <Grid item xs={2}>
-                        <Grid containter style={{height:'100%', position:'relative'}}xs={12}>
-                            <Grid item xs={12} style={{width:'100%',marginTop: '15%'}}>
-                            <Typography variant='h5'>Total to pay: {this.props.total}<b>$</b></Typography>
-                            </Grid>
-                            
-                            <Grid item xs={12}>
+                    <Grid item xs={12} md={12}>
+                        <Grid container xs={12} md={12}>
+                            <Grid item xs={12} md={12} className={classes.totalPayTypography}>
+                            <Typography align='center' variant='h5'>Total to pay: {this.props.total}<b>$</b></Typography>
+                            </Grid>                      
+                            <Grid item xs={12} md={12}>
                             <Button style={{width:'100%'}} component={Link} to={'/checkout'} disabled={!isAuthenticated || this.props.items.length < 1} variant="contained" color='primary' onClick={()=>{this.handleMakeOrder(this.props.items)}}>Make Order</Button>
                             {!isAuthenticated ? <div style={{textAlign:'center'}}>
                                 <Link to="/login" variant="h6">
@@ -131,4 +154,4 @@ const mapDispatchToProps = (dispatch) =>{
     }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(Cart)
+export default compose(connect(mapStateToProps,mapDispatchToProps),withStyles(styles),)(Cart);

@@ -31,14 +31,14 @@ class Registration extends React.Component{
         }
         return(
             <Grid container xs={12} style={{height:'40%'}}>
-            <Grid item xs={4}></Grid>
-            <Grid item xs={6}>
-            <Typography style={{padding:30}} variant="h4">Register your account</Typography>
+            <Grid item xs={1} md={3}></Grid>
+            <Grid item xs={10} md={6}>
+            <Typography align='center' variant="h4">Register your account</Typography>
             <form onSubmit={this.handleSubmit}>
                 <Grid container spacing={2} textAlign="center"
                 style={{ height: "50vh" }}
                 verticalAlign="middle">
-                    <Grid item xs={8}>
+                    <Grid item xs={12} md={12}>
                         <TextField
                             autoComplete='username'
                             name="username"
@@ -52,7 +52,7 @@ class Registration extends React.Component{
                             onChange={this.handleChange}
                             />
                     </Grid>
-                    <Grid item xs={8}>
+                    <Grid item xs={12} md={12}>
                         <TextField
                             autoComplete='email'
                             name="email"
@@ -66,7 +66,7 @@ class Registration extends React.Component{
                             onChange={this.handleChange}
                             />
                     </Grid>
-                    <Grid item xs={8}>
+                    <Grid item xs={12} md={12}>
                     <TextField
                         variant="outlined"
                         required
@@ -80,7 +80,7 @@ class Registration extends React.Component{
                         onChange={this.handleChange}
                     />
                     </Grid>
-                    <Grid item xs={8}>
+                    <Grid item xs={12} md={12}>
                     <TextField
                         variant="outlined"
                         required
@@ -94,7 +94,7 @@ class Registration extends React.Component{
                         onChange={this.handleChange}
                     />
                     </Grid>
-                    <Grid item xs={8}>
+                    <Grid item xs={12} md={12}>
                         <Button
                         type="submit"
                         fullWidth
@@ -106,8 +106,7 @@ class Registration extends React.Component{
                     </Button>
                     </Grid>
                 </Grid>
-                
-                <Grid containter justify="flex-end">
+                <Grid container justify="center">
                     <Grid item>
                         <NavLink to="/login" variant="body2">
                             Already have an account?
@@ -116,7 +115,7 @@ class Registration extends React.Component{
                 </Grid>
             </form>
             </Grid>
-            <Grid item xs={2}></Grid>
+            <Grid item xs={1} md={3}></Grid>
         </Grid>
         )
     }

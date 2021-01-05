@@ -1,8 +1,4 @@
 import React, {Component} from 'react';
-import {makeStyles} from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
@@ -12,6 +8,70 @@ import {connect} from 'react-redux'
 import {addToCart} from './actions/cartActions'
 import CartModal from './CartModal'
 import {awsURL} from './constants'
+import {withStyles} from "@material-ui/core/styles";
+import {compose} from 'redux'
+
+const styles = theme => ({
+    ProductDiv:{
+        height: 300,
+        width: 240,
+        transition: 'transform 1s',
+        transformStyle: 'preserve-3d',
+        cursor: 'pointer',
+        position: 'relative',
+        zIndex: 0, 
+        border: '1px solid black',
+        '& h1, h2':{
+            textAlign: 'center',
+            fontFamily: "'Crimson Text', sans-serif"
+        },
+        '&:hover':{
+            transition: 'all 0.7s',
+            backgroundColor: 'rgba(77,77,77,0.5)',         
+        },
+        '&:hover $ProductImg':{
+            opacity: 0
+        },
+        '&:hover $ProductContent':{
+            opacity: 1
+        },
+        '&:hover $CardDescription':{
+            opacity: 1
+        },      
+    },
+    ProductContent:{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    ProductImg: {
+        height: 160,
+        "& img":{
+            objectFit: 'contain',
+            width: 100
+        }
+    },
+    CardDescription: {
+        margin: '10% 5% 5% 5%',
+        textIndent: '1.5em',
+        position:'absolute',
+        height:'100%',
+        opacity: '1',
+        transition: 'all 0.5s',
+        "& p": {
+            color: 'black',
+            textAlign: 'center'
+        }
+    },
+    CardContent: {
+        position:'absolute',
+        top: 0,
+        left: 0,
+        width:'100%',
+        height:'100%',
+    },
+    
+});
 
 class ProductDiv extends Component {
     constructor(props){
@@ -46,6 +106,7 @@ class ProductDiv extends Component {
 
     
     render() { 
+        const {classes} = this.props
         let image=""    
         if(window.location.origin === "https://valee-shop.herokuapp.com/"){
             let image_end_url = String(this.props.temp.image).split('static')[1]
@@ -57,20 +118,17 @@ class ProductDiv extends Component {
             image = String(`${awsURL}${image_end_url}`)
         }
         let available = String(this.props.temp.available) ? 'Dostępny' : 'Niedostępny'  
-        
-        const backIsActive = this.state.hover ? 'shadow' : '';
         return(
         <div>  
-        <div className={`ProductDiv ${backIsActive}`} onMouseEnter={this.handleHoverOn} onMouseLeave={this.handleHoveroff}> 
-            <div className={`CardDescription`}>   
-                <Typography variant="body2" color="textSecondary" component="p">
+        <div className={classes.ProductDiv} onMouseEnter={this.handleHoverOn} onMouseLeave={this.handleHoveroff}> 
+            <div className={classes.CardDescription}>  
+                <Typography component={"p"}>
                     {this.props.temp.description}
                 </Typography>
              </div>
-             <div className={`CardContent`}>
-                
+             <div className={classes.CardContent}>         
                 <div>
-                    <CardMedia id="ProductImg" component={'img'}
+                    <CardMedia className={classes.ProductImg} component={'img'}
                     alt="Product"
                     height="90"
                     image={image}
@@ -83,7 +141,7 @@ class ProductDiv extends Component {
                         {this.props.temp.name}     
                     </Typography>
                     </Link>  
-                    <div className={"CardItems"}>
+                    <div>
                         <Typography variant="body2" color="textSecondary" component="h2">
                             {this.props.temp.category_name}
                         </Typography>
@@ -97,7 +155,7 @@ class ProductDiv extends Component {
                         }                      
                     </div>
                     
-                <div className={`ProductContent`}>                            
+                <div className={classes.ProductContent}>                            
                     <Button disabled={!this.props.temp.available} onClick={() => {this.handleClick(this.props.temp.id)}} style={{height:20, width:100}} variant="contained"  color='primary'>
                         Add                 
                     </Button>
@@ -120,4 +178,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(null,mapDispatchToProps)(ProductDiv);    
+export default compose(connect(null,mapDispatchToProps),withStyles(styles),)(ProductDiv);    

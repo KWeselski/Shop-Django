@@ -32,13 +32,13 @@ class LoginForm extends React.Component {
 
         return(
             <Grid container xs={12} style={{height:'40%'}}>
-            <Grid item xs={4}></Grid>
-            <Grid item xs={6}>
-            <Typography style={{padding:30}} variant="h4">Login to your account</Typography>
+            <Grid item xs={1} md={3}></Grid>
+            <Grid item xs={10} md={6}>
+            <Typography align='center' variant="h4">Login to your account</Typography>
             <form onSubmit={this.handleSubmit} >
                 <Grid container spacing={2} textAlign="center" style={{ height: "30vh"}}
                 verticalAlign="middle">         
-                    <Grid item xs={8}>
+                    <Grid item xs={12} md={12}>
                         <TextField
                             autoComplete='username'
                             name="username"
@@ -52,7 +52,7 @@ class LoginForm extends React.Component {
                             onChange={this.handleChange}
                             />
                     </Grid>
-                    <Grid item xs={8}>
+                    <Grid item xs={12} md={12}>
                     <TextField
                         variant="outlined"
                         required
@@ -66,7 +66,7 @@ class LoginForm extends React.Component {
                         onChange={this.handleChange}
                     />
                     </Grid>
-                    <Grid item xs={8}>
+                    <Grid item xs={12} md={12}>
                         <Button
                         type="submit"
                         fullWidth
@@ -78,16 +78,16 @@ class LoginForm extends React.Component {
                         </Button>
                     </Grid>
                  </Grid>               
-                <Grid container justyfiy="flex-end">
+                <Grid container justify="center">
                     <Grid item>
                             <NavLink to="/signup" variant="body2">
-                                Creat account
+                                Create account
                             </NavLink>
                     </Grid>
                 </Grid>               
                 </form>
                 </Grid> 
-                <Grid item xs={2}></Grid>                
+                <Grid item xs={1} md={3}></Grid>                
             </Grid>
         )
     }

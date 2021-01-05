@@ -18,12 +18,47 @@ import Completed from './Completed'
 import * as actions from './actions/authActions';
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import axios from 'axios'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+} from "react-router-dom";
+import {compose} from 'redux'
+import {withStyles} from "@material-ui/core/styles";
+
+const styles = theme => ({
+   App: {
+    position: 'relative',
+    minHeight: '100vh',
+    paddingBottom: 100
+   }
+
+})
 
 const theme = createMuiTheme({
   typography: {
     fontFamily: [
       'Crimson Text',
-    ].join(','),
+    ].join(','),   
+    h3 : {
+      fontSize: '1.2rem',
+      '@media (min-width:600px)': {
+      fontSize: '1.5rem',
+      },
+    },
+    h7 : {
+      fontSize: '1rem',
+      '@media (min-width:600px)': {
+      fontSize: '4.5rem',
+      },
+    },
+  },
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 500,
+      md: 760,
+    }
   },
   palette: {
     primary: {
@@ -35,37 +70,29 @@ const theme = createMuiTheme({
   }
   ,});
 
-
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-  } from "react-router-dom";
-
 if (window.location.origin === "http://127.0.0.1:8000") {
     axios.defaults.baseURL = "http://127.0.0.1:8000";
   } else {
     axios.defaults.baseURL = window.location.origin;
   }
-  
 
 class App extends Component{
     componentDidMount() {
       this.props.onTryAutoSignup();
     }
-
+    
     render(){ 
-        
+      const {classes} = this.props;
         return(
           <ThemeProvider theme={theme}>
-            <div className="App">
+            <div className={classes.App}>
             <Router>
                   <div>
                     <Navbar/>
                     <CategoryList/>
                     <Grid container direction="row" xs={12} >
-                      <Grid item xs={2}></Grid>             
-                      <Grid container xs={8}>                  
+                      <Grid item xs={1} md={2}></Grid>             
+                      <Grid container xs={10} md={8}>                  
                         <Switch>
                             <Route exact path='/' component={ProductList}/>
                             <Route exact path='/product/:productID' component={ProductDetail}/>
@@ -80,10 +107,10 @@ class App extends Component{
                             <Route exact path='/payment' component={Payment}/>
                         </Switch>
                       </Grid>
-                      <Grid item xs={2}></Grid>     
+                      <Grid item xs={1} md={2}></Grid>     
                     </Grid>                  
                     </div> 
-                    <Footer/>                
+                                   
             </Router>        
          </div>
          </ThemeProvider>
@@ -102,7 +129,7 @@ const mapDispatchToProps = dispatch => {
     onTryAutoSignup: () => dispatch(actions.authCheckState())
   };
 }
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default compose(connect(mapStateToProps, mapDispatchToProps),withStyles(styles),)(App);
 
 
 
