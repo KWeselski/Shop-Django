@@ -31,12 +31,12 @@ class LoginForm extends React.Component {
         }
 
         return(
-            <Grid container xs={12} style={{height:'40%'}}>
+            <Grid container xs={12} style={{height:'100%'}}>
             <Grid item xs={1} md={3}></Grid>
             <Grid item xs={10} md={6}>
             <Typography align='center' variant="h4">Login to your account</Typography>
             <form onSubmit={this.handleSubmit} >
-                <Grid container spacing={2} textAlign="center" style={{ height: "30vh"}}
+                <Grid container spacing={2} textAlign="center" style={{ height: "100%"}}
                 verticalAlign="middle">         
                     <Grid item xs={12} md={12}>
                         <TextField

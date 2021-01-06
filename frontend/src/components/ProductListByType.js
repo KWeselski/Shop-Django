@@ -18,7 +18,6 @@ class ProductListByType extends Component{
             axios.get(productListByTypeURL(params.type),{
                 params: {type:params.type}
                 }).then(res => {
-                console.log(res.data)
                 this.setState({
                     data: res.data})          
         })
@@ -37,10 +36,10 @@ class ProductListByType extends Component{
     render(){   
         const {data} = this.state;    
         return(   
-            <Grid container spacing={1} style={{marginTop:10}}>
+            <Grid container spacing={1} style={{marginTop:10, justifyContent:'center'}}>
                 {data.map((value,index) => {                    
                 return(
-                    <Grid item> <ProductDiv temp={data[index]}/></Grid>
+                    <Grid item align='center'> <ProductDiv temp={data[index]}/></Grid>
                     )          
                 })}
             </Grid>);

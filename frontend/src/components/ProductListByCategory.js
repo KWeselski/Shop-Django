@@ -47,7 +47,7 @@ class ProductListByCategory extends Component{
     render(){   
         const {data} = this.state;    
         return(   
-            <Grid container spacing={1} style={{marginTop:10}}>
+            <Grid container spacing={1} style={{marginTop:10, justifyContent:'center'}}>
                 {data.map((value,index) => {                    
                 return(
                     <Grid item > <ProductDiv temp={data[index]}/></Grid>

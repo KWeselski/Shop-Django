@@ -196,7 +196,10 @@ class NavBar extends Component {
                         <Grid container xs={4}>
                             <Grid container xs={12} direction="row" alignItems="center" justify="flex-end">   
                                 {authenticated ?(             
-                                    <Typography className={classes.iconsbar} onClick={() => this.props.logout()}> Logout </Typography>
+                                    <span>
+                                        <Typography className={classes.iconsbar}> {username} </Typography>
+                                        <Typography className={classes.iconsbar} onClick={() => this.props.logout()}> Logout </Typography>
+                                    </span>
                                 ):(
                                     <div style={{display:'flex'}}>
                                         <Link className={classes.linkDecoration} to='/login'><Typography variant='h7' className={classes.iconsbar}>Login</Typography></Link>
@@ -262,7 +265,10 @@ class NavBar extends Component {
                     </Grid>
                     <Grid container xs={6} justify="flex-end">   
                         {authenticated ?(             
+                            <span>
+                            <Typography className={classes.iconsbar}> {username} </Typography>
                             <Typography className={classes.iconsbar} onClick={() => this.props.logout()}> Logout </Typography>
+                            </span>
                         ):(
                             <div style={{display:'flex'}}>
                                 <Link className={classes.linkDecoration} to='/login'><Typography variant='h7' className={classes.iconsbar}>Login</Typography></Link>

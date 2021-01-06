@@ -109,8 +109,7 @@ class App extends Component{
                       </Grid>
                       <Grid item xs={1} md={2}></Grid>     
                     </Grid>                  
-                    </div> 
-                                   
+                    </div>                                 
             </Router>        
          </div>
          </ThemeProvider>

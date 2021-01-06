@@ -32,6 +32,18 @@ const styles = theme => ({
             fontSize: '1.5rem',
             textAlign: 'center'
         }
+    },
+    Column1 : {
+        order:3,
+        [theme.breakpoints.up('md')]:{
+            order:2
+        },
+    },
+    Column2 : {
+        order:2,
+        [theme.breakpoints.up('md')]:{
+            order:3
+        },
     }
 });
 
@@ -122,28 +134,26 @@ class ProductDetail extends Component{
         let numberOpinions = opinions_.length;
         let available = String(item.available) ? 'Available' : 'Unavailable' 
         return(  
-             <Grid container xs={12} md={12} style={{height:'40%'}}>
-                    <Grid item xs={0} md={2}>             
-                    </Grid> 
+             <Grid container xs={12} md={12} style={{height:'100%', display:'flex'}}>
+                    <Grid item xs={0} md={2}></Grid> 
                     <Grid container xs={12} md={8}>
-                        <Grid item xs={12} md={6}>    
-                            <div style={{maxWidth: '100%', height:'auto'}}>
+                        <Grid item xs={12} md={6} className={classes.Column1}>    
+                            <div style={{maxWidth:'100%', height:'auto'}}>
                                 <img src={String(item.image).split('frontend')[1]} style={{verticalAlign:'middle', width:'100%'}}/>                           
                             </div>
                             <div>
-                                <RatingStar opinion_status={opinion_exist}  productid = {params.productID}/>
+                                <RatingStar opinion_status={opinion_exist} productid = {params.productID}/>
                                 <Grid container spacing={2}>        
                                 {opinions_.map((value,index) => {                    
                                     return(
-                                    <Grid item xs={12} >
-                                        <OpinionsForm temp={opinions_[index]}/>
-                                    </Grid>
-                                    ) 
+                                        <Grid item xs={12} >
+                                            <OpinionsForm temp={opinions_[index]}/>
+                                        </Grid>) 
                                 })} 
                                 </Grid>
                             </div>
                         </Grid>
-                        <Grid item xs={12} md={6}>   
+                        <Grid item xs={12} md={6} className={classes.Column2}>   
                             <div style={{display:'flex', flexDirection:'column', paddingLeft:0 , marginBottom:0}}>
                                 <div className={classes.productItem}>
                                     <Typography align='center' variant="h6">{item.name}</Typography> 

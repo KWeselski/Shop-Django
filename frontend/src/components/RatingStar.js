@@ -57,7 +57,6 @@ class RatingStar extends Component {
                             autoComplete='opinion'
                             name="opinion"
                             variant="outlined"
-                            required
                             fullWidth
                             multiline={true}
                             rows={4}

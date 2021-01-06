@@ -26,23 +26,30 @@ const styles = theme => ({
             fontFamily: "'Crimson Text', sans-serif"
         },
         '&:hover':{
-            transition: 'all 0.7s',
-            backgroundColor: 'rgba(77,77,77,0.5)',         
+           // transition: 'all 0.7s',
+           // backgroundColor: 'rgba(77,77,77,0.5)',         
         },
         '&:hover $ProductImg':{
-            opacity: 0
+            // opacity: 0
+        },
+        '&:hover $ProductInfo':{
+            opacity: 1
         },
         '&:hover $ProductContent':{
             opacity: 1
         },
         '&:hover $CardDescription':{
-            opacity: 1
+            opacity: 0
         },      
     },
+    ProductInfo:{
+        opacity:1
+    },  
     ProductContent:{
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
+    
     },
     ProductImg: {
         height: 160,
@@ -56,8 +63,7 @@ const styles = theme => ({
         textIndent: '1.5em',
         position:'absolute',
         height:'100%',
-        opacity: '1',
-        transition: 'all 0.5s',
+        opacity: '0',
         "& p": {
             color: 'black',
             textAlign: 'center'
@@ -103,6 +109,9 @@ class ProductDiv extends Component {
         this.props.addToCart(id);
         //this.showModal();
     }
+    componentDidMount(){
+        this.setState()
+    }
 
     
     render() { 
@@ -122,7 +131,7 @@ class ProductDiv extends Component {
         <div>  
         <div className={classes.ProductDiv} onMouseEnter={this.handleHoverOn} onMouseLeave={this.handleHoveroff}> 
             <div className={classes.CardDescription}>  
-                <Typography component={"p"}>
+                <Typography variant='body' color='textSecondary' component={"p"}>
                     {this.props.temp.description}
                 </Typography>
              </div>
@@ -135,13 +144,13 @@ class ProductDiv extends Component {
                     title={this.props.temp.name}
                     />
                 </div>
-                <CardContent>
+                <CardContent className={classes.ProductInfo}>
                 <Link style={{textDecoration:'none'}} to={`/product/${this.props.temp.id}`}>
                     <Typography color="primary" gutterBottom varian='h5' component='h2'>
                         {this.props.temp.name}     
                     </Typography>
                     </Link>  
-                    <div>
+                    <div >
                         <Typography variant="body2" color="textSecondary" component="h2">
                             {this.props.temp.category_name}
                         </Typography>
@@ -153,17 +162,14 @@ class ProductDiv extends Component {
                             {this.props.temp.price} $
                         </Typography>
                         }                      
-                    </div>
-                    
+                    </div>                 
                 <div className={classes.ProductContent}>                            
                     <Button disabled={!this.props.temp.available} onClick={() => {this.handleClick(this.props.temp.id)}} style={{height:20, width:100}} variant="contained"  color='primary'>
                         Add                 
-                    </Button>
-                      
+                    </Button>                   
                 </div>       
                 </CardContent>                                
-            </div>
-            
+            </div>         
         </div>
         <CartModal onClose={() =>{this.showModal()}} temp={this.props.temp} show={this.state.showModal}></CartModal> 
         </div>

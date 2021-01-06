@@ -1,5 +1,7 @@
 from django.contrib import admin
 from .models import Category,Product,Order, OrderItem, Coupon,Address, Opinion
+from django.utils.safestring import mark_safe
+from django.urls import reverse
 # Register your models here.
 
 @admin.register(Category)
@@ -22,7 +24,6 @@ class OrderAdmin(admin.ModelAdmin):
     list_display = ['user','delivery_address','start_date','ordered_date','ordered','paid','coupon','get_total_before','get_total',]
     list_display_links = [
         'user',
-        'delivery_address',
         'coupon'
     ]
     search_fields = [

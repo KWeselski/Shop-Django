@@ -55,11 +55,13 @@ class OrderItem(models.Model):
     def get_total_item_price(self):
         return self.quantity * self.item.price
 
-    def get_final_price(self):
-        return self.get_total_item_price()
-
     def get_total_discount_price(self):
-        return self.quantity * self.item.discount_price  
+        return self.quantity * self.item.discount_price 
+
+    def get_final_price(self):
+        if (self.item.on_discount):
+            return self.get_total_discount_price()
+        return self.get_total_item_price() 
 
 class Coupon(models.Model):
     code = models.CharField(max_length=50,unique=True)

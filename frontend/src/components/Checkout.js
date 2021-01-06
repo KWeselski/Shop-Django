@@ -10,11 +10,8 @@ const styles = theme => ({
     Code: { 
         width:'100%',
         position:'relative',
-        bottom:80,
-        marginTop:80,
         [theme.breakpoints.up('sm')]:{
-            position:'absolute',
-            marginTop:0,
+            position:'absolute',         
         },
     },
     textCode: {
@@ -26,6 +23,15 @@ const styles = theme => ({
             position:'absolute',
         },
     },
+
+    paymentBox: {
+        width:'100%',
+        position:'relative',  
+        [theme.breakpoints.up('sm')]:{
+            marginTop:50
+        },
+    }
+
 })
 
 
@@ -184,9 +190,9 @@ class Checkout extends Component {
                 </form>
             </Grid>
             <Grid item xs={2} md={2}></Grid>
-            <Grid item xs={12} md={3}>   
-                <Grid containter style={{height:'100%', position:'relative'}} xs={12}>
-                    <Grid item xs={12} style={{width:'100%', position:'relative'}}>
+            <Grid item xs={12} md={3} >   
+                <Grid containter xs={12} style={{height:'100%', position:'relative'}} >
+                    <Grid item xs={12} className={classes.paymentBox} >
                     <Typography variant='h5'>Total to pay: {total}<b>$</b></Typography>
                     <Typography variant='h5'>Discount: {discount.discount}<b>%</b></Typography>
                     <Typography style={{border: '1px solid rgba(0,0,0,0.5)',

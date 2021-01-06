@@ -141,8 +141,7 @@ const cartReducer=(state= initState, action)=>{
             addedItems: new_items,
             total: newTotal.toFixed(2)
         }
-    }
-    
+    }    
     if(action.type=== ADD_QUANTITY){
         let addedItem = state.items.find(item=> item.id === action.id)
         let newTotal = 0

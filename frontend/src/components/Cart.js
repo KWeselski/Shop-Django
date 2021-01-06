@@ -56,6 +56,8 @@ class Cart extends Component{
 
     handleMakeOrder = (addedItems)=>{
         this.props.addOrder(addedItems);
+        this.props.discount.discount = 0;
+        this.props.discount.discount_price=0;
     }
 
     getTotal = (price,quantity)=>{
@@ -111,12 +113,12 @@ class Cart extends Component{
                     <Grid item xs={12} md={12}>
                         <Typography variant='h3'>You have ordered:</Typography>
                     </Grid>
-                    <Grid item xs={12} md={10}>
+                    <Grid item xs={12} md={9}>
                         <React.Fragment>     
                             {addedItems}
                         </React.Fragment> 
                     </Grid>  
-                    <Grid item xs={12} md={12}>
+                    <Grid item xs={12} md={3}>
                         <Grid container xs={12} md={12}>
                             <Grid item xs={12} md={12} className={classes.totalPayTypography}>
                             <Typography align='center' variant='h5'>Total to pay: {this.props.total}<b>$</b></Typography>
@@ -141,7 +143,8 @@ const mapStateToProps = (state) => {
     return{
         items: state.cart.addedItems,
         total :state.cart.total,
-        isAuthenticated: state.auth.token !== null
+        isAuthenticated: state.auth.token !== null,
+        discount: state.cart.discount,
     }
 }
 
