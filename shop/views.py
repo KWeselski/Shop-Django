@@ -112,11 +112,37 @@ def create_order(request):
             item_ = OrderItemSerializer(data=data)
             if item_.is_valid():
                 item_.save(user=user)
-               #order_item = OrderItem.objects.create(user = user,item_serializer
                 ord_item = OrderItem.objects.filter(id=item_.data["id"])
                 order.items.add(ord_item[0])       
         return Response(item_.data)
 
+    if request.method == "PUT":
+        user = get_user_from_token(request)
+        try:
+            order = Order.objects.filter(user = user).last()
+            order.items.clear()
+            try:
+                order.coupon.clear()
+            except AttributeError:
+                pass
+            for idx,order_item in enumerate(request.data['order_items']):
+                data = {"item": order_item["id"] , "quantity": order_item["quantity"]}      
+                item_ = OrderItemSerializer(data=data)
+                if item_.is_valid():
+                    item_.save(user=user)       
+                    ord_item = OrderItem.objects.filter(id=item_.data["id"])
+                    order.items.add(ord_item[0])       
+            return Response(item_.data)
+        except ObjectDoesNotExist:
+            return Response('Cant find order')
+        
+    if request.method == "GET":
+        order_items = OrderItem.objects.all()
+        serializer = OrderItemSerializer(order_items, context={'request': request}, many=True)
+        return Response(serializer.data)
+
+@api_view(['PUT',])
+def pay_order(request):
     if request.method == "PUT":
         user = get_user_from_token(request)
         try:
@@ -126,11 +152,6 @@ def create_order(request):
             return Response("Order payed")
         except ObjectDoesNotExist:
             return Response("Error paid")
-        
-    if request.method == "GET":
-        order_items = OrderItem.objects.all()
-        serializer = OrderItemSerializer(order_items, context={'request': request}, many=True)
-        return Response(serializer.data)
 
 def get_coupon(request, code):
     try:

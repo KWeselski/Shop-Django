@@ -1,5 +1,5 @@
 import { ADD_TO_CART,REMOVE_ITEM,SUB_QUANTITY,ADD_QUANTITY,CLEAR_CART, PRODUCTS_NAMES, ORDERS_NAMES,CODE_NAMES, DISCOUNT_NAMES, OPINION_NAMES} from './action-types/cart-actions'
-import {productListURL,productDetailURL,createOrderURL,addAddressURL, postOpinionURL, addCodeURL,getOpinionsURL, lastOrderURL} from "../constants";
+import {productListURL,productDetailURL,createOrderURL,addAddressURL, postOpinionURL, addCodeURL,getOpinionsURL, lastOrderURL,payOrderURL} from "../constants";
 import axios from 'axios'
 
 export const fetchProducts = () => {
@@ -41,10 +41,24 @@ export const orderAdd = (order_items) =>{
     };
 };
 
+export const orderUpdate = (order_items) =>{  
+    return dispatch => {
+        dispatch(startAddOrder());
+        axios.put(createOrderURL,{
+            order_items:order_items,            
+            },
+            {headers: {
+                Authorization: `${localStorage.getItem("token")}`}
+        }).then(()=>{     
+            dispatch(finishAddOrder())
+        }).catch(error => dispatch(failAddOrder(error)));
+    };
+};
+
 export const orderPayed = () =>{  
     return dispatch => {
         dispatch(startAddOrder());
-        axios.put(createOrderURL,
+        axios.put(payOrderURL,
         {},
             {headers: {
                 Authorization: `${localStorage.getItem("token")}`}

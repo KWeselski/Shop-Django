@@ -2,7 +2,7 @@ import React , {Component} from 'react';
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {Typography, Button, TextField,Input} from '@material-ui/core/';
-import {removeItem, addQuantity, subtractQuantity, orderAdd} from './actions/cartActions'
+import {removeItem, addQuantity, subtractQuantity, orderAdd, orderUpdate} from './actions/cartActions'
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -55,9 +55,17 @@ class Cart extends Component{
     }
 
     handleMakeOrder = (addedItems)=>{
-        this.props.addOrder(addedItems);
-        this.props.discount.discount = 0;
-        this.props.discount.discount_price=0;
+        const {ordered} = this.props;
+        if(ordered == true){
+            this.props.updateOrder(addedItems);
+            this.props.discount.discount = 0;
+            this.props.discount.total_after_discount=0;
+        }
+        else{
+            this.props.addOrder(addedItems);
+            this.props.discount.discount = 0;
+            this.props.discount.total_after_discount=0;
+        }    
     }
 
     getTotal = (price,quantity)=>{
@@ -145,6 +153,7 @@ const mapStateToProps = (state) => {
         total :state.cart.total,
         isAuthenticated: state.auth.token !== null,
         discount: state.cart.discount,
+        ordered: state.cart.ordered,
     }
 }
 
@@ -153,7 +162,8 @@ const mapDispatchToProps = (dispatch) =>{
         addQuantity: (id)=> {dispatch(addQuantity(id))},
         subtractQuantity: (id)=>{dispatch(subtractQuantity(id))},
         removeItem: (id) => {dispatch(removeItem(id))},
-        addOrder: (addedItems) => {dispatch(orderAdd(addedItems))}
+        addOrder: (addedItems) => {dispatch(orderAdd(addedItems))},
+        updateOrder: (addedItems) => {dispatch(orderUpdate(addedItems))}
     }
 }
 

@@ -24,4 +24,5 @@ export const postOpinionURL = id => `${apiURL}/post_opinion/${id}`;
 export const stripeURL = `${apiURL}/save-stripe-info/`;
 export const awsURL = 'https://valee-shop-bucket.s3.eu-central-1.amazonaws.com'
 
-export const addAddressURL = "${apiURL}/add_address/"
+export const addAddressURL = `${apiURL}/add_address/`;
+export const payOrderURL = `${apiURL}/pay_order/`;

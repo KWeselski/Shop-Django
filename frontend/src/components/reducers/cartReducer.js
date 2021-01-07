@@ -1,5 +1,4 @@
-import { ADD_TO_CART,REMOVE_ITEM,SUB_QUANTITY,ADD_QUANTITY,CLEAR_CART, PRODUCTS_NAMES, ORDERS_NAMES,CODE_NAMES, DISCOUNT_NAMES, OPINION_NAMES} from '../actions/action-types/cart-actions'
-import {productListURL} from '../constants'
+import { ADD_TO_CART,REMOVE_ITEM,SUB_QUANTITY,ADD_QUANTITY,CLEAR_CART,COMPLETE, PRODUCTS_NAMES, ORDERS_NAMES,CODE_NAMES, DISCOUNT_NAMES, OPINION_NAMES} from '../actions/action-types/cart-actions'
 
 const initState = {
     items: [],
@@ -7,7 +6,8 @@ const initState = {
     error:null,
     addedItems:[],
     total: 0,
-    discount: {'discount':0, 'total_after_discount':0}
+    discount: {'discount':0, 'total_after_discount':0},
+    ordered: false
 }
 
 const cartReducer=(state= initState, action)=>{   
@@ -62,7 +62,7 @@ const cartReducer=(state= initState, action)=>{
         return { ...state, loading:false,error:action.error }
     }
     if(action.type == ORDERS_NAMES.FINISH_ORDER){
-        return { ...state, loading:false,error:null }
+        return { ...state, loading:false,error:null, ordered:true }
     }
 
     if(action.type == CODE_NAMES.START_CODE){
@@ -83,6 +83,10 @@ const cartReducer=(state= initState, action)=>{
     }
     if(action.type == OPINION_NAMES.FINISH_ADD){
         return { ...state, loading:false,error:null }
+    }
+
+    if(action.type == COMPLETE){
+        return {...state,loading:false,error:null, ordered:false}
     }
 
     if(action.type == ADD_TO_CART){

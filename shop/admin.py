@@ -18,14 +18,15 @@ class ProductAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',)}
 
 @admin.register(Order)
-class OrderAdmin(admin.ModelAdmin):
-    fields = ['items','ordered_date','ordered','coupon']
-    
+class OrderAdmin(admin.ModelAdmin):   
     list_display = ['user','delivery_address','start_date','ordered_date','ordered','paid','coupon','get_total_before','get_total',]
     list_display_links = [
         'user',
+        'delivery_address',
         'coupon'
     ]
+    list_filter = ['ordered','user','paid']
+
     search_fields = [
         'user__username',]
     filter_horizontal = ('items',)
