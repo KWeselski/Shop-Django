@@ -79,12 +79,10 @@ def products_search(request,query):
     if request.method == "GET":
         products = Product.objects.filter(name__contains=query)
     serializer = ProductSerializer(products, context={'request': request}, many=True)
-    print(products)
     return Response(serializer.data)
 
 @api_view(["POST"])
 def user_id_view(request):
-    print(request.user)
     return Response({'userID': request.data}, status=status.HTTP_200_OK)
 
 def get_user_from_token(request):
@@ -130,7 +128,7 @@ def create_order(request):
                 item_ = OrderItemSerializer(data=data)
                 if item_.is_valid():
                     item_.save(user=user)       
-                    ord_item = OrderItem.objects.filter(id=item_.data["id"])
+                    ord_item = OrderItem.objects.filter(id=item_.data["id"])               
                     order.items.add(ord_item[0])       
             return Response(item_.data)
         except ObjectDoesNotExist:
@@ -200,7 +198,6 @@ def add_address(request):
     if request.method == 'POST':
         user = get_user_from_token(request)
         serializer = AddressSerializer(data=request.data)
-        print(serializer)
         if serializer.is_valid():
             serializer.save(user=user)
             order = Order.objects.filter(

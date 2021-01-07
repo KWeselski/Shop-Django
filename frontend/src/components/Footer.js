@@ -16,7 +16,11 @@ const styles = theme => ({
         letterSpacing: '0.1rem',
     },   
     footerItem: {
-        padding: 20
+        padding:8,
+        [theme.breakpoints.up('sm')]:{
+            padding: 20
+        },
+        
     }
 
 });
@@ -28,10 +32,10 @@ class Footer extends Component{
         return(
             <Grid container className={classes.footerGrid} xs={12}>
                 <div className={classes.footerDiv}>
-                <Grid item xs={12}><Typography className={classes.footerItem} variant='h6'>Help</Typography></Grid> 
-                <Grid item xs={12}><Typography className={classes.footerItem} variant='h6'>Contact</Typography></Grid>
-                <Grid item xs={12}><Typography className={classes.footerItem} variant='h6'>About</Typography></Grid>
-                <Grid item xs={12}><Typography className={classes.footerItem} variant='h6'>FAQ</Typography></Grid>
+                <Grid item xs={6} md={12}><Typography className={classes.footerItem} variant='h3'>Help</Typography></Grid> 
+                <Grid item xs={6} md={12}><Typography className={classes.footerItem} variant='h3'>Contact</Typography></Grid>
+                <Grid item xs={6} md={12}><Typography className={classes.footerItem} variant='h3'>About</Typography></Grid>
+                <Grid item xs={6} md={12}><Typography className={classes.footerItem} variant='h3'>FAQ</Typography></Grid>
                 </div>
             </Grid>)
     }

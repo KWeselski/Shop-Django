@@ -108,7 +108,8 @@ class App extends Component{
                         </Switch>
                       </Grid>
                       <Grid item xs={1} md={2}></Grid>     
-                    </Grid>                  
+                    </Grid>
+                    <Footer/>                  
                     </div>                                 
             </Router>        
          </div>
