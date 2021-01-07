@@ -20,5 +20,5 @@ urlpatterns = [
     path('save-stripe-info/', save_stripe_info),
     path('type/<str:type>', products_by_type),
     path('search/<str:query>',products_search),
-    path('pay_order', pay_order)
+    path('pay_order/', pay_order)
 ]

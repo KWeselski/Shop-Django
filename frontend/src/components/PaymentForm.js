@@ -60,7 +60,7 @@ class PaymentForm extends Component {
          return(
             <Grid container xs={12}>
                 <Grid item xs={12} md={6}>
-                    <form onSubmit={this.handleSubmit} style={{width:270}}>
+                    <form onSubmit={this.handleSubmit} style={{width:290}}>
                         <Grid container spacing={1} textAlign="center" style={{height:"100%"}}
                         verticalAlign="middle">
                             <Grid item xs={12}>
