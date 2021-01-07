@@ -1,4 +1,4 @@
-import { ADD_TO_CART,REMOVE_ITEM,SUB_QUANTITY,ADD_QUANTITY,CLEAR_CART, PRODUCTS_NAMES, ORDERS_NAMES,CODE_NAMES, DISCOUNT_NAMES, OPINION_NAMES} from './action-types/cart-actions'
+import { ADD_TO_CART,REMOVE_ITEM,SUB_QUANTITY,ADD_QUANTITY,CLEAR_CART,PAYMENT_NAMES, PRODUCTS_NAMES, ORDERS_NAMES,CODE_NAMES, DISCOUNT_NAMES, OPINION_NAMES} from './action-types/cart-actions'
 import {productListURL,productDetailURL,createOrderURL,addAddressURL, postOpinionURL, addCodeURL,getOpinionsURL, lastOrderURL,payOrderURL} from "../constants";
 import axios from 'axios'
 
@@ -57,14 +57,14 @@ export const orderUpdate = (order_items) =>{
 
 export const orderPayed = () =>{  
     return dispatch => {
-        dispatch(startAddOrder());
+        dispatch(startPayment());
         axios.put(payOrderURL,
         {},
             {headers: {
                 Authorization: `${localStorage.getItem("token")}`}
         }).then(()=>{     
-            dispatch(finishAddOrder())
-        }).catch(error => dispatch(failAddOrder(error)));
+            dispatch(finishPayment())
+        }).catch(error => dispatch(failPayment(error)));
     };
 };
 
@@ -212,6 +212,17 @@ export const finishAddOrder = () => ({
 })
 export const failAddOrder = error => ({
     type: ORDERS_NAMES.FAIL_ORDER,
+    error: error
+})
+
+export const startPayment = () => ({
+    type: PAYMENT_NAMES.START_PAYMENT
+})
+export const finishPayment = () => ({
+    type: PAYMENT_NAMES.FINISH_PAYMENT  
+})
+export const failPayment = error => ({
+    type: PAYMENT_NAMES.FAIL_PAYMENT,
     error: error
 })
 

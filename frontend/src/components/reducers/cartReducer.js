@@ -1,4 +1,4 @@
-import { ADD_TO_CART,REMOVE_ITEM,SUB_QUANTITY,ADD_QUANTITY,CLEAR_CART,COMPLETE, PRODUCTS_NAMES, ORDERS_NAMES,CODE_NAMES, DISCOUNT_NAMES, OPINION_NAMES} from '../actions/action-types/cart-actions'
+import { ADD_TO_CART,REMOVE_ITEM,SUB_QUANTITY,ADD_QUANTITY,CLEAR_CART,COMPLETE,PAYMENT_NAMES, PRODUCTS_NAMES, ORDERS_NAMES,CODE_NAMES, DISCOUNT_NAMES, OPINION_NAMES} from '../actions/action-types/cart-actions'
 
 const initState = {
     items: [],
@@ -63,6 +63,16 @@ const cartReducer=(state= initState, action)=>{
     }
     if(action.type == ORDERS_NAMES.FINISH_ORDER){
         return { ...state, loading:false,error:null, ordered:true }
+    }
+
+    if(action.type == PAYMENT_NAMES.START_PAYMENT){
+        return { ...state, loading:true,error:null }
+    }
+    if(action.type == PAYMENT_NAMES.FAIL_PAYMENT){
+        return { ...state, loading:false,error:action.error }
+    }
+    if(action.type == PAYMENT_NAMES.FINISH_PAYMENT){
+        return { ...state, loading:false,error:null, ordered:false }
     }
 
     if(action.type == CODE_NAMES.START_CODE){

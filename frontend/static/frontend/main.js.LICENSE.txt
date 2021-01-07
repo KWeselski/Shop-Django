@@ -110,6 +110,8 @@
 
 /*! export ORDERS_NAMES [provided] [no usage info] [missing usage info prevents renaming] */
 
+/*! export PAYMENT_NAMES [provided] [no usage info] [missing usage info prevents renaming] */
+
 /*! export PRODUCTS_NAMES [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export Portal [provided] [no usage info] [missing usage info prevents renaming] */
@@ -362,6 +364,8 @@
 
 /*! export failFetchProducts [provided] [no usage info] [missing usage info prevents renaming] */
 
+/*! export failPayment [provided] [no usage info] [missing usage info prevents renaming] */
+
 /*! export fetchProducts [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export fetchProductsID [provided] [no usage info] [missing usage info prevents renaming] */
@@ -379,6 +383,8 @@
 /*! export finishFetchOpinions [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export finishFetchProducts [provided] [no usage info] [missing usage info prevents renaming] */
+
+/*! export finishPayment [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export flushSync [provided] [no usage info] [missing usage info prevents renaming] */
 
@@ -619,6 +625,8 @@
 /*! export startFetchOpinions [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export startFetchProducts [provided] [no usage info] [missing usage info prevents renaming] */
+
+/*! export startPayment [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export stripeURL [provided] [no usage info] [missing usage info prevents renaming] */
 
