@@ -1,15 +1,14 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {NavLink, Redirect} from "react-router-dom"
-import {authLogin} from './actions/authActions';
+import {authResetPasswordConfirm, authResetPassword} from './actions/authActions';
 import {Button, Grid, TextField,Typography } from '@material-ui/core';
 
 
-class LoginForm extends React.Component {
+class ResetPasswordForm extends React.Component {
   
     state = {
-        username: "",
-        password: ""
+        email: "",       
     };
 
     handleChange = e => {
@@ -18,13 +17,13 @@ class LoginForm extends React.Component {
     
     handleSubmit = e => {
         e.preventDefault();
-        const { username, password } = this.state;
-        this.props.login(username, password);
+        const { email} = this.state;
+        this.props.reset(email);
       };
 
     render() {
-        const { error, loading, token} = this.props;
-        const {username, password} = this.props;
+        const {error, loading, token} = this.props;
+        const {email} = this.props;
 
         if(token) {
             return <Redirect to="/"></Redirect>
@@ -34,37 +33,23 @@ class LoginForm extends React.Component {
             <Grid container xs={12} style={{height:'100%'}}>
             <Grid item xs={1} md={3}></Grid>
             <Grid item xs={10} md={6}>
-            <Typography align='center' variant="h4">Login to your account</Typography>
+            <Typography align='center' variant="h4">Enter your email for reset password</Typography>
             <form onSubmit={this.handleSubmit} >
                 <Grid container spacing={2} textAlign="center" style={{ height: "100%"}}
                 verticalAlign="middle">         
                     <Grid item xs={12} md={12}>
                         <TextField
-                            autoComplete='username'
-                            name="username"
+                            autoComplete='email'
+                            name="email"
                             variant="outlined"
                             required
                             fullWidth
-                            id="userName"
-                            label="Username"
+                            id="email"
+                            label="Email"
                             autoFocus
-                            value={username}
+                            value={email}
                             onChange={this.handleChange}
                             />
-                    </Grid>
-                    <Grid item xs={12} md={12}>
-                    <TextField
-                        variant="outlined"
-                        required
-                        fullWidth
-                        name="password"
-                        label="Password"
-                        type="password"
-                        id="password"
-                        autoComplete="current-password"
-                        value={password}
-                        onChange={this.handleChange}
-                    />
                     </Grid>
                     <Grid item xs={12} md={12}>
                         <Button
@@ -74,22 +59,10 @@ class LoginForm extends React.Component {
                         color="primary"                  
                         loading={loading}
                         disabled={loading}>
-                        Login
+                        Reset password
                         </Button>
                     </Grid>
-                 </Grid>               
-                <Grid container justify="center">
-                    <Grid item>
-                            <NavLink to="/signup" variant="body2">
-                                Create account
-                            </NavLink>
-                    </Grid>
-                    <Grid item>
-                            <NavLink to="/reset_password/" variant="body2">
-                                Reset password
-                            </NavLink>
-                    </Grid>
-                </Grid>               
+                 </Grid>                          
                 </form>
                 </Grid> 
                 <Grid item xs={1} md={3}></Grid>                
@@ -108,11 +81,8 @@ const mapStateToProps = state => {
   
   const mapDispatchToProps = dispatch => {
     return {
-      login: (username, password) => dispatch(authLogin(username, password))
+      reset: (email) => dispatch(authResetPassword(email)),
     };
   };
   
-  export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(LoginForm);
+  export default connect( mapStateToProps,mapDispatchToProps)(ResetPasswordForm);

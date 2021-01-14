@@ -120,7 +120,7 @@ class Opinion(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     opinion = models.CharField(max_length=250)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    rating = models.IntegerField()
+    rating = models.IntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(5)])
     date_added = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

@@ -230,6 +230,8 @@
 
 /*! export authLogout [provided] [no usage info] [missing usage info prevents renaming] */
 
+/*! export authResetPassword [provided] [no usage info] [missing usage info prevents renaming] */
+
 /*! export authSignup [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export authStart [provided] [no usage info] [missing usage info prevents renaming] */
@@ -1161,6 +1163,10 @@
 /*!******************************************************!*\
   !*** ./node_modules/react-redux/es/utils/warning.js ***!
   \******************************************************/
+
+/*!*******************************************************!*\
+  !*** ./frontend/src/components/ResetPasswordForms.js ***!
+  \*******************************************************/
 
 /*!*******************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/typeof.js ***!

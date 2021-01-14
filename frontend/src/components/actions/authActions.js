@@ -1,5 +1,7 @@
 import * as actionTypes from './action-types/auth-actions';
 import axios from 'axios'
+import { Redirect } from 'react-router-dom';
+import React from 'react';
 
 export const authStart = () => {
     return {
@@ -116,3 +118,18 @@ export const authCheckState = () => {
       }
     };
 };
+
+export const authResetPassword = (email) => {
+  return dispatch => {
+    dispatch(authStart());
+  axios.post('/rest-auth/password/reset/', {
+    email:email
+  }).then(res => {   
+    <Redirect to='/'/>
+    console.log(res.data)
+    dispatch(authSuccess());
+  }).catch(err => {
+    dispatch(authFail(err));
+  });
+}
+}
