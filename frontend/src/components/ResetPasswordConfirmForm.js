@@ -1,14 +1,14 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {NavLink, Redirect} from "react-router-dom"
-import {authResetPasswordConfirm, authResetPassword} from './actions/authActions';
+import {authResetPasswordConfirm,} from './actions/authActions';
 import {Button, Grid, TextField,Typography } from '@material-ui/core';
 
 
-class ResetPasswordForm extends React.Component {
+class ResetPasswordConfirmForm extends React.Component {
   
     state = {
-        email: "",
+        password1: "",
+        password2: "",
         reset: false       
     };
 
@@ -18,47 +18,72 @@ class ResetPasswordForm extends React.Component {
     
     handleSubmit = e => {
         e.preventDefault();
-        const { email} = this.state;
-        this.props.reset(email);
+        const {uid, token} = this.props.match.params;
+        const {password1, password2} = this.state;
+        this.props.passwordConfirm(uid,token,password1,password2)
         this.setState({ reset: true })
       };
 
     render() {
-        const {error, loading,} = this.props;
-        const {email} = this.props;
+        const {loading,error, password1, password2} = this.props;
         const {reset} = this.state;
-
+       
         if(reset) {
             return (
                 <Grid container xs={12} style={{height:'100%'}}>
                 <Grid item xs={1} md={3}></Grid>
                 <Grid item xs={12} md={6}>
-                <Typography align='center' variant="h4">Thank you, we send you an email for reset password</Typography>
+                <Typography align='center' variant="h4">Thank you, your password is changed</Typography>
                 </Grid>
                 <Grid item xs={1} md={3}></Grid>
                 </Grid>
             )
+        }
+        if (error){
+            return (
+              <Grid container xs={12} style={{height:'100%'}}>
+                <Grid item xs={1} md={3}></Grid>
+                <Grid item xs={12} md={6}>
+                <Typography align='center' variant="h4">{error}</Typography>
+                </Grid>
+                <Grid item xs={1} md={3}></Grid>
+                </Grid>
+           )
         }
 
         return(
             <Grid container xs={12} style={{height:'100%'}}>
             <Grid item xs={1} md={4}></Grid>
             <Grid item xs={10} md={4}>
-            <Typography align='center' variant="h4">Enter your email for reset password</Typography>
+            <Typography align='center' variant="h4">Type your new password</Typography>
             <form onSubmit={this.handleSubmit} >
                 <Grid container spacing={2} textAlign="center" style={{ height: "100%"}}
                 verticalAlign="middle">         
                     <Grid item xs={12} md={12}>
                         <TextField
-                            autoComplete='email'
-                            name="email"
+                            autoComplete='password1'
+                            name="password1"
                             variant="outlined"
                             required
                             fullWidth
-                            id="email"
-                            label="Email"
+                            id="password1"
+                            label="New password"
                             autoFocus
-                            value={email}
+                            value={password1}
+                            onChange={this.handleChange}
+                            />
+                    </Grid>
+                    <Grid item xs={12} md={12}>
+                        <TextField
+                            autoComplete='password2'
+                            name="password2"
+                            variant="outlined"
+                            required
+                            fullWidth
+                            id="password2"
+                            label="Repeat password"
+                            autoFocus
+                            value={password2}
                             onChange={this.handleChange}
                             />
                     </Grid>
@@ -91,8 +116,8 @@ const mapStateToProps = state => {
   
   const mapDispatchToProps = dispatch => {
     return {
-      reset: (email) => dispatch(authResetPassword(email)),
+      passwordConfirm:(uid,token,password1, password2) => dispatch(authResetPasswordConfirm(uid,token,password1, password2))
     };
   };
   
-  export default connect( mapStateToProps,mapDispatchToProps)(ResetPasswordForm);
+  export default connect( mapStateToProps,mapDispatchToProps)(ResetPasswordConfirmForm);

@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {NavLink, Redirect} from "react-router-dom"
+import {Link, Redirect} from "react-router-dom"
 import {authSignup} from './actions/authActions';
 import {Button, Grid, TextField , Typography} from '@material-ui/core';
 
@@ -108,9 +108,9 @@ class Registration extends React.Component{
                 </Grid>
                 <Grid container justify="center">
                     <Grid item>
-                        <NavLink to="/login" variant="body2">
+                        <Link to="/login" variant="body2">
                             Already have an account?
-                        </NavLink>
+                        </Link>
                     </Grid>
                 </Grid>
             </form>

@@ -1,4 +1,4 @@
-import { AUTH_START ,AUTH_SUCCESS, AUTH_FAIL,AUTH_LOGOUT} from '../actions/action-types/auth-actions'
+import { AUTH_START ,AUTH_SUCCESS, AUTH_FAIL,AUTH_LOGOUT, RESET_PASS} from '../actions/action-types/auth-actions'
 
 const initialState = {
     token: null,
@@ -30,6 +30,12 @@ const authReducer = (state= initialState, action) => {
         return{...state,
          token:null,
          loading:false}
+     }
+     if(action.type == RESET_PASS){
+        return{...state,   
+         error: null,
+         loading: false,
+        }
      }
      else{
          return state

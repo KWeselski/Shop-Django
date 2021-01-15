@@ -136,6 +136,8 @@
 
 /*! export REMOVE_ITEM [provided] [no usage info] [missing usage info prevents renaming] */
 
+/*! export RESET_PASS [provided] [no usage info] [missing usage info prevents renaming] */
+
 /*! export ReactReduxContext [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export ReactReduxContext [provided] [no usage info] [missing usage info prevents renaming] -> ./node_modules/react-redux/es/components/Context.js .ReactReduxContext */
@@ -231,6 +233,8 @@
 /*! export authLogout [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export authResetPassword [provided] [no usage info] [missing usage info prevents renaming] */
+
+/*! export authResetPasswordConfirm [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export authSignup [provided] [no usage info] [missing usage info prevents renaming] */
 
@@ -601,6 +605,8 @@
 /*! export requirePropFactory [provided] [no usage info] [missing usage info prevents renaming] -> ./frontend/node_modules/@material-ui/core/esm/utils/requirePropFactory.js .default */
 
 /*! export requirePropFactory [provided] [no usage info] [missing usage info prevents renaming] -> ./node_modules/@material-ui/core/esm/utils/requirePropFactory.js .default */
+
+/*! export resetPass [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export rgbToHex [provided] [no usage info] [missing usage info prevents renaming] */
 
@@ -1363,6 +1369,10 @@
 /*!************************************************************!*\
   !*** ./node_modules/tiny-warning/dist/tiny-warning.esm.js ***!
   \************************************************************/
+
+/*!*************************************************************!*\
+  !*** ./frontend/src/components/ResetPasswordConfirmForm.js ***!
+  \*************************************************************/
 
 /*!*************************************************************!*\
   !*** ./node_modules/@material-ui/core/esm/colors/common.js ***!

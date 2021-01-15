@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {NavLink, Redirect} from "react-router-dom"
+import {Link, NavLink, Redirect} from "react-router-dom"
 import {authLogin} from './actions/authActions';
 import {Button, Grid, TextField,Typography } from '@material-ui/core';
 
@@ -78,16 +78,16 @@ class LoginForm extends React.Component {
                         </Button>
                     </Grid>
                  </Grid>               
-                <Grid container justify="center">
+                <Grid container justify="space-around">
                     <Grid item>
-                            <NavLink to="/signup" variant="body2">
+                            <Link to="/signup" variant="body2">
                                 Create account
-                            </NavLink>
+                            </Link>
                     </Grid>
                     <Grid item>
-                            <NavLink to="/reset_password/" variant="body2">
+                            <Link to="/reset_password/" variant="body2">
                                 Reset password
-                            </NavLink>
+                            </Link>
                     </Grid>
                 </Grid>               
                 </form>

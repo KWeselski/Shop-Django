@@ -17,6 +17,12 @@ export const authSuccess = (token,username) => {
     };
 };
 
+export const resetPass = () => {
+    return {
+        type: actionTypes.RESET_PASS
+    }
+}
+
 export const authFail = error => {
     return {
         type: actionTypes.AUTH_FAIL,
@@ -125,11 +131,25 @@ export const authResetPassword = (email) => {
   axios.post('/rest-auth/password/reset/', {
     email:email
   }).then(res => {   
-    <Redirect to='/'/>
-    console.log(res.data)
-    dispatch(authSuccess());
+    dispatch(resetPass())
   }).catch(err => {
     dispatch(authFail(err));
   });
-}
-}
+  }
+};
+
+export const authResetPasswordConfirm = (uid,token,password1, password2) => {
+  return dispatch => {
+    dispatch(authStart());
+  axios.post('/rest-auth/password/reset/confirm/', {
+    uid:uid,
+    token:token,
+    new_password1:password1,
+    new_password2:password2
+  }).then(() => {   
+    dispatch(resetPass())
+  }).catch(err => {
+    dispatch(authFail(err));
+  });
+  }
+};

@@ -10,5 +10,7 @@ urlpatterns = [
     path('login',index),
     path('checkout',index),
     path('type/<str:type>',index),
-    path('search/<str:query>',index)
+    path('search/<str:query>',index),
+    path('rest-auth/password/reset/confirm/<uidb64>/<token>/', index,
+            name='password_reset_confirm'),
 ]

@@ -26,6 +26,7 @@ import {
 import {compose} from 'redux'
 import {withStyles} from "@material-ui/core/styles";
 import ResetPasswordForms from './ResetPasswordForms';
+import ResetPasswordConfirmForm from './ResetPasswordConfirmForm';
 
 const styles = theme => ({
    App: {
@@ -102,6 +103,7 @@ class App extends Component{
                             <Route exact path='/signup' component={Registration}/>
                             <Route exact path='/login' component={LoginForm}/>
                             <Route exact path="/reset_password" component={ResetPasswordForms}/>
+                            <Route exact path='/rest-auth/password/reset/confirm/:uid/:token' component={ResetPasswordConfirmForm}/>
                             <Route exact path='/checkout' component={Checkout}/>
                             <Route exact path='/type/:type' component={ProductListByType}/>
                             <Route exact path='/search/:query' component={ProductListBySearch}/>
