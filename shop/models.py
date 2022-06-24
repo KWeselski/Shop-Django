@@ -5,8 +5,8 @@ from decimal import Decimal
 # Create your models here.
 
 DELIVERY_CHOICES = (
-    ('S','Store'),
-    ('O','Online'),
+    ('S', 'Store'),
+    ('O', 'Online'),
 )
 
 class Profile(models.Model):
@@ -108,7 +108,7 @@ class Address(models.Model):
     apartment_address = models.CharField(max_length=75)
     city = models.CharField(max_length=75)
     postal_code = models.CharField(max_length=75)
-    delivery_type = models.CharField(max_length=1,choices=DELIVERY_CHOICES)
+    delivery_type = models.CharField(max_length=1, choices=DELIVERY_CHOICES)
 
     def __str__(self):
         return self.user.username

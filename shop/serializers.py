@@ -6,7 +6,7 @@ class CategorySerializer(serializers.ModelSerializer):
     category = serializers.CharField(read_only=True)
     class Meta:
         model = Category
-        fields = ('id','name','category','slug')
+        fields = ('id', 'name', 'category' ,'slug')
 
 class ProductSerializer(serializers.ModelSerializer):
     category_name = serializers.CharField(source='category.name', read_only=True)
@@ -14,8 +14,8 @@ class ProductSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Product
-        fields = ('id','name','category_name','image','description',
-        'price','on_discount','discount_price','available','rating')
+        fields = ('id', 'name', 'category_name', 'image', 'description', 
+                'price', 'on_discount', 'discount_price', 'available', 'rating')
 
     def get_ratings(self,obj):
         rating = 0
@@ -29,7 +29,7 @@ class ProductSerializer(serializers.ModelSerializer):
 
 
 class OrderItemSerializer(serializers.ModelSerializer):
-    #item = serializers.SerializerMethodField()
+    item = serializers.SerializerMethodField()
     final_price = serializers.SerializerMethodField()
     class Meta:
         model = OrderItem
@@ -58,7 +58,7 @@ class OrderSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         return Order.objects.create(**validated_data)
 
-    def get_order_items(self,obj):
+    def get_order_items(self, obj):
         return OrderItemSerializer(obj.items.all(), many=True).data
 
     def get_total(self, obj):
