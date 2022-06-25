@@ -1,8 +1,5 @@
 import React, { Component} from 'react'
-import axios from 'axios';
-import {Button, Grid, TextField , Typography} from '@material-ui/core';
-import {connect} from 'react-redux';
-import {getOpinions} from './actions/cartActions'
+import { Grid, Typography} from '@material-ui/core';
 import Rating from '@material-ui/lab/Rating';
 class OpinionsForm extends Component {
  

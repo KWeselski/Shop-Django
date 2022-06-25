@@ -1,8 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Link, NavLink, Redirect} from "react-router-dom"
-import {authLogin} from './actions/authActions';
 import {Button, Grid, TextField,Typography } from '@material-ui/core';
+import {authLogin} from './actions/authActions';
 
 
 class LoginForm extends React.Component {
