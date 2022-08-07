@@ -9,6 +9,7 @@ import Grid from "@material-ui/core/Grid";
 import { Typography } from "@material-ui/core";
 import RatingStar from "./RatingStar";
 import axios from "axios";
+import Opinion from "./Opinion";
 import OpinionsForm from "./OpinionsForm";
 import Rating from "@material-ui/lab/Rating";
 import { withStyles } from "@material-ui/core/styles";
@@ -142,7 +143,7 @@ class ProductDetail extends Component {
     const {
       match: { params },
     } = this.props;
-    
+
     return (
       <Grid
         container
@@ -160,10 +161,7 @@ class ProductDetail extends Component {
               />
             </div>
             <div>
-              <RatingStar
-                opinion_status={opinion_exist}
-                productid={params.productID}
-              />
+              <Opinion id={params.productID} exist={opinion_exist} />
               <Grid container spacing={2}>
                 {opinions_.map((value, index) => {
                   return (
@@ -190,7 +188,7 @@ class ProductDetail extends Component {
                 </Typography>
               </div>
               <div className={classes.productItem}>
-                <Rating value={Number(item.rating)} readOnly="true"></Rating> 
+                <Rating value={Number(item.rating)} readOnly="true"></Rating>
                 {opinions_.length} Reviews
               </div>
               <div className={classes.productItem}>

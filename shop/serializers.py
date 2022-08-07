@@ -1,36 +1,42 @@
-from rest_framework import serializers
-from .models import Product, Category, Order, OrderItem, Address,Opinion
+from django.db.models import Sum
 from django.contrib.auth.models import User
+from rest_framework import serializers
+from .models import Product, Category, Order, OrderItem, Address, Opinion
+
 
 class CategorySerializer(serializers.ModelSerializer):
     category = serializers.CharField(read_only=True)
+
     class Meta:
         model = Category
-        fields = ('id', 'name', 'category' ,'slug')
+        fields = ('id', 'name', 'category', 'slug')
+
 
 class ProductSerializer(serializers.ModelSerializer):
-    category_name = serializers.CharField(source='category.name', read_only=True)
+    category_name = serializers.CharField(
+        source='category.name', read_only=True)
     rating = serializers.SerializerMethodField('get_ratings')
 
     class Meta:
         model = Product
-        fields = ('id', 'name', 'category_name', 'image', 'description', 
-                'price', 'on_discount', 'discount_price', 'available', 'rating')
+        fields = ('id', 'name', 'category_name', 'image', 'description',
+                  'price', 'on_discount', 'discount_price', 'available', 'rating')
 
-    def get_ratings(self,obj):
+    def get_ratings(self, obj):
         rating = 0
-        opinions = Opinion.objects.filter(product = obj)
+        opinions = Opinion.objects.filter(product=obj)
+        print(opinions.aggregate(rating=Sum('rating')))
         for opinion in opinions:
             rating += opinion.rating
-        if(len(opinions) == 0):
-            return 0
-        else:
-            return rating / len(opinions)
+        if(opinions.values > 0):
+            rating / len(opinions)
+        return 0
 
 
 class OrderItemSerializer(serializers.ModelSerializer):
     item = serializers.SerializerMethodField()
     final_price = serializers.SerializerMethodField()
+
     class Meta:
         model = OrderItem
         fields = (
@@ -42,19 +48,19 @@ class OrderItemSerializer(serializers.ModelSerializer):
 
     def get_final_price(self, obj):
         return obj.get_final_price()
-        
+
 
 class OrderSerializer(serializers.ModelSerializer):
     order_items = serializers.SerializerMethodField()
     total = serializers.SerializerMethodField()
-  
+
     class Meta:
         model = Order
         fields = (
             'order_items',
-            'total'         
+            'total'
         )
-    
+
     def create(self, validated_data):
         return Order.objects.create(**validated_data)
 
@@ -66,13 +72,13 @@ class OrderSerializer(serializers.ModelSerializer):
 
 
 class AddressSerializer(serializers.ModelSerializer):
-     
-     class Meta:
-         model = Address
-         fields = (
-             'id','street_address','apartment_address','city',
-             'postal_code','delivery_type'
-         )
+
+    class Meta:
+        model = Address
+        fields = (
+            'id', 'street_address', 'apartment_address', 'city',
+            'postal_code', 'delivery_type'
+        )
 
 
 class OpinionSerializer(serializers.ModelSerializer):
@@ -80,14 +86,10 @@ class OpinionSerializer(serializers.ModelSerializer):
     user = serializers.SerializerMethodField('get_user')
 
     class Meta:
-        model= Opinion
+        model = Opinion
         fields = (
-            'id','user','product','opinion','rating'
+            'id', 'user', 'product', 'opinion', 'rating'
         )
 
-    def get_user(self,obj):
+    def get_user(self, obj):
         return obj.user.username
-
-    
-     
-    

@@ -1,57 +1,65 @@
 from django.contrib import admin
-from .models import Category,Product,Order, OrderItem, Coupon,Address, Opinion
 from django.utils.safestring import mark_safe
 from django.urls import reverse
+from .models import Category, Product, Order, OrderItem, Coupon, Address, Opinion
 # Register your models here.
+
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ['id','name', 'slug']
+    list_display = ['id', 'name', 'slug']
     prepopulated_fields = {'slug': ('name',)}
+
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ['name', 'slug','category', 'price',
-                'available','created','updated']
-    list_filter = ['available','created','updated']
+    list_display = ['name', 'slug', 'category', 'price',
+                    'available', 'created', 'updated']
+    list_filter = ['available', 'created', 'updated']
     list_editable = ['price', 'available']
     prepopulated_fields = {'slug': ('name',)}
 
+
 @admin.register(Order)
-class OrderAdmin(admin.ModelAdmin):   
-    list_display = ['user','delivery_address','start_date','ordered_date','ordered','paid','coupon','get_total_before','get_total',]
+class OrderAdmin(admin.ModelAdmin):
+    list_display = ['user', 'delivery_address', 'start_date', 'ordered_date',
+                    'ordered', 'paid', 'coupon', 'get_total_before', 'get_total', ]
     list_display_links = [
         'user',
         'delivery_address',
         'coupon'
     ]
-    list_filter = ['ordered','user','paid']
+    list_filter = ['ordered', 'user', 'paid']
 
     search_fields = [
-        'user__username',]
+        'user__username', ]
     filter_horizontal = ('items',)
 
-    def get_items(self,obj):
+    def get_items(self, obj):
         return "\n".join([str(i.item) for i in obj.items.all()])
+
 
 @admin.register(OrderItem)
 class OrderItemAdmin(admin.ModelAdmin):
-    list_display = ['user','item','quantity','get_final_price']
+    list_display = ['user', 'item', 'quantity', 'get_final_price']
+
 
 @admin.register(Coupon)
 class CouponAdmin(admin.ModelAdmin):
-    list_display = ['code', 'valid_from','valid_to', 'discount', 'active']
-    list_filter = ['active','valid_from','valid_to']
+    list_display = ['code', 'valid_from', 'valid_to', 'discount', 'active']
+    list_filter = ['active', 'valid_from', 'valid_to']
     search_fields = ['code']
+
 
 @admin.register(Address)
 class AddressAdmin(admin.ModelAdmin):
-    list_display = ['user','street_address','apartment_address','city',
-        'postal_code','delivery_type',]
+    list_display = ['user', 'street_address', 'apartment_address', 'city',
+                    'postal_code', 'delivery_type', ]
     list_filter = ['delivery_type', 'city']
-    search_fields = ['user', 'street_address', 'apartment_address', 'postal_code']
+    search_fields = ['user', 'street_address',
+                     'apartment_address', 'postal_code']
+
 
 @admin.register(Opinion)
 class OpinionAdmin(admin.ModelAdmin):
-    list_display = ['user','product', 'opinion', 'rating']
-
+    list_display = ['user', 'product', 'opinion', 'rating']
