@@ -16,6 +16,7 @@ class ProductSerializer(serializers.ModelSerializer):
     category_name = serializers.CharField(
         source='category.name', read_only=True)
     rating = serializers.SerializerMethodField('get_ratings')
+    image = serializers.SerializerMethodField('get_image_path')
 
     class Meta:
         model = Product
@@ -25,12 +26,14 @@ class ProductSerializer(serializers.ModelSerializer):
     def get_ratings(self, obj):
         rating = 0
         opinions = Opinion.objects.filter(product=obj)
-        print(opinions.aggregate(rating=Sum('rating')))
         for opinion in opinions:
             rating += opinion.rating
-        if(opinions.values > 0):
+        if(len(opinions) > 0):
             rating / len(opinions)
         return 0
+
+    def get_image_path(self, obj):
+        return obj.image.url.split('frontend')[1]
 
 
 class OrderItemSerializer(serializers.ModelSerializer):
@@ -88,7 +91,7 @@ class OpinionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Opinion
         fields = (
-            'id', 'user', 'product', 'opinion', 'rating'
+            'user', 'opinion', 'rating'
         )
 
     def get_user(self, obj):

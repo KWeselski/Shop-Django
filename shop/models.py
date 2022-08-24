@@ -73,9 +73,11 @@ class OrderItem(models.Model):
 class Coupon(models.Model):
     active = models.BooleanField()
     code = models.CharField(max_length=50, unique=True)
-    discount = models.IntegerField(validators=[MinValueValidator(0),
-                                               valid_from=models.DateTimeField()
-                                               valid_to=models.DateTimeField() MaxValueValidator(100)])
+    valid_from = models.DateTimeField()
+    valid_to = models.DateTimeField()
+    discount = models.IntegerField(validators=[
+        MinValueValidator(0), MaxValueValidator(100)]
+    )
 
     def __str__(self):
         return self.code
@@ -83,7 +85,11 @@ class Coupon(models.Model):
 
 class Order(models.Model):
     coupon = models.ForeignKey(
-        Coupon, related_name='orders', on_delete=models.SET_NULL, null=True, blank=True)
+        Coupon,
+        related_name='orders',
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True)
     delivery_address = models.ForeignKey('Address', verbose_name=(
         "delivery_adresses"), on_delete=models.SET_NULL, blank=True, null=True)
     discount = models.IntegerField(

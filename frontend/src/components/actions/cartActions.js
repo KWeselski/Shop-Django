@@ -21,7 +21,7 @@ import {
   getOpinionsURL,
   lastOrderURL,
   payOrderURL,
-} from "../constants";
+} from "../../constants";
 import axios from "axios";
 
 export const fetchProducts = () => {
