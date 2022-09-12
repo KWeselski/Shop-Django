@@ -1,28 +1,42 @@
 import React, { useEffect, useState } from "react";
+import { connect, useDispatch } from "react-redux";
 import {
   Heading,
+  Badge,
   Grid,
   Box,
   Button,
-  ButtonGroup,
   HStack,
   Image,
+  IconButton,
   Stack,
   Text,
   Flex,
   VStack,
+  useToast,
 } from "@chakra-ui/react";
 import axios from "axios";
 import { productDetailURL, getOpinionsURL } from "../../constants";
 import { Link, useParams } from "react-router-dom";
 import OpinionList from "../OpinionList";
 import { CheckCircleIcon } from "@chakra-ui/icons";
+import {MdFavoriteBorder, MdFavorite} from "react-icons/md"
+import {
+ addToCart
+} from "../actions/cartActions";
 
 const ProductDetails = () => {
   const [product, setProduct] = useState([]);
   const [opinions, setOpinions] = useState([]);
   const [error, setError] = useState(null);
   const { id } = useParams();
+  const dispatch = useDispatch();
+  const toast = useToast()
+
+  const addItem = (id) => {
+    dispatch(addToCart(id))
+    toast({title: "Added to cart", description: product.name, status:'success', duration:1800, position:'top-right', isClosable:true
+  })}
 
   const getProduct = (id) =>
     axios
@@ -121,27 +135,30 @@ const ProductDetails = () => {
             bg="white"
             color="black"
             width="100%"
-            py="4"
-            px="4"
+            p="4"
             lineHeight="1"
             size="md"
             variant="primary"
+            onClick={()=>addItem(id)}
           >
             Add to cart
           </Button>
+          <HStack  width="100%">
           <Button
             bg="black"
             color="white"
             border="2px"
-            borderColor="black.800"
             width="100%"
-            py="4"
-            px="4"
+            p='4px'
             lineHeight="1"
             size="md"
           >
             Buy now
           </Button>
+          <IconButton>
+            <MdFavoriteBorder/>
+          </IconButton>
+          </HStack>
           <Text
             fontSize="xs"
             mt={2}
@@ -158,4 +175,4 @@ const ProductDetails = () => {
   );
 };
 
-export default ProductDetails;
+export default (ProductDetails);
