@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 import {
   Button,
   Flex,
@@ -8,13 +9,19 @@ import {
   Image,
   HStack,
   Text,
-  chakra,
   IconButton,
-  useBreakpointValue,
   useColorModeValue,
   Input,
+  Icon,
+  Circle
 } from "@chakra-ui/react";
-import { ChatIcon, SearchIcon, SettingsIcon } from "@chakra-ui/icons";
+import { SearchIcon } from "@chakra-ui/icons";
+import {
+  MdFavorite,
+  MdShoppingCart,
+  MdOutlinePersonOutline
+} from "react-icons/md";
+
 import { Link } from "react-router-dom";
 
 const labels = [
@@ -23,10 +30,10 @@ const labels = [
   "WATCHES",
   "CHOKERS",
   "EARINGS",
-  "BRACELETS",
+  "BRACELETS"
 ];
 
-const NavigationBar = () => (
+const NavigationBar = ({ cartItems }) =>
   <Box as="section">
     <Box
       as="nav"
@@ -45,12 +52,44 @@ const NavigationBar = () => (
                   />
                   <Input placeholder="Wyszukaj produkt" />
                 </Box>
-                <Text as="i" fontSize="4xl">
-                  Valeé
-                </Text>
+                <Link to={`/`}>
+                  <Text as="i" fontSize="4xl">
+                    Valeé
+                  </Text>
+                </Link>
                 <HStack>
-                  <IconButton icon={<SettingsIcon />}></IconButton>
-                  <IconButton icon={<ChatIcon />}></IconButton>
+                  <Link to={`/wishlist/`}>
+                    <IconButton icon={<MdFavorite />} />
+                  </Link>
+                  <Link to={`/cart/`}>
+                    <Button w="40px">
+                      <Flex
+                        style={{
+                          justifyContent: "center",
+                          alignItems: "center"
+                        }}
+                      >
+                        <MdShoppingCart />
+                        {cartItems.length > 0 &&
+                          <Circle
+                            size="1rem"
+                            bg="tomato"
+                            fontSize="10px"
+                            color="white"
+                            style={{
+                              position: "absolute",
+                              top: 0,
+                              right: 0
+                            }}
+                          >
+                            {cartItems.length}
+                          </Circle>}
+                      </Flex>
+                    </Button>
+                  </Link>
+                  <Link to={`/sign/`}>
+                    <IconButton icon={<MdOutlinePersonOutline />} />
+                  </Link>
                 </HStack>
               </Flex>
             </Container>
@@ -61,21 +100,26 @@ const NavigationBar = () => (
         <Container py={{ base: "2", lg: "1" }}>
           <Flex justify="space-between" flex="1">
             <HStack spacing="12" justify="space-between">
-              <ButtonGroup variant='link' spacing="8">
-                {labels.map((item) => (
+              <ButtonGroup variant="link" spacing="8">
+                {labels.map(item =>
                   <Link to={`/category/${item.toLowerCase()}`}>
                     <Button color="white" key={item}>
                       {item}
                     </Button>
                   </Link>
-                ))}
+                )}
               </ButtonGroup>
             </HStack>
           </Flex>
         </Container>
       </Box>
     </Box>
-  </Box>
-);
+  </Box>;
 
-export default NavigationBar;
+const mapStateToProps = state => {
+  return {
+    cartItems: state.cart.addedItems
+  };
+};
+
+export default connect(mapStateToProps, null)(NavigationBar);

@@ -11,14 +11,14 @@ import {
   TableCell,
   TableContainer,
   TableHead,
-  TableRow,
+  TableRow
 } from "@chakra-ui/react";
 import {
   removeItem,
   addQuantity,
   subtractQuantity,
   orderAdd,
-  orderUpdate,
+  orderUpdate
 } from "../../../actions/cartActions";
 
 import { compose } from "redux";
@@ -54,41 +54,42 @@ import { failAddOrder } from "../../../actions/cartActions";
 const Cart = ({ items, classes, isAuthenticated }) => {
   const dispatch = useDispatch();
 
-  const makeOrder = (addedItems) => dispatch(failAddOrder(addedItems));
-  const change = (event) => {};
+  const makeOrder = addedItems => dispatch(failAddOrder(addedItems));
+  const change = event => {};
 
-  debugger;
   return (
-    items && (
-      <ItemTable>
-        {items.map((item, index) => {
-          return <ItemRow classes={classes} key={index} {...item} />;
-        })}
-      </ItemTable>
-    )
+    items &&
+    <ItemTable>
+      {items.map((item, index) => {
+        return <ItemRow classes={classes} key={index} {...item} />;
+      })}
+    </ItemTable>
   );
 };
 
 const TableCellLabels = ["", "Product", "Price", "Quantity", "Total price"];
 
-const ItemTable = ({ children }) => (
+const ItemTable = ({ children }) =>
   <TableContainer>
     <TableHead>
       <TableRow>
-        {TableCellLabels.map((label, index) => (
-          <TableCell align="right">{label}</TableCell>
-        ))}
+        {TableCellLabels.map((label, index) =>
+          <TableCell align="right">
+            {label}
+          </TableCell>
+        )}
       </TableRow>
     </TableHead>
-    <TableBody>{children}</TableBody>
-  </TableContainer>
-);
+    <TableBody>
+      {children}
+    </TableBody>
+  </TableContainer>;
 
 const ItemRow = ({ id, name, classes, price, quantity, image }) => {
   const dispatch = useDispatch();
-  const removeItem = (id) => dispatch(removeItem(id));
-  const addQuantity = (id) => dispatch(addQuantity(id));
-  const substractQuantity = (id) => dispatch(substractQuantity(id));
+  const removeItem = id => dispatch(removeItem(id));
+  const addQuantity = id => dispatch(addQuantity(id));
+  const substractQuantity = id => dispatch(substractQuantity(id));
   const getTotal = (price, quantity) => {
     return (price * quantity).toFixed(2);
   };
@@ -98,7 +99,9 @@ const ItemRow = ({ id, name, classes, price, quantity, image }) => {
         <img className={classes.tableCellImage} src={image} />
       </TableCell>
       <TableCell component="th" scope="row">
-        <b>{name}</b>
+        <b>
+          {name}
+        </b>
       </TableCell>
       <TableCell className={classes.tableCell} align="right">
         {price}$
@@ -116,7 +119,7 @@ const ItemRow = ({ id, name, classes, price, quantity, image }) => {
             onClick={() => {
               addQuantity(id);
             }}
-          ></i>
+          />
         </Link>
         <Link to="/cart">
           <i
@@ -124,19 +127,19 @@ const ItemRow = ({ id, name, classes, price, quantity, image }) => {
             onClick={() => {
               subtractQuantity(id);
             }}
-          ></i>
+          />
         </Link>
         <Button
           onClick={() => {
             removeItem(id);
           }}
-        ></Button>
+        />
       </TableCell>
     </TableRow>
   );
 };
 
-const OrderCard = ({ isAuthenticated }) => (
+const OrderCard = ({ isAuthenticated }) =>
   <Grid container xs={12} md={12}>
     <Grid item xs={12} md={12}>
       <Typography variant="h3">You have ordered:</Typography>
@@ -166,26 +169,24 @@ const OrderCard = ({ isAuthenticated }) => (
           >
             Make Order
           </Button>
-          {!isAuthenticated && (
+          {!isAuthenticated &&
             <div style={{ textAlign: "center" }}>
               <Link to="/login" variant="h6">
                 Please login
               </Link>
-            </div>
-          )}
+            </div>}
         </Grid>
       </Grid>
     </Grid>
-  </Grid>
-);
+  </Grid>;
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     items: state.cart.addedItems,
     total: state.cart.total,
     isAuthenticated: state.auth.token !== null,
     discount: state.cart.discount,
-    ordered: state.cart.ordered,
+    ordered: state.cart.ordered
   };
 };
 

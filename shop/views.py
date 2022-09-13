@@ -12,7 +12,15 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework.authtoken.models import Token
 from rest_framework.decorators import api_view, permission_classes
-from .models import Product, Category, OrderItem, Order, Profile, Coupon, Address, Opinion
+from .models import (
+    Product,
+    Category,
+    OrderItem,
+    Order,
+    Address,
+    Opinion,
+    Wishlist
+)
 from .forms import CouponForm
 from .serializers import *
 
@@ -286,3 +294,13 @@ def save_stripe_info(request):
                     data={'message': 'Success', 'data': {
                         'customer_id': customer.id, 'extra_msg': extra_msg}
                     })
+
+@api_view(['GET'])
+def get_wishlist(request):
+    try:
+        user = get_user_from_token(request)
+    except user.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)  
+    serializer = ProductSerializer(
+        Product.objects.filter(wishlists__user=user), context={'request': request}, many=True)
+    return Response(serializer.data)

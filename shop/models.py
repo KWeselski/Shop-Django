@@ -10,20 +10,19 @@ DELIVERY_CHOICES = (
 )
 
 
-class Profile(models.Model):
-    user = models.OneToOneField(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return 'Profile: {}'.format(self.user.username)
-
-
 class Category(models.Model):
     name = models.CharField(max_length=200, db_index=True)
     slug = models.SlugField(max_length=200, db_index=True, unique=True)
 
     def __str__(self):
         return self.name
+
+
+class Wishlist(models.Model):
+   user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+
+   def __str__(self) -> str:
+       return f"{self.user} wishlist"
 
 
 class Product(models.Model):
@@ -40,6 +39,7 @@ class Product(models.Model):
     price = models.FloatField()
     slug = models.SlugField(max_length=200, db_index=True)
     updated = models.DateTimeField(auto_now=True)
+    wishlists = models.ManyToManyField(Wishlist, related_name='wishlists')
 
     class Meta:
         index_together = (('id', 'slug'),)
@@ -51,8 +51,7 @@ class Product(models.Model):
 
 class OrderItem(models.Model):
     item = models.ForeignKey(Product, on_delete=models.CASCADE)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL,
-                             on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     quantity = models.IntegerField(default=1)
 
     def __str__(self):
@@ -75,9 +74,7 @@ class Coupon(models.Model):
     code = models.CharField(max_length=50, unique=True)
     valid_from = models.DateTimeField()
     valid_to = models.DateTimeField()
-    discount = models.IntegerField(validators=[
-        MinValueValidator(0), MaxValueValidator(100)]
-    )
+    discount = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(100)])
 
     def __str__(self):
         return self.code
@@ -90,17 +87,14 @@ class Order(models.Model):
         on_delete=models.SET_NULL,
         null=True,
         blank=True)
-    delivery_address = models.ForeignKey('Address', verbose_name=(
-        "delivery_adresses"), on_delete=models.SET_NULL, blank=True, null=True)
-    discount = models.IntegerField(
-        default=0, validators=[MinValueValidator(0), MaxValueValidator(100)])
+    delivery_address = models.ForeignKey('Address', verbose_name=("delivery_adresses"), on_delete=models.SET_NULL, blank=True, null=True)
+    discount = models.IntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(100)])
     items = models.ManyToManyField(OrderItem)
     ordered_date = models.DateTimeField()
     ordered = models.BooleanField(default=False)
     paid = models.BooleanField(default=False)
     start_date = models.DateTimeField(auto_now_add=True)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL,
-                             on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     def __str__(self):
         return f"Order number :{self.id}"
@@ -125,8 +119,7 @@ class Address(models.Model):
     delivery_type = models.CharField(max_length=1, choices=DELIVERY_CHOICES)
     postal_code = models.CharField(max_length=75)
     street_address = models.CharField(max_length=75)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL,
-                             on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.user.username
@@ -136,13 +129,22 @@ class Address(models.Model):
 
 
 class Opinion(models.Model):
-    date_added = models.DateTimeField(auto_now_add=True)
+    date_time = models.DateTimeField(auto_now_add=True)
     opinion = models.CharField(max_length=250)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    rating = models.IntegerField(default=0, validators=[
-                                 MinValueValidator(0), MaxValueValidator(5)])
-    user = models.ForeignKey(settings.AUTH_USER_MODEL,
-                             on_delete=models.CASCADE)
+    rating = models.IntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(5)])
+    user = models.ForeignKey(settings.AUTH_USER_MODEL ,on_delete=models.CASCADE)
 
     def __str__(self):
         return self.user.username
+
+    def date(self):
+        return self.date_time.strftime('%B %d %Y')
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    wishlist = models.OneToOneField(Wishlist, on_delete=models.CASCADE, default=None) 
+
+    def __str__(self):
+        return 'Profile: {}'.format(self.user.username)

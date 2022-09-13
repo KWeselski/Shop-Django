@@ -2,35 +2,36 @@ import React from "react";
 import { usePagination, DOTS } from "./hooks/usePagination";
 import { ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
 import {
-  Box,
+  Button,
   Container,
   Flex,
   HStack,
   VStack,
   ListItem,
   ListIcon,
-  List,
+  List
 } from "@chakra-ui/react";
 
-const Pagination = (props) => {
+const Pagination = props => {
   const {
     onPageChange,
     totalCount,
     siblingCount = 1,
     currentPage,
-    pageSize,
+    pageSize
   } = props;
 
   const paginationRange = usePagination({
     currentPage,
     totalCount,
     siblingCount,
-    pageSize,
+    pageSize
   });
-  
+
   if (currentPage === 0 || paginationRange.length < 2) {
     return null;
   }
+  let lastPage = paginationRange[paginationRange.length - 1];
 
   const onNext = () => {
     onPageChange(currentPage + 1);
@@ -40,33 +41,35 @@ const Pagination = (props) => {
     onPageChange(currentPage - 1);
   };
 
-  let lastPage = paginationRange[paginationRange.length - 1];
-  debugger;
   return (
     <List>
-      <HStack spacing={7}>
-        {currentPage !== 1 && (
-          <ListItem onClick={onPrevious}>
+      <Container>
+        <HStack spacing={7} justifyContent="center">
+          <ListItem onClick={currentPage === 1 ? undefined : onPrevious}>
             <ArrowLeftIcon w={6} h={6} />
           </ListItem>
-        )}
-        {paginationRange.map((pageNumber) => {
-          if (pageNumber === DOTS) {
-            return <ListItem>{`&#8230`}</ListItem>;
-          }
+          {paginationRange.map(pageNumber => {
+            if (pageNumber === DOTS) {
+              return <ListItem>{`&#8230`}</ListItem>;
+            }
 
-          return (
-            <ListItem onClick={() => onPageChange(pageNumber)}>
-              {pageNumber}
-            </ListItem>
-          );
-        })}
-        {currentPage !== lastPage && (
-          <ListItem onClick={onNext}>
+            return (
+              <ListItem>
+                <Button
+                  bg={currentPage === pageNumber ? "black" : "white"}
+                  color={currentPage === pageNumber ? "white" : "black"}
+                  onClick={() => onPageChange(pageNumber)}
+                >
+                  {pageNumber}
+                </Button>
+              </ListItem>
+            );
+          })}
+          <ListItem onClick={currentPage === lastPage ? undefined : onNext}>
             <ArrowRightIcon w={6} h={6} />
           </ListItem>
-        )}
-      </HStack>
+        </HStack>
+      </Container>
     </List>
   );
 };

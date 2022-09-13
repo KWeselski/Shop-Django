@@ -37,7 +37,7 @@ const OpinionList = ({ opinions }) => {
         >
           <Box borderRadius="lg" maxW="500px">
             <Stack>
-              {currentTableData.map(({ opinion, rating, user }) => {
+              {currentTableData.map(({ date, opinion, rating, user }) => {
                 return (
                   <>
                     <Box w="500px" h="200px">
@@ -62,7 +62,7 @@ const OpinionList = ({ opinions }) => {
                           </Box>
                         </HStack>
                         <Text fontSize="md" fontWeight="bold" color="gray.500">
-                          1 days ago
+                         {date}
                         </Text>
                       </HStack>
                       <Box p="4">
@@ -74,17 +74,18 @@ const OpinionList = ({ opinions }) => {
                 );
               })}
             </Stack>
-          </Box>
-        </Box>
-      </Flex>
-      <Container>
-        <Pagination
+            <Container>
+            <Pagination
           currentPage={currentPage}
           totalCount={opinions.length}
           pageSize={PageSize}
           onPageChange={(page) => setCurrentPage(page)}
         />
-      </Container>
+        </Container>
+          </Box>
+        </Box>
+      </Flex>
+
     </Fragment>
   );
 };

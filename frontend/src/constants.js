@@ -9,6 +9,7 @@ export const categoryListURL =`${apiURL}/category/`;
 export const productListByCategoryURL = id =>`${apiURL}/category/${id}`;
 export const productListByTypeURL = id =>`${apiURL}/type/${id}`;
 export const productListBySearchURL = id => `${apiURL}/search/${id}`;
+export const wishlistUrl = `${apiURL}/wishlist/`;
 
 export const loginUrl = `${authEndpoint}/login/`;
 export const signUpUrl = `${authEndpoint}/registration/`;

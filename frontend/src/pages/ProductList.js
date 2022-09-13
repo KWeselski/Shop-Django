@@ -10,22 +10,27 @@ const ProductList = () => {
   const [products, setProducts] = useState([]);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    axios
-      .get(productListByCategoryURL(id))
-      .then((res) => {
-        setProducts(res.data);
-      })
-      .catch((err) => setError(err));
-  }, [id]);
+  useEffect(
+    () => {
+      axios
+        .get(productListByCategoryURL(id))
+        .then(res => {
+          setProducts(res.data);
+        })
+        .catch(err => setError(err));
+    },
+    [id]
+  );
 
   return (
     <Container maxW="1150px">
-      <SimpleGrid columns={[1, 2, 3, 4]} mt={6} spacing={1}>
-        {products.map((product, index) => {
-          return <ProductCard key={index} {...product} />;
-        })}
-      </SimpleGrid>
+      {products.length > 0 || error
+        ? <SimpleGrid columns={[1, 2, 3, 4]} mt={6} spacing={1}>
+            {products.map((product, index) => {
+              return <ProductCard key={index} {...product} />;
+            })}
+          </SimpleGrid>
+        : <p>XYZ</p>}
     </Container>
   );
 };

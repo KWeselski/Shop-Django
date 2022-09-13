@@ -21,7 +21,7 @@ class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields = ('id', 'name', 'category_name', 'image', 'description',
-                  'price', 'on_discount', 'discount_price', 'available', 'rating')
+                  'price', 'on_discount', 'discount_price', 'available', 'rating', 'wishlists')
 
     def get_ratings(self, obj):
         rating = 0
@@ -91,7 +91,7 @@ class OpinionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Opinion
         fields = (
-            'user', 'opinion', 'rating'
+            'date', 'user', 'opinion', 'rating'
         )
 
     def get_user(self, obj):

@@ -16,13 +16,10 @@ import { MdOutlineEmail, MdLockOutline } from "react-icons/md";
 import { connect } from "react-redux";
 import { authLogin } from "../components/actions/authActions";
 import { Link } from "react-router-dom";
-debugger;
 
 const Sign = ({ sign, token }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  console.log(token);
 
   return (
     <React.Fragment>

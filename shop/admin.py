@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 from django.urls import reverse
-from .models import Category, Product, Order, OrderItem, Coupon, Address, Opinion
+from .models import Category, Product, Order, OrderItem, Coupon, Address, Opinion, Wishlist
 # Register your models here.
 
 
@@ -17,6 +17,7 @@ class ProductAdmin(admin.ModelAdmin):
                     'available', 'created', 'updated']
     list_filter = ['available', 'created', 'updated']
     list_editable = ['price', 'available']
+    filter_horizontal = ('wishlists',)
     prepopulated_fields = {'slug': ('name',)}
 
 
@@ -62,4 +63,8 @@ class AddressAdmin(admin.ModelAdmin):
 
 @admin.register(Opinion)
 class OpinionAdmin(admin.ModelAdmin):
-    list_display = ['user', 'product', 'opinion', 'rating']
+    list_display = ['date', 'user', 'product', 'opinion', 'rating']
+
+@admin.register(Wishlist)
+class WishlistAdmin(admin.ModelAdmin):
+    list_display = ['user']

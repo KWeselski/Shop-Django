@@ -21,4 +21,5 @@ urlpatterns = [
     path('type/<str:type>', products_by_type),
     path('user/', user_id_view),
     path('user_by_token/', get_user_by_token),
+    path('wishlist/', get_wishlist)
 ]
