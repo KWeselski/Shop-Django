@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { connect } from "react-redux";
 import {
   Image,
@@ -71,114 +71,76 @@ const CartBox = ({ total }) =>
     </Button>
   </Box>;
 
-const ProductBox = ({ items }) =>
+const ProductBox = ({ items, removeItem }) =>
   <Box p={3} bg="white" width="full">
     <Box>
-      <Heading>Products (1)</Heading>
-      <Box display="flex" mt={5}>
-        <Box width={"96px"}>
-          <Image
-            src="\static\images\products\black-lace-choker.jpg"
-            width="100%"
-            height="auto"
-          />
-        </Box>
-        <Box px={2} py={1} width="90%" position="relative">
-          <Box display="flex" width="full" height="50%">
-            <VStack align="left" width="full">
-              <Text>Piersionek CZAKALAKA</Text>
-              <Text>Rozmiar: 43</Text>
-            </VStack>
-            <Box width="25%">
-              <NumberInput
-                defaultValue={1}
-                max={10}
-                clampValueOnBlur={false}
-                size="sm"
-              >
-                <NumberInputField />
-                <NumberInputStepper>
-                  <NumberIncrementStepper />
-                  <NumberDecrementStepper />
-                </NumberInputStepper>
-              </NumberInput>
+      <Heading>
+        Products ({items.length})
+      </Heading>
+      {items.map((item, key) =>
+        <Fragment>
+          <Box display="flex" mt={5} height="150px">
+            <Box width={"96px"} alignItems="center">
+              <Image src={item.image} width="100%" height="auto" />
+            </Box>
+            <Box px={2} py={1} width="90%" position="relative">
+              <Box display="flex" width="full" height="50%">
+                <VStack align="left" width="full">
+                  <Text>
+                    {item.name}
+                  </Text>
+                  <Text>Rozmiar: 43</Text>
+                </VStack>
+                <Box width="25%">
+                  <NumberInput
+                    value={item.quantity}
+                    max={10}
+                    clampValueOnBlur={false}
+                    size="sm"
+                  >
+                    <NumberInputField />
+                    <NumberInputStepper>
+                      <NumberIncrementStepper />
+                      <NumberDecrementStepper />
+                    </NumberInputStepper>
+                  </NumberInput>
+                </Box>
+              </Box>
+              <Box width="full" display="flex" height="50%">
+                <Stack
+                  direction="row"
+                  spacing={4}
+                  position="absolute"
+                  bottom={0}
+                >
+                  <Button
+                    leftIcon={<MdOutlineDelete />}
+                    size="sm"
+                    variant="link"
+                    onClick={() => removeItem(item.id)}
+                  >
+                    Remove
+                  </Button>
+                  <Button leftIcon={<MdFavorite />} size="sm" variant="link">
+                    Add to favorite
+                  </Button>
+                </Stack>
+                <Box width="full" position="relative">
+                  <VStack position="absolute" bottom={0} right={0}>
+                    <Text as="b">
+                      {item.discount_price} $
+                    </Text>
+                    <Text as="b">
+                      {item.price}$
+                    </Text>
+                  </VStack>
+                </Box>
+              </Box>
             </Box>
           </Box>
-          <Box width="full" display="flex" height="50%">
-            <Stack direction="row" spacing={4} position="absolute" bottom={0}>
-              <Button leftIcon={<MdOutlineDelete />} size="sm" variant="link">
-                Remove
-              </Button>
-              <Button leftIcon={<MdFavorite />} size="sm" variant="link">
-                Add to favorite
-              </Button>
-            </Stack>
-            <Box width="full" position="relative">
-              <VStack position="absolute" bottom={0} right={0}>
-                <Text>
-                  <b>500 $</b>
-                </Text>
-                <Text>
-                  <b>500 $</b>
-                </Text>
-              </VStack>
-            </Box>
-          </Box>
-        </Box>
-      </Box>
-      <Divider mt={2.5} />
-      <Box display="flex" mt={5}>
-        <Box width={"96px"}>
-          <Image
-            src="\static\images\products\black-lace-choker.jpg"
-            width="100%"
-            height="auto"
-          />
-        </Box>
-        <Box px={2} py={1} width="90%" position="relative">
-          <Box display="flex" width="full" height="50%">
-            <VStack align="left" width="full">
-              <Text>Piersionek CZAKALAKA</Text>
-              <Text>Rozmiar: 43</Text>
-            </VStack>
-            <Box width="25%">
-              <NumberInput
-                defaultValue={1}
-                max={10}
-                clampValueOnBlur={false}
-                size="sm"
-              >
-                <NumberInputField />
-                <NumberInputStepper>
-                  <NumberIncrementStepper />
-                  <NumberDecrementStepper />
-                </NumberInputStepper>
-              </NumberInput>
-            </Box>
-          </Box>
-          <Box width="full" display="flex" height="50%">
-            <Stack direction="row" spacing={4} position="absolute" bottom={0}>
-              <Button leftIcon={<MdOutlineDelete />} size="sm" variant="link">
-                Remove
-              </Button>
-              <Button leftIcon={<MdFavorite />} size="sm" variant="link">
-                Add to favorite
-              </Button>
-            </Stack>
-            <Box width="full" position="relative">
-              <VStack position="absolute" bottom={0} right={0}>
-                <Text>
-                  <b>500 $</b>
-                </Text>
-                <Text>
-                  <b>500 $</b>
-                </Text>
-              </VStack>
-            </Box>
-          </Box>
-        </Box>
-      </Box>
-      <Divider mt={2.5} />
+          <Divider mt={2.5} />
+        </Fragment>
+      )}
     </Box>
   </Box>;
 
@@ -188,7 +150,12 @@ const Cart = ({ addQuantity, items, removeItem, subtractQuantity, total }) => {
       <Box h="full" w="full" py={5} px={3}>
         <Flex h="100vh" p={15}>
           <VStack h="full" w="65%" p={2} spacing={5} alignItems="flex-start">
-            <ProductBox items={items} />
+            <ProductBox
+              items={items}
+              addQuantity={addQuantity}
+              substractQuantity={subtractQuantity}
+              removeItem={removeItem}
+            />
           </VStack>
           <VStack h="full" w="35%" p={10} spacing={10} alignItems="center">
             <CartBox total={total} />
@@ -196,69 +163,6 @@ const Cart = ({ addQuantity, items, removeItem, subtractQuantity, total }) => {
         </Flex>
       </Box>
     </Container>
-    // <Grid templateColumns="repeat(3, 1fr)">
-    //   <GridItem width="10%" />
-    //   <GridItem width="100%">
-    //     <Table colorScheme="black" overflow="none" variant="striped">
-    //       <Thead>
-    //         <Tr>
-    //           <Th width="120" />
-    //           <Th>Product</Th>
-    //           <Th>Price</Th>
-    //           <Th>Quantity</Th>
-    //           <Th>Total price</Th>
-    //           <Th />
-    //         </Tr>
-    //       </Thead>
-    //       <Tbody>
-    //         {items.map(product =>
-    //           <Tr key={product.id}>
-    //             <Td>
-    //               <Image src={product.image} backgroundSize="cover" />
-    //             </Td>
-    //             <Td>
-    //               <Link to={`/product/${product.id}`}>
-    //                 <b>
-    //                   {product.name}
-    //                 </b>
-    //               </Link>
-    //             </Td>
-    //             <Td>
-    //               {product.price}
-    //             </Td>
-    //             <Td>
-    //               {product.quantity}
-    //             </Td>
-    //             <Td>
-    //               {total}
-    //             </Td>
-    //             <Td>
-    //               <HStack>
-    //                 <VStack>
-    //                   <IconButton
-    //                     icon={<MdArrowDropUp />}
-    //                     onClick={() => addQuantity(product.id)}
-    //                   />
-    //                   <IconButton
-    //                     icon={<MdArrowDropDown />}
-    //                     onClick={() => subtractQuantity(product.id)}
-    //                   />
-    //                 </VStack>
-    //                 <IconButton
-    //                   icon={<MdOutlineDelete />}
-    //                   onClick={() => removeItem(product.id)}
-    //                 />
-    //               </HStack>
-    //             </Td>
-    //           </Tr>
-    //         )}
-    //       </Tbody>
-    //     </Table>
-    //   </GridItem>
-    //   <GridItem m="20px" width="100%">
-    //     <CartBox total={total} />
-    //   </GridItem>
-    // </Grid>
   );
 };
 

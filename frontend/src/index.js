@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { createStore, applyMiddleware, compose, combineReducers } from "redux";
 import ReactDOM from "react-dom";
-import { Provider } from "react-redux";
+import { persistStore, persistReducer, Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
 import thunk from "redux-thunk";
 import { fetchProducts } from "./components/actions/cartActions";
 import cartReducer from "./components/reducers/cartReducer";
@@ -11,19 +12,29 @@ import App from "./pages/App";
 
 const composeEnhances = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
+const persistConfig = {
+  key: "root",
+  storage
+};
+
 const rootReducer = combineReducers({
   auth: authReducer,
   cart: cartReducer,
   address: addressReducer
 });
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 const store = createStore(rootReducer, composeEnhances(applyMiddleware(thunk)));
+const persistor = persistStore(store);
 
 store.dispatch(fetchProducts());
 
 const appDiv = document.getElementById("app");
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <PersistGate persistor={persistor}>
+      <App />
+    </PersistGate>
   </Provider>,
   appDiv
 );

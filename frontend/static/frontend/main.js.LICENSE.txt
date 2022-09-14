@@ -8192,6 +8192,8 @@
 
 /*! export PanSession [provided] [no usage info] [missing usage info prevents renaming] */
 
+/*! export PersistGate [provided] [no usage info] [missing usage info prevents renaming] */
+
 /*! export PhoneIcon [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export PinInput [provided] [no usage info] [missing usage info prevents renaming] */
@@ -12370,6 +12372,10 @@
 
 /*!************************************************************!*\
   !*** ./node_modules/react-remove-scroll/dist/es2015/UI.js ***!
+  \************************************************************/
+
+/*!************************************************************!*\
+  !*** ./node_modules/redux-persist/es/integration/react.js ***!
   \************************************************************/
 
 /*!*************************************************************!*\

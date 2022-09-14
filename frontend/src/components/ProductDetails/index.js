@@ -35,7 +35,7 @@ const ProductDetails = () => {
 
   const addItem = (id) => {
     dispatch(addToCart(id))
-    toast({title: "Added to cart", description: product.name, status:'success', duration:1800, position:'top-right', isClosable:true
+    toast({title: "Added to cart", description: product.name, status:'success', duration:900, position:'top-right', isClosable:true
   })}
 
   const getProduct = (id) =>
