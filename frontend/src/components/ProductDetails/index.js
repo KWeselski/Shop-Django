@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { connect, useDispatch } from "react-redux";
 import {
   Heading,
@@ -13,56 +13,75 @@ import {
   Text,
   Flex,
   VStack,
-  useToast,
+  useToast
 } from "@chakra-ui/react";
 import axios from "axios";
 import { productDetailURL, getOpinionsURL } from "../../constants";
 import { Link, useParams } from "react-router-dom";
 import OpinionList from "../OpinionList";
 import { CheckCircleIcon } from "@chakra-ui/icons";
-import {MdFavoriteBorder, MdFavorite} from "react-icons/md"
-import {
- addToCart
-} from "../actions/cartActions";
+import { MdFavoriteBorder, MdFavorite } from "react-icons/md";
+import { addToCart } from "../actions/cartActions";
 
-const ProductDetails = () => {
+const ProductDetails = ({ cartItems }) => {
   const [product, setProduct] = useState([]);
   const [opinions, setOpinions] = useState([]);
   const [error, setError] = useState(null);
   const { id } = useParams();
   const dispatch = useDispatch();
-  const toast = useToast()
+  const toast = useToast();
 
-  const addItem = (id) => {
-    dispatch(addToCart(id))
-    toast({title: "Added to cart", description: product.name, status:'success', duration:900, position:'top-right', isClosable:true
-  })}
+  const addItem = id => {
+    if (cartItems.some(item => item.id === parseInt(id))) {
+      toast({
+        title: "Product already in cart",
+        description: product.name,
+        status: "error",
+        duration: 900,
+        position: "top-right",
+        isClosable: true
+      });
+    } else {
+      dispatch(addToCart(id));
+      toast({
+        title: "Added to cart",
+        description: product.name,
+        status: "success",
+        duration: 900,
+        position: "top-right",
+        isClosable: true
+      });
+    }
+  };
 
-  const getProduct = (id) =>
+  const getProduct = id =>
     axios
       .get(productDetailURL(id))
-      .then((res) => {
+      .then(res => {
         setProduct(res.data);
       })
-      .catch((err) => setError(err));
+      .catch(err => setError(err));
 
-  const getOpinions = (id) =>
+  const getOpinions = id =>
     axios
       .get(getOpinionsURL(id), {
-        headers: { Authorization: `${localStorage.getItem("token")}` },
+        headers: { Authorization: `${localStorage.getItem("token")}` }
       })
-      .then((res) => {
+      .then(res => {
         setOpinions(res.data);
       })
-      .catch((err) => setError(err));
+      .catch(err => setError(err));
 
-  useEffect(() => {
-    getProduct(id);
-    getOpinions(id);
-  }, [id]);
+  useEffect(
+    () => {
+      getProduct(id);
+      getOpinions(id);
+    },
+    [id]
+  );
 
   return (
-    <>
+    <Fragment>
       <Flex
         align="center"
         justify={{ base: "center", md: "space-around", xl: "space-between" }}
@@ -105,7 +124,7 @@ const ProductDetails = () => {
               >
                 {product.price}$
               </Heading>
-              {product.on_discount && (
+              {product.on_discount &&
                 <Heading
                   as="h2"
                   size="xl"
@@ -114,8 +133,7 @@ const ProductDetails = () => {
                   textAlign={["center", "center", "left", "left"]}
                 >
                   {product.discount_price}$
-                </Heading>
-              )}
+                </Heading>}
             </HStack>
             <CheckCircleIcon />
             <Text>Dostępny</Text>
@@ -139,25 +157,25 @@ const ProductDetails = () => {
             lineHeight="1"
             size="md"
             variant="primary"
-            onClick={()=>addItem(id)}
+            onClick={() => addItem(id)}
           >
             Add to cart
           </Button>
-          <HStack  width="100%">
-          <Button
-            bg="black"
-            color="white"
-            border="2px"
-            width="100%"
-            p='4px'
-            lineHeight="1"
-            size="md"
-          >
-            Buy now
-          </Button>
-          <IconButton>
-            <MdFavoriteBorder/>
-          </IconButton>
+          <HStack width="100%">
+            <Button
+              bg="black"
+              color="white"
+              border="2px"
+              width="100%"
+              p="4px"
+              lineHeight="1"
+              size="md"
+            >
+              Buy now
+            </Button>
+            <IconButton>
+              <MdFavoriteBorder />
+            </IconButton>
           </HStack>
           <Text
             fontSize="xs"
@@ -171,8 +189,14 @@ const ProductDetails = () => {
         </Stack>
       </Flex>
       {opinions.length > 1 && <OpinionList opinions={opinions} />}
-    </>
+    </Fragment>
   );
 };
 
-export default (ProductDetails);
+const mapStateToProps = state => {
+  return {
+    cartItems: state.cart.addedItems
+  };
+};
+
+export default connect(mapStateToProps, null)(ProductDetails);

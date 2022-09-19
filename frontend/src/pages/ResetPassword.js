@@ -18,7 +18,6 @@ import {
 import { connect } from "react-redux";
 import { authSignup } from "../components/actions/authActions";
 import { Link, Redirect } from "react-router-dom";
-debugger;
 
 const ResetPassword = ({ resetPassword }) => {
   const [email, setEmail] = useState("");
@@ -61,10 +60,9 @@ const ResetPassword = ({ resetPassword }) => {
               type="submit"
               width="full"
               mt={4}
-              onClick={() =>
-                register(username, email, password, confirmPassword)}
+              onClick={() => resetPassword(email)}
             >
-              Register
+              Reset passoword
             </Button>
           </Box>
           <Text fontSize="xl" color="blue">
@@ -100,4 +98,4 @@ const mapDispatchToProps = distpatch => {
   };
 };
 
-export default connect(null, mapDispatchToProps)(Sign);
+export default connect(null, mapDispatchToProps)(ResetPassword);

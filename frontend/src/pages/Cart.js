@@ -1,19 +1,9 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment } from "react";
 import { connect } from "react-redux";
 import {
   Image,
-  Table,
-  Thead,
-  Tbody,
-  Tr,
-  Th,
-  Td,
   Button,
   Box,
-  Grid,
-  GridItem,
-  IconButton,
-  HStack,
   VStack,
   Stack,
   Heading,
@@ -27,7 +17,6 @@ import {
   NumberInputField,
   NumberInputStepper
 } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
 import {
   removeItem,
   addQuantity,
@@ -35,7 +24,6 @@ import {
   orderAdd,
   orderUpdate
 } from "../components/actions/cartActions";
-import axios from "axios";
 import { MdFavorite, MdOutlineDelete } from "react-icons/md";
 
 const CartBox = ({ total }) =>
@@ -89,7 +77,7 @@ const ProductBox = ({ items, removeItem }) =>
                   <Text>
                     {item.name}
                   </Text>
-                  <Text>Rozmiar: 43</Text>
+                  <Text>Size: 43</Text>
                 </VStack>
                 <Box width="25%">
                   <NumberInput
@@ -127,10 +115,11 @@ const ProductBox = ({ items, removeItem }) =>
                 </Stack>
                 <Box width="full" position="relative">
                   <VStack position="absolute" bottom={0} right={0}>
-                    <Text as="b">
-                      {item.discount_price} $
-                    </Text>
-                    <Text as="b">
+                    {item.on_discount &&
+                      <Text as="b" color="red">
+                        {item.discount_price} $
+                      </Text>}
+                    <Text as={item.on_discount ? "del" : "b"}>
                       {item.price}$
                     </Text>
                   </VStack>
