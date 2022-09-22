@@ -41,8 +41,7 @@ def products_list(request):
         if serializer.is_valid():
             serializer.save()
             return Response(status=status.HTTP_201_CREATED)
-
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['GET'])
@@ -80,7 +79,7 @@ def category_product_list(request, slug):
 
 @api_view(['GET'])
 def products_by_type(request, type):
-    if(type == 'discount'):
+    if (type == 'discount'):
         products = Product.objects.filter(on_discount=True)
     else:
         products = Product.objects.filter(
@@ -201,7 +200,7 @@ def get_last_order(request):
     order = Order.objects.filter(
         user=get_user_from_token(request), ordered=False
     ).last()
-    return(Response({'discount': order.coupon.discount, 'total_after_discount': order.get_total()}, status=status.HTTP_200_OK))
+    return (Response({'discount': order.coupon.discount, 'total_after_discount': order.get_total()}, status=status.HTTP_200_OK))
 
 
 @api_view(['POST'])
@@ -223,6 +222,8 @@ def add_address(request):
 
 @api_view(['PUT', 'POST'])
 def post_opinion(request, pk):
+    import pdb
+    pdb.set_trace()
     user = get_user_from_token(request)
     if request.method == "POST":
         serializer = OpinionSerializer(data=request.data)
@@ -295,12 +296,40 @@ def save_stripe_info(request):
                         'customer_id': customer.id, 'extra_msg': extra_msg}
                     })
 
+
 @api_view(['GET'])
 def get_wishlist(request):
     try:
         user = get_user_from_token(request)
     except user.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)  
+        return Response(status=status.HTTP_404_NOT_FOUND)
     serializer = ProductSerializer(
         Product.objects.filter(wishlists__user=user), context={'request': request}, many=True)
     return Response(serializer.data)
+
+
+@api_view(['PUT'])
+def add_to_wishlist(request, pk):
+    user = get_user_from_token(request)
+    try:
+        product = Product.objects.get(pk=pk)
+    except Product.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    wishlist = Wishlist.objects.filter(user=user).first()
+    product.wishlists.add(wishlist)
+    return Response(None, status=status.HTTP_200_OK)
+
+
+@api_view(['PUT'])
+def delete_from_wishlist(request, pk):
+    user = get_user_from_token(request)
+    try:
+        product = Product.objects.get(pk=pk)
+    except Product.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    try:
+        wishlist = Wishlist.objects.filter(user=user).first()
+    except Wishlist.DoesNotExist:
+        return Response(False, status=status.HTTP_404_NOT_FOUND)
+    product.wishlists.remove(wishlist)
+    return Response(True, status=status.HTTP_200_OK)

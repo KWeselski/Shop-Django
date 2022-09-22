@@ -16,7 +16,11 @@ import {
   useToast
 } from "@chakra-ui/react";
 import axios from "axios";
-import { productDetailURL, getOpinionsURL } from "../../constants";
+import {
+  productDetailURL,
+  getOpinionsURL,
+  addToWishlistUrl
+} from "../../constants";
 import { Link, useParams } from "react-router-dom";
 import OpinionList from "../OpinionList";
 import { CheckCircleIcon } from "@chakra-ui/icons";
@@ -71,6 +75,15 @@ const ProductDetails = ({ cartItems }) => {
         setOpinions(res.data);
       })
       .catch(err => setError(err));
+
+  const addToWishlist = id =>
+    axios.put(
+      addToWishlistUrl(id),
+      {},
+      {
+        headers: { Authorization: `${localStorage.getItem("token")}` }
+      }
+    );
 
   useEffect(
     () => {
@@ -173,7 +186,7 @@ const ProductDetails = ({ cartItems }) => {
             >
               Buy now
             </Button>
-            <IconButton>
+            <IconButton onClick={() => addToWishlist(product.id)}>
               <MdFavoriteBorder />
             </IconButton>
           </HStack>

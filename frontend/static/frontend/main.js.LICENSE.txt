@@ -8848,6 +8848,8 @@
 
 /*! export addToCart [provided] [no usage info] [missing usage info prevents renaming] */
 
+/*! export addToWishlistUrl [provided] [no usage info] [missing usage info prevents renaming] */
+
 /*! export addUniqueItem [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export afterMain [provided] [no usage info] [missing usage info prevents renaming] */
@@ -9379,6 +9381,8 @@
 /*! export deferAction [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export degrees [provided] [no usage info] [missing usage info prevents renaming] */
+
+/*! export deleteFromWishlistUrl [provided] [no usage info] [missing usage info prevents renaming] */
 
 /*! export delimit [provided] [no usage info] [missing usage info prevents renaming] */
 

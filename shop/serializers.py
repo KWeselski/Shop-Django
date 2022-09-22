@@ -28,7 +28,7 @@ class ProductSerializer(serializers.ModelSerializer):
         opinions = Opinion.objects.filter(product=obj)
         for opinion in opinions:
             rating += opinion.rating
-        if(len(opinions) > 0):
+        if len(opinions) > 0:
             rating / len(opinions)
         return 0
 
