@@ -17,11 +17,12 @@ import {
 } from "@chakra-ui/react";
 import axios from "axios";
 import {
-  productDetailURL,
+  addToWishlistUrl,
+  deleteFromWishlistUrl,
   getOpinionsURL,
-  addToWishlistUrl
+  productDetailURL
 } from "../../constants";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import OpinionList from "../OpinionList";
 import { CheckCircleIcon } from "@chakra-ui/icons";
 import { MdFavoriteBorder, MdFavorite } from "react-icons/md";
@@ -31,6 +32,7 @@ const ProductDetails = ({ cartItems }) => {
   const [product, setProduct] = useState([]);
   const [opinions, setOpinions] = useState([]);
   const [error, setError] = useState(null);
+  const [onWishlist, setOnWishlist] = useState(null);
   const { id } = useParams();
   const dispatch = useDispatch();
   const toast = useToast();
@@ -60,7 +62,9 @@ const ProductDetails = ({ cartItems }) => {
 
   const getProduct = id =>
     axios
-      .get(productDetailURL(id))
+      .get(productDetailURL(id), {
+        headers: { Authorization: `${localStorage.getItem("token")}` }
+      })
       .then(res => {
         setProduct(res.data);
       })
@@ -77,20 +81,40 @@ const ProductDetails = ({ cartItems }) => {
       .catch(err => setError(err));
 
   const addToWishlist = id =>
-    axios.put(
-      addToWishlistUrl(id),
-      {},
-      {
-        headers: { Authorization: `${localStorage.getItem("token")}` }
-      }
-    );
+    axios
+      .put(
+        addToWishlistUrl(id),
+        {},
+        {
+          headers: { Authorization: `${localStorage.getItem("token")}` }
+        }
+      )
+      .then(res => {
+        setOnWishlist(true);
+      });
+
+  const deleteFromWishlist = id => {
+    axios
+      .put(
+        deleteFromWishlistUrl(id),
+        {},
+        {
+          headers: {
+            Authorization: `${localStorage.getItem("token")}`
+          }
+        }
+      )
+      .then(res => {
+        setOnWishlist(false);
+      });
+  };
 
   useEffect(
     () => {
       getProduct(id);
       getOpinions(id);
     },
-    [id]
+    [onWishlist]
   );
 
   return (
@@ -186,9 +210,13 @@ const ProductDetails = ({ cartItems }) => {
             >
               Buy now
             </Button>
-            <IconButton onClick={() => addToWishlist(product.id)}>
-              <MdFavoriteBorder />
-            </IconButton>
+            {product.in_wishlist
+              ? <IconButton onClick={() => deleteFromWishlist(product.id)}>
+                  <MdFavorite />
+                </IconButton>
+              : <IconButton onClick={() => addToWishlist(product.id)}>
+                  <MdFavoriteBorder />
+                </IconButton>}
           </HStack>
           <Text
             fontSize="xs"

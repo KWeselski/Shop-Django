@@ -28,16 +28,20 @@ from .serializers import *
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
 
+def get_user_from_token(request):
+    return User.objects.get(id=Token.objects.get(key=request.headers['Authorization']).user_id)
+
+
 @api_view(['GET', 'POST'])
 def products_list(request):
     if request.method == "GET":
         data = Product.objects.all()
-        serializer = ProductSerializer(
+        serializer = ProductListSerializer(
             data, context={'request': request}, many=True)
         return Response(serializer.data)
 
     elif request.method == "POST":
-        serializer = ProductSerializer(data=request.data)
+        serializer = ProductListSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(status=status.HTTP_201_CREATED)
@@ -51,7 +55,8 @@ def product_detail(request, pk):
     except Product.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
     if request.method == "GET":
-        serializer = ProductSerializer(product, context={'request': request})
+        serializer = ProductSerializer(
+            product, context={'request': request})
         return Response(serializer.data)
 
 
@@ -99,10 +104,6 @@ def products_search(request, query):
 @api_view(["POST"])
 def user_id_view(request):
     return Response({'userID': request.data}, status=status.HTTP_200_OK)
-
-
-def get_user_from_token(request):
-    return User.objects.get(id=Token.objects.get(key=request.headers['Authorization']).user_id)
 
 
 @api_view(['GET'])
@@ -222,8 +223,6 @@ def add_address(request):
 
 @api_view(['PUT', 'POST'])
 def post_opinion(request, pk):
-    import pdb
-    pdb.set_trace()
     user = get_user_from_token(request)
     if request.method == "POST":
         serializer = OpinionSerializer(data=request.data)
@@ -315,7 +314,7 @@ def add_to_wishlist(request, pk):
         product = Product.objects.get(pk=pk)
     except Product.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
-    wishlist = Wishlist.objects.filter(user=user).first()
+    wishlist = Wishlist.objects.get(user=user)
     product.wishlists.add(wishlist)
     return Response(None, status=status.HTTP_200_OK)
 
@@ -328,7 +327,7 @@ def delete_from_wishlist(request, pk):
     except Product.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
     try:
-        wishlist = Wishlist.objects.filter(user=user).first()
+        wishlist = Wishlist.objects.get(user=user)
     except Wishlist.DoesNotExist:
         return Response(False, status=status.HTTP_404_NOT_FOUND)
     product.wishlists.remove(wishlist)

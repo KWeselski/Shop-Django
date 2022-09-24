@@ -103,13 +103,18 @@ const ProductBox = ({ items, removeItem }) =>
                 >
                   <Button
                     leftIcon={<MdOutlineDelete />}
-                    size="sm"
-                    variant="link"
+                    size="md"
+                    variant="ghost"
                     onClick={() => removeItem(item.id)}
                   >
                     Remove
                   </Button>
-                  <Button leftIcon={<MdFavorite />} size="sm" variant="link">
+                  <Button
+                    leftIcon={<MdFavorite />}
+                    onClick={() => addToWishlist(product.id)}
+                    size="md"
+                    variant="ghost"
+                  >
                     Add to favorite
                   </Button>
                 </Stack>
@@ -136,8 +141,8 @@ const ProductBox = ({ items, removeItem }) =>
 const Cart = ({ addQuantity, items, removeItem, subtractQuantity, total }) => {
   return (
     <Container maxW="container.xl">
-      <Box h="full" w="full" py={5} px={3}>
-        <Flex h="100vh" p={15}>
+      <Box h="full" w="full" p={5}>
+        <Flex h="100vh">
           <VStack h="full" w="65%" p={2} spacing={5} alignItems="flex-start">
             <ProductBox
               items={items}

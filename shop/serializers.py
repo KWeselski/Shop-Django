@@ -1,7 +1,8 @@
 from django.db.models import Sum
 from django.contrib.auth.models import User
 from rest_framework import serializers
-from .models import Product, Category, Order, OrderItem, Address, Opinion
+from rest_framework.authtoken.models import Token
+from .models import Product, Category, Order, OrderItem, Address, Opinion, Wishlist
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -12,16 +13,30 @@ class CategorySerializer(serializers.ModelSerializer):
         fields = ('id', 'name', 'category', 'slug')
 
 
+class ProductListSerializer(serializers.ModelSerializer):
+    category_name = serializers.CharField(
+        source='category.name', read_only=True)
+    image = serializers.SerializerMethodField('get_image_path')
+
+    class Meta:
+        model = Product
+        fields = ('id', 'name', 'category_name', 'image')
+
+    def get_image_path(self, obj):
+        return obj.image.url.split('frontend')[1]
+
+
 class ProductSerializer(serializers.ModelSerializer):
     category_name = serializers.CharField(
         source='category.name', read_only=True)
     rating = serializers.SerializerMethodField('get_ratings')
     image = serializers.SerializerMethodField('get_image_path')
+    in_wishlist = serializers.SerializerMethodField('product_in_wishlist')
 
     class Meta:
         model = Product
         fields = ('id', 'name', 'category_name', 'image', 'description',
-                  'price', 'on_discount', 'discount_price', 'available', 'rating', 'wishlists')
+                  'price', 'on_discount', 'discount_price', 'available', 'rating', 'in_wishlist')
 
     def get_ratings(self, obj):
         rating = 0
@@ -34,6 +49,12 @@ class ProductSerializer(serializers.ModelSerializer):
 
     def get_image_path(self, obj):
         return obj.image.url.split('frontend')[1]
+
+    def product_in_wishlist(self, obj):
+        token = self.context['request'].headers.get('Authorization')
+        if token:
+            return bool(obj.wishlists.filter(user_id=Token.objects.get(key=token).user_id))
+        return False
 
 
 class OrderItemSerializer(serializers.ModelSerializer):
