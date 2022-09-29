@@ -1,7 +1,5 @@
 import * as actionTypes from "./action-types/auth-actions";
 import axios from "axios";
-import { Redirect } from "react-router-dom";
-import React from "react";
 
 export const authStart = () => {
   return {
@@ -34,22 +32,6 @@ export const authLogout = () => {
   return { type: actionTypes.AUTH_LOGOUT };
 };
 
-export const logout = () => {
-  return dispatch => {
-    dispatch(authStart());
-    axios
-      .get("/rest-auth/logout/", {})
-      .then(() => {
-        localStorage.removeItem("token");
-        localStorage.removeItem("expirationDate");
-        dispatch(authLogout());
-      })
-      .catch(err => {
-        dispatch(authFail(err));
-      });
-  };
-};
-
 export const checkAuthTimeout = expirationTime => {
   return dispatch => {
     setTimeout(() => {
@@ -58,12 +40,12 @@ export const checkAuthTimeout = expirationTime => {
   };
 };
 
-export const authLogin = (username, password) => {
+export const authLogin = (email, password) => {
   return dispatch => {
     dispatch(authStart());
     axios
       .post("/rest-auth/login/", {
-        username: username,
+        email: email,
         password: password
       })
       .then(res => {
@@ -71,7 +53,7 @@ export const authLogin = (username, password) => {
         const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
         localStorage.setItem("token", token);
         localStorage.setItem("expirationDate", expirationDate);
-        dispatch(authSuccess(token, username));
+        dispatch(authSuccess(token, email));
         dispatch(checkAuthTimeout(3600));
       })
       .catch(err => {
@@ -80,12 +62,12 @@ export const authLogin = (username, password) => {
   };
 };
 
-export const authSignup = (username, email, password1, password2) => {
+export const authSignup = (email, password1, password2) => {
   return dispatch => {
     dispatch(authStart());
     axios
       .post("/rest-auth/registration/", {
-        username: username,
+        username: email,
         email: email,
         password1: password1,
         password2: password2
@@ -95,11 +77,11 @@ export const authSignup = (username, email, password1, password2) => {
         const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
         localStorage.setItem("token", token);
         localStorage.setItem("expirationDate", expirationDate);
-        dispatch(authSuccess(token, username));
+        dispatch(authSuccess(token, email));
         dispatch(checkAuthTimeout(3600));
       })
       .catch(err => {
-        dispatch(authFail(err));
+        dispatch(authFail(err.response.data));
       });
   };
 };
