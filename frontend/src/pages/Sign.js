@@ -1,25 +1,141 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from 'react';
+import axios from 'axios';
+import { MdLockOutline, MdOutlineEmail } from 'react-icons/md';
+import { connect, useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import {
-  Flex,
   Box,
-  Heading,
-  FormControl,
-  FormLabel,
-  Input,
   Button,
   Divider,
-  Text,
+  Flex,
+  FormControl,
+  FormErrorMessage,
+  FormLabel,
+  Heading,
   Icon,
+  Input,
+  Text,
   VStack
-} from "@chakra-ui/react";
-import { MdOutlineEmail, MdLockOutline } from "react-icons/md";
-import { connect } from "react-redux";
-import { authLogin } from "../components/actions/authActions";
-import { Link } from "react-router-dom";
+} from '@chakra-ui/react';
+import {
+  authFail,
+  authLogout,
+  authSuccess,
+  checkAuthTimeout
+} from '../components/actions/authActions';
 
-const Sign = ({ sign, token }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+const Signed = ({ onLogout }) => (
+  <Fragment>
+    <Box textAlign="center">
+      <VStack>
+        <Heading>You are logged</Heading>
+        <Heading size="sm">sign in to different account</Heading>
+      </VStack>
+    </Box>
+    <Box my="4" textAlign="left">
+      <Button
+        bgColor="black"
+        color="white"
+        variant="outline"
+        type="submit"
+        width="full"
+        mt={4}
+        onClick={() => onLogout()}
+      >
+        Logout
+      </Button>
+    </Box>
+  </Fragment>
+);
+
+const NotSigned = ({ error, onSign, setEmail, setPassword }) => (
+  <Fragment>
+    <Box textAlign="center">
+      <Heading>Sign in now</Heading>
+    </Box>
+    <Box my="4" textAlign="left">
+      <form>
+        <FormControl isInvalid={error?.email}>
+          <FormLabel>Email</FormLabel>
+          <Flex alignItems="center">
+            <Icon w={8} h={8} p={1} as={MdOutlineEmail} />
+            <Input
+              type="email"
+              placeholder="example@gmail.com"
+              onChange={e => setEmail(e.currentTarget.value)}
+            />
+          </Flex>
+          <FormErrorMessage>
+            {error?.email && error.email.map(err => err)}
+          </FormErrorMessage>
+        </FormControl>
+        <FormControl isInvalid={error?.non_field_errors}>
+          <FormLabel>Password</FormLabel>
+          <Flex alignItems="center">
+            <Icon w={8} h={8} p={1} as={MdLockOutline} />
+            <Input
+              type="password"
+              placeholder="********"
+              onChange={e => setPassword(e.currentTarget.value)}
+            />
+          </Flex>
+          {error?.non_field_errors && (
+            <FormErrorMessage>
+              {error.non_field_errors.map(err => err)}
+            </FormErrorMessage>
+          )}
+        </FormControl>
+      </form>
+      <Button
+        variant="secondary"
+        type="submit"
+        width="full"
+        mt={4}
+        onClick={() => onSign()}
+      >
+        Sign In
+      </Button>
+    </Box>
+    <Text fontSize="xl" color="blue">
+      Forgot password?
+    </Text>
+  </Fragment>
+);
+
+const Sign = ({ token }) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState(null);
+  const dispatch = useDispatch();
+
+  const onLogout = () =>
+    axios
+      .post('/rest-auth/logout/', {})
+      .then(() => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('expirationDate');
+        dispatch(authLogout());
+      })
+      .catch(err => {
+        dispatch(authFail(err));
+      });
+
+  const onSign = () =>
+    axios
+      .post('/rest-auth/login/', {
+        email: email,
+        password: password
+      })
+      .then(response => {
+        const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
+        localStorage.setItem('token', response.data.key);
+        localStorage.setItem('expirationDate', expirationDate);
+        dispatch(authSuccess(response.data.key, email));
+        dispatch(checkAuthTimeout(3600));
+      })
+      .catch(err => {
+        setError(err.response.data);
+      });
 
   return (
     <React.Fragment>
@@ -31,56 +147,16 @@ const Sign = ({ sign, token }) => {
           boxShadow="lg"
           borderColor="black"
         >
-          <Box textAlign="center">
-            {token
-              ? <VStack>
-                  <Heading>You are logged</Heading>
-                  <Heading size="sm">sign in to different account</Heading>
-                </VStack>
-              : <Heading>Sign in now</Heading>}
-          </Box>
-          <Box my="4" textAlign="left">
-            <form>
-              <FormControl>
-                <FormLabel>Email</FormLabel>
-                <Flex alignItems="center">
-                  <Icon w={8} h={8} p={1} as={MdOutlineEmail} />
-
-                  <Input
-                    type="email"
-                    placeholder="example@gmail.com"
-                    onChange={e => setEmail(e.currentTarget.value)}
-                  />
-                </Flex>
-              </FormControl>
-              <FormControl>
-                <FormLabel>Password</FormLabel>
-                <Flex alignItems="center">
-                  <Icon w={8} h={8} p={1} as={MdLockOutline} />
-
-                  <Input
-                    type="password"
-                    placeholder="********"
-                    onChange={e => setPassword(e.currentTarget.value)}
-                  />
-                </Flex>
-              </FormControl>
-            </form>
-            <Button
-              bgColor="black"
-              color="white"
-              variant="outline"
-              type="submit"
-              width="full"
-              mt={4}
-              onClick={() => sign(email, password)}
-            >
-              Sign In
-            </Button>
-          </Box>
-          <Text fontSize="xl" color="blue">
-            Forgot password?
-          </Text>
+          {token ? (
+            <Signed onLogout={onLogout} />
+          ) : (
+            <NotSigned
+              error={error}
+              onSign={onSign}
+              setEmail={setEmail}
+              setPassword={setPassword}
+            />
+          )}
         </Box>
       </Flex>
       <Divider m="5" />
@@ -111,10 +187,4 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = distpatch => {
-  return {
-    sign: (email, password) => distpatch(authLogin(email, password))
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Sign);
+export default connect(mapStateToProps, null)(Sign);

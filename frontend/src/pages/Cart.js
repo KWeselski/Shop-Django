@@ -1,32 +1,32 @@
-import React, { Fragment } from "react";
-import { connect } from "react-redux";
+import React, { Fragment } from 'react';
+import { CardNumberElement } from '@stripe/react-stripe-js';
+import { MdFavorite, MdOutlineDelete } from 'react-icons/md';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import {
-  Image,
-  Button,
+  AspectRatio,
   Box,
-  VStack,
-  Stack,
-  Heading,
-  Flex,
-  Divider,
-  Text,
+  Button,
   Container,
-  NumberDecrementStepper,
-  NumberIncrementStepper,
-  NumberInput,
-  NumberInputField,
-  NumberInputStepper
-} from "@chakra-ui/react";
+  Divider,
+  Flex,
+  Heading,
+  IconButton,
+  Image,
+  Select,
+  Stack,
+  Text,
+  VStack
+} from '@chakra-ui/react';
 import {
-  removeItem,
   addQuantity,
-  subtractQuantity,
   orderAdd,
-  orderUpdate
-} from "../components/actions/cartActions";
-import { MdFavorite, MdOutlineDelete } from "react-icons/md";
+  orderUpdate,
+  removeItem,
+  subtractQuantity
+} from '../components/actions/cartActions';
 
-const CartBox = ({ total }) =>
+const CartBox = ({ total }) => (
   <Box
     p={5}
     width="full"
@@ -39,10 +39,8 @@ const CartBox = ({ total }) =>
     <Box align="left">
       <Heading>To pay</Heading>
       <Box display="flex" width="100%" mt={10} justifyContent="space-between">
-        <Text>Products value:</Text>
-        <Text>
-          {total} $
-        </Text>
+        <Text>Products value</Text>
+        <Text>{total} $</Text>
       </Box>
       <Box display="flex" width="100%" mt={4} justifyContent="space-between">
         <Text>Delivery:</Text>
@@ -54,96 +52,86 @@ const CartBox = ({ total }) =>
         <Text as="b">5.00 $</Text>
       </Box>
     </Box>
-    <Button m={4} colorScheme="orange">
-      Proceed to checkout
-    </Button>
-  </Box>;
+    <Link to={'/order/'}>
+      <Button m={4} colorScheme="orange">
+        Proceed to checkout
+      </Button>
+    </Link>
+  </Box>
+);
 
-const ProductBox = ({ items, removeItem }) =>
+const ProductBox = ({ items, removeItem }) => (
   <Box p={3} bg="white" width="full">
-    <Box>
-      <Heading>
-        Products ({items.length})
-      </Heading>
-      {items.map((item, key) =>
-        <Fragment>
-          <Box display="flex" mt={5} height="150px">
-            <Box width={"96px"} alignItems="center">
-              <Image src={item.image} width="100%" height="auto" />
-            </Box>
-            <Box px={2} py={1} width="90%" position="relative">
-              <Box display="flex" width="full" height="50%">
-                <VStack align="left" width="full">
-                  <Text>
-                    {item.name}
+    {items.map((item, key) => (
+      <>
+        <Stack direction={'row'} mt={5} minH="120px" key={key}>
+          <AspectRatio w="160px" h="120px" ratio={4 / 3}>
+            <Image src={item.image} borderRadius={8} objectFit="cover" />
+          </AspectRatio>
+          <Stack width="100%" justifyContent="space-between">
+            <Stack
+              direction="row"
+              justifyContent="space-between"
+              alignItems={'flex-start'}
+            >
+              <Stack>
+                <Text as="b">{item.name}</Text>
+                <Text>Size: 43</Text>
+              </Stack>
+              <Stack direction="row" alignItems="right">
+                {item.on_discount && (
+                  <Text as="b" color="red">
+                    ${item.discount_price}
                   </Text>
-                  <Text>Size: 43</Text>
-                </VStack>
-                <Box width="25%">
-                  <NumberInput
-                    value={item.quantity}
-                    max={10}
-                    clampValueOnBlur={false}
-                    size="sm"
-                  >
-                    <NumberInputField />
-                    <NumberInputStepper>
-                      <NumberIncrementStepper />
-                      <NumberDecrementStepper />
-                    </NumberInputStepper>
-                  </NumberInput>
-                </Box>
-              </Box>
-              <Box width="full" display="flex" height="50%">
-                <Stack
-                  direction="row"
-                  spacing={4}
-                  position="absolute"
-                  bottom={0}
-                >
-                  <Button
-                    leftIcon={<MdOutlineDelete />}
-                    size="md"
-                    variant="ghost"
-                    onClick={() => removeItem(item.id)}
-                  >
-                    Remove
-                  </Button>
-                  <Button
-                    leftIcon={<MdFavorite />}
-                    onClick={() => addToWishlist(product.id)}
-                    size="md"
-                    variant="ghost"
-                  >
-                    Add to favorite
-                  </Button>
-                </Stack>
-                <Box width="full" position="relative">
-                  <VStack position="absolute" bottom={0} right={0}>
-                    {item.on_discount &&
-                      <Text as="b" color="red">
-                        {item.discount_price} $
-                      </Text>}
-                    <Text as={item.on_discount ? "del" : "b"}>
-                      {item.price}$
-                    </Text>
-                  </VStack>
-                </Box>
-              </Box>
-            </Box>
-          </Box>
-          <Divider mt={2.5} />
-        </Fragment>
-      )}
-    </Box>
-  </Box>;
+                )}
+                <Text as={item.on_discount ? 'del' : 'b'}>${item.price}</Text>
+              </Stack>
+            </Stack>
+            <Stack
+              direction="row"
+              justifyContent="space-between"
+              alignItems="center"
+            >
+              <Select w="20" size="sm">
+                <option value="1">1</option>
+                <option value="1">2</option>
+                <option value="1">3</option>
+              </Select>
+              <Stack direction={'row'}>
+                <IconButton
+                  icon={<MdOutlineDelete />}
+                  size="md"
+                  variant="ghost"
+                  onClick={() => removeItem(item.id)}
+                />
+                <IconButton
+                  icon={<MdFavorite />}
+                  onClick={() => addToWishlist(product.id)}
+                  size="md"
+                  variant="ghost"
+                />
+              </Stack>
+            </Stack>
+          </Stack>
+        </Stack>
+        <Divider mt={2.5} />
+      </>
+    ))}
+  </Box>
+);
 
 const Cart = ({ addQuantity, items, removeItem, subtractQuantity, total }) => {
   return (
     <Container maxW="container.xl">
       <Box h="full" w="full" p={5}>
-        <Flex h="100vh">
-          <VStack h="full" w="65%" p={2} spacing={5} alignItems="flex-start">
+        <Flex h={{ xl: '100vh' }} direction={{ base: 'column', md: 'row' }}>
+          <VStack
+            h="full"
+            w={{ xl: '65%', sm: '100%' }}
+            p={2}
+            spacing={5}
+            alignItems="flex-start"
+          >
             <ProductBox
               items={items}
               addQuantity={addQuantity}
@@ -151,7 +139,13 @@ const Cart = ({ addQuantity, items, removeItem, subtractQuantity, total }) => {
               removeItem={removeItem}
             />
           </VStack>
-          <VStack h="full" w="35%" p={10} spacing={10} alignItems="center">
+          <VStack
+            h="full"
+            w={{ xl: '35%', md: '35%', sm: '100%' }}
+            p={10}
+            spacing={10}
+            alignItems="center"
+          >
             <CartBox total={total} />
           </VStack>
         </Flex>
@@ -163,14 +157,15 @@ const Cart = ({ addQuantity, items, removeItem, subtractQuantity, total }) => {
 const mapStateToProps = state => {
   return {
     items: state.cart.addedItems,
-    total: state.cart.total,
-    discount: state.cart.discount,
-    ordered: state.cart.ordered
+    total: state.cart.total
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
+    addOrder: addedItems => {
+      dispatch(orderAdd(addedItems));
+    },
     addQuantity: id => {
       dispatch(addQuantity(id));
     },
@@ -179,9 +174,6 @@ const mapDispatchToProps = dispatch => {
     },
     removeItem: id => {
       dispatch(removeItem(id));
-    },
-    addOrder: addedItems => {
-      dispatch(orderAdd(addedItems));
     },
     updateOrder: addedItems => {
       dispatch(orderUpdate(addedItems));
