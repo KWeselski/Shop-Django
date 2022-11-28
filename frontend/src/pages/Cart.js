@@ -26,7 +26,7 @@ import {
   subtractQuantity
 } from '../components/actions/cartActions';
 
-const CartBox = ({ total }) => (
+const CartBox = ({ items, total, totalWithDelivery }) => (
   <Box
     p={5}
     width="full"
@@ -49,14 +49,21 @@ const CartBox = ({ total }) => (
       <Divider mt={5} />
       <Box display="flex" width="100%" mt={4} justifyContent="space-between">
         <Text as="b">Total:</Text>
-        <Text as="b">5.00 $</Text>
+        <Text as="b">{totalWithDelivery} $</Text>
       </Box>
     </Box>
     <Link to={'/order/'}>
-      <Button m={4} colorScheme="orange">
+      <Button m={4} colorScheme="orange" disabled={items < 1}>
         Proceed to checkout
       </Button>
     </Link>
+  </Box>
+);
+
+const Empty = () => (
+  <Box textAlign="center">
+    <Text fontSize="4xl">Your cart is empty</Text>
+    <Text fontSize="2xl">Add some products.</Text>
   </Box>
 );
 
@@ -132,12 +139,16 @@ const Cart = ({ addQuantity, items, removeItem, subtractQuantity, total }) => {
             spacing={5}
             alignItems="flex-start"
           >
-            <ProductBox
-              items={items}
-              addQuantity={addQuantity}
-              substractQuantity={subtractQuantity}
-              removeItem={removeItem}
-            />
+            {items.length > 0 ? (
+              <ProductBox
+                items={items}
+                addQuantity={addQuantity}
+                substractQuantity={subtractQuantity}
+                removeItem={removeItem}
+              />
+            ) : (
+              <Empty />
+            )}
           </VStack>
           <VStack
             h="full"
@@ -146,7 +157,7 @@ const Cart = ({ addQuantity, items, removeItem, subtractQuantity, total }) => {
             spacing={10}
             alignItems="center"
           >
-            <CartBox total={total} />
+            <CartBox total={total} items={items.length} />
           </VStack>
         </Flex>
       </Box>
@@ -157,7 +168,8 @@ const Cart = ({ addQuantity, items, removeItem, subtractQuantity, total }) => {
 const mapStateToProps = state => {
   return {
     items: state.cart.addedItems,
-    total: state.cart.total
+    total: state.cart.total,
+    totalWithDelivery: state.cart.totalWithDelivery
   };
 };
 

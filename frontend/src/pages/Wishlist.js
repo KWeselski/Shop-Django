@@ -1,40 +1,36 @@
-import React, { Fragment, useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { Fragment, useEffect, useState } from 'react';
+import axios from 'axios';
+import { MdOutlineDelete, MdShoppingCart } from 'react-icons/md';
+import { connect, useDispatch } from 'react-redux';
 import {
+  Box,
+  Button,
+  Container,
+  Divider,
   Heading,
   Image,
-  Button,
-  Box,
   Stack,
   Text,
-  Divider,
   VStack,
-  useToast,
-  Container
-} from "@chakra-ui/react";
-import { deleteFromWishlistUrl, wishlistUrl } from "../constants";
-import axios from "axios";
-import { addToCart } from "../components/actions/cartActions";
-import { MdShoppingCart, MdOutlineDelete } from "react-icons/md";
+  useToast
+} from '@chakra-ui/react';
+import { addToCart } from '../components/actions/cartActions';
+import { deleteFromWishlistUrl, wishlistUrl } from '../constants';
 
-const ProductBox = ({ items, removeItem, addToCart }) =>
+const ProductBox = ({ items, removeItem, addToCart }) => (
   <Box p={3} bg="white" width="full">
     <Box>
-      <Heading>
-        Wishlist ({items.length}){" "}
-      </Heading>
-      {items.map((item, key) =>
+      <Heading>Wishlist ({items.length})</Heading>
+      {items.map((item, key) => (
         <Fragment>
           <Box display="flex" mt={5} height="150px" key={key}>
-            <Box width={"96px"} alignItems="center">
+            <Box width={'96px'} alignItems="center">
               <Image src={item.image} width="100%" height="auto" />
             </Box>
             <Box px={2} py={1} width="90%" position="relative">
               <Box display="flex" width="full" height="50%">
                 <VStack align="left" width="full">
-                  <Text>
-                    {item.name}
-                  </Text>
+                  <Text>{item.name}</Text>
                   <Text>Size: 43</Text>
                 </VStack>
               </Box>
@@ -64,11 +60,12 @@ const ProductBox = ({ items, removeItem, addToCart }) =>
                 </Stack>
                 <Box width="full" position="relative">
                   <VStack position="absolute" bottom={0} right={0}>
-                    {item.on_discount &&
+                    {item.on_discount && (
                       <Text as="b" color="red">
                         {item.discount_price} $
-                      </Text>}
-                    <Text as={item.on_discount ? "del" : "b"}>
+                      </Text>
+                    )}
+                    <Text as={item.on_discount ? 'del' : 'b'}>
                       {item.price}$
                     </Text>
                   </VStack>
@@ -78,33 +75,38 @@ const ProductBox = ({ items, removeItem, addToCart }) =>
           </Box>
           <Divider mt={2.5} />
         </Fragment>
-      )}
+      ))}
     </Box>
-  </Box>;
+  </Box>
+);
 
-const Wishlist = () => {
+const Empty = ({ token }) =>
+  token ? (
+    <Heading>Your wishlist is empty. Add the products you want.</Heading>
+  ) : (
+    <Heading>You must log in to add products to the wish list</Heading>
+  );
+
+const Wishlist = ({ token }) => {
   const [products, setProducts] = useState([]);
   const [error, setError] = useState(null);
   const [deleted, setDeleted] = useState(false);
   const dispatch = useDispatch();
   const toast = useToast();
 
-  useEffect(
-    () => {
-      axios
-        .get(wishlistUrl, {
-          headers: {
-            Authorization: `${localStorage.getItem("token")}`
-          }
-        })
-        .then(res => {
-          setProducts(res.data);
-          setDeleted(false);
-        })
-        .catch(err => setError(err));
-    },
-    [deleted]
-  );
+  useEffect(() => {
+    axios
+      .get(wishlistUrl, {
+        headers: {
+          Authorization: `${localStorage.getItem('token')}`
+        }
+      })
+      .then(res => {
+        setProducts(res.data);
+        setDeleted(false);
+      })
+      .catch(err => setError(err));
+  }, [deleted]);
 
   const removeItem = id => {
     axios
@@ -113,7 +115,7 @@ const Wishlist = () => {
         {},
         {
           headers: {
-            Authorization: `${localStorage.getItem("token")}`
+            Authorization: `${localStorage.getItem('token')}`
           }
         }
       )
@@ -126,32 +128,37 @@ const Wishlist = () => {
     {
       dispatch(addToCart(id));
       toast({
-        title: "Added to cart",
+        title: 'Added to cart',
         description: name,
-        status: "success",
+        status: 'success',
         duration: 900,
-        position: "top-right",
+        position: 'top-right',
         isClosable: true
       });
     }
   };
 
-  const Empty = () =>
-    <Heading>Your wishlist is empty. Add the products you want.</Heading>;
-
   return (
     <Container maxW="container.xl">
       <Box h="full" w="60%" p={7}>
-        {products.length > 1
-          ? <ProductBox
-              items={products}
-              removeItem={removeItem}
-              addToCart={addItem}
-            />
-          : <Empty />}
+        {products.length > 0 ? (
+          <ProductBox
+            items={products}
+            removeItem={removeItem}
+            addToCart={addItem}
+          />
+        ) : (
+          <Empty token={token} />
+        )}
       </Box>
     </Container>
   );
 };
 
-export default Wishlist;
+const mapStateToProps = state => {
+  return {
+    token: state.auth.token
+  };
+};
+
+export default connect(mapStateToProps, null)(Wishlist);

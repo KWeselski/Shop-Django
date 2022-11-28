@@ -10,7 +10,7 @@ class CategorySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Category
-        fields = ('id', 'name', 'category', 'slug')
+        fields = ('id', 'name', 'category', 'price', 'on_discount', 'discount_price')
 
 
 class ProductListSerializer(serializers.ModelSerializer):
@@ -20,7 +20,8 @@ class ProductListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Product
-        fields = ('id', 'name', 'category_name', 'image')
+        fields = ('id', 'name', 'category_name',
+                  'image', 'price', 'on_discount', 'discount_price')
 
     def get_image_path(self, obj):
         return obj.image.url.split('frontend')[1]
@@ -52,7 +53,7 @@ class ProductSerializer(serializers.ModelSerializer):
 
     def product_in_wishlist(self, obj):
         token = self.context['request'].headers.get('Authorization')
-        if token:
+        if token and token != 'null':
             return bool(obj.wishlists.filter(user_id=Token.objects.get(key=token).user_id))
         return False
 

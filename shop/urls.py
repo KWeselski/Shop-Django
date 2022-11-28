@@ -15,7 +15,7 @@ urlpatterns = [
     path('products/<int:pk>', product_detail),
     path('pay_order/', pay_order),
     path('post_opinion/<int:pk>', post_opinion),
-    path('save-stripe-info/', save_stripe_info),
+    path('create_payment/', create_payment),
     path('search/<str:query>', products_search),
     path('test_payment/', test_payment),
     path('type/<str:type>', products_by_type),

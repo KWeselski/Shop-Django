@@ -1,17 +1,17 @@
 import {
-  ADD_TO_CART,
-  REMOVE_ITEM,
-  SUB_QUANTITY,
   ADD_QUANTITY,
+  ADD_TO_CART,
   CLEAR_CART,
-  COMPLETE,
-  PAYMENT_NAMES,
-  PRODUCTS_NAMES,
-  ORDERS_NAMES,
   CODE_NAMES,
+  COMPLETE,
   DISCOUNT_NAMES,
   OPINION_NAMES,
-} from "../actions/action-types/cart-actions";
+  ORDERS_NAMES,
+  PAYMENT_NAMES,
+  PRODUCTS_NAMES,
+  REMOVE_ITEM,
+  SUB_QUANTITY
+} from '../actions/action-types/cart-actions';
 
 const initState = {
   items: [],
@@ -19,8 +19,9 @@ const initState = {
   error: null,
   addedItems: [],
   total: 0,
-  discount: { discount: 0, total_after_discount: 0 },
-  ordered: false,
+  totalWithDiscount: 5.0,
+  discount: { discount: 0, totalWithDiscount: 0 },
+  ordered: false
 };
 
 const cartReducer = (state = initState, action) => {
@@ -31,9 +32,15 @@ const cartReducer = (state = initState, action) => {
     return { ...state, loading: false, error: action.payload.error, items: [] };
   }
   if (action.type == PRODUCTS_NAMES.FINISH_FETCH) {
+    var ids = new Set(state.items.map(product => product.id));
     return Object.assign({}, state, {
-      items: state.items.concat(action.payload.products),
-      loading: false,
+      items: [
+        ...new Set([
+          ...state.items,
+          ...action.payload.products.filter(product => !ids.has(product.id))
+        ])
+      ],
+      loading: false
     });
   }
 
@@ -42,7 +49,7 @@ const cartReducer = (state = initState, action) => {
       ...state,
       addedItems: [],
       total: 0,
-      discount: { discount: 0, total_after_discount: 0 },
+      discount: { discount: 0, totalWithDiscount: 0 }
     };
   }
 
@@ -101,17 +108,17 @@ const cartReducer = (state = initState, action) => {
   }
 
   if (action.type == ADD_TO_CART) {
-    let addedItem = state.items.find((item) => item.id == action.id);
-    let existingItem = state.addedItems.find((item) => action.id == item.id);
+    let addedItem = state.items.find(item => item.id == action.id);
+    let existingItem = state.addedItems.find(item => action.id == item.id);
 
-    if (addedItem.on_discount == true) {
+    if (addedItem.on_discount == true && addedItem.discount_price) {
       if (existingItem) {
         addedItem.quantity += 1;
         return {
           ...state,
           total: (
             Number(state.total) + Number(addedItem.discount_price)
-          ).toFixed(2),
+          ).toFixed(2)
         };
       } else {
         addedItem.quantity = 1;
@@ -119,7 +126,7 @@ const cartReducer = (state = initState, action) => {
         return {
           ...state,
           addedItems: [...state.addedItems, addedItem],
-          total: newTotal.toFixed(2),
+          total: newTotal.toFixed(2)
         };
       }
     } else {
@@ -127,7 +134,7 @@ const cartReducer = (state = initState, action) => {
         addedItem.quantity += 1;
         return {
           ...state,
-          total: (Number(state.total) + Number(addedItem.price)).toFixed(2),
+          total: (Number(state.total) + Number(addedItem.price)).toFixed(2)
         };
       } else {
         addedItem.quantity = 1;
@@ -135,14 +142,14 @@ const cartReducer = (state = initState, action) => {
         return {
           ...state,
           addedItems: [...state.addedItems, addedItem],
-          total: newTotal.toFixed(2),
+          total: newTotal.toFixed(2)
         };
       }
     }
   }
   if (action.type === REMOVE_ITEM) {
-    let itemToRemove = state.addedItems.find((item) => action.id === item.id);
-    let new_items = state.addedItems.filter((item) => action.id !== item.id);
+    let itemToRemove = state.addedItems.find(item => action.id === item.id);
+    let new_items = state.addedItems.filter(item => action.id !== item.id);
     let newTotal = 0;
     //calculating the total
     if (itemToRemove.on_discount == true) {
@@ -158,11 +165,11 @@ const cartReducer = (state = initState, action) => {
     return {
       ...state,
       addedItems: new_items,
-      total: newTotal.toFixed(2),
+      total: newTotal.toFixed(2)
     };
   }
   if (action.type === ADD_QUANTITY) {
-    let addedItem = state.items.find((item) => item.id === action.id);
+    let addedItem = state.items.find(item => item.id === action.id);
     let newTotal = 0;
     addedItem.quantity += 1;
     if (addedItem.on_discount == true) {
@@ -172,14 +179,14 @@ const cartReducer = (state = initState, action) => {
     }
     return {
       ...state,
-      total: newTotal.toFixed(2),
+      total: newTotal.toFixed(2)
     };
   }
   if (action.type === SUB_QUANTITY) {
-    let addedItem = state.items.find((item) => item.id === action.id);
+    let addedItem = state.items.find(item => item.id === action.id);
     let newTotal = 0;
     if (addedItem.quantity === 1) {
-      let new_items = state.addedItems.filter((item) => item.id !== action.id);
+      let new_items = state.addedItems.filter(item => item.id !== action.id);
       if (addedItem.on_discount == true) {
         newTotal = Number(state.total) - Number(addedItem.discount_price);
       } else {
@@ -188,7 +195,7 @@ const cartReducer = (state = initState, action) => {
       return {
         ...state,
         addedItems: new_items,
-        total: newTotal.toFixed(2),
+        total: newTotal.toFixed(2)
       };
     } else {
       addedItem.quantity -= 1;
@@ -199,7 +206,7 @@ const cartReducer = (state = initState, action) => {
       }
       return {
         ...state,
-        total: newTotal.toFixed(2),
+        total: newTotal.toFixed(2)
       };
     }
   } else {

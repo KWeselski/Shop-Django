@@ -1,29 +1,29 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 import {
-  Flex,
+  MdLockOutline,
+  MdOutlineEmail,
+  MdOutlinePersonOutline
+} from 'react-icons/md';
+import { connect } from 'react-redux';
+import { Link, Redirect } from 'react-router-dom';
+import {
   Box,
-  Heading,
-  FormControl,
-  FormLabel,
-  Input,
   Button,
   Divider,
-  Icon
-} from "@chakra-ui/react";
-import {
-  MdOutlinePersonOutline,
-  MdOutlineEmail,
-  MdLockOutline
-} from "react-icons/md";
-import { connect } from "react-redux";
-import { authSignup } from "../components/actions/authActions";
-import { Link, Redirect } from "react-router-dom";
+  Flex,
+  FormControl,
+  FormLabel,
+  Heading,
+  Icon,
+  Input
+} from '@chakra-ui/react';
+import { authSignup } from '../components/actions/authActions';
 
 const ResetPassword = ({ resetPassword }) => {
-  const [email, setEmail] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [password, setPassword] = useState("");
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('');
 
   return (
     <React.Fragment>

@@ -4,14 +4,15 @@ from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.models import User, AnonymousUser
 from django.db.models import Q
-from django.shortcuts import render, get_object_or_404
+from django.http.response import JsonResponse
 from django.utils import timezone
-from django.utils.html import escape
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework.authtoken.models import Token
 from rest_framework.decorators import api_view, permission_classes
+from .forms import OrderForm
+
 from .models import (
     Product,
     Category,
@@ -117,16 +118,32 @@ def orders_list(request):
 def create_order(request):
     if request.method == 'POST':
         user = get_user_from_token(request)
-        order = Order.objects.create(user=user, ordered_date=timezone.now())
-        for idx, order_item in enumerate(request.data['order_items']):
-            data = {"item": order_item["id"],
-                    "quantity": order_item["quantity"]}
-            item_ = OrderItemSerializer(data=data)
-            if item_.is_valid():
-                item_.save(user=user)
-                ord_item = OrderItem.objects.filter(id=item_.data["id"])
-                order.items.add(ord_item[0])
-        return Response(item_.data)
+        customer_info = request.data['customer_info']
+
+        phone_number = customer_info.pop("phoneNumber")
+        country_code = customer_info.pop("countryCode")
+        customer_info['phone'] = "+" + country_code + phone_number
+
+        order_form = OrderForm(customer_info)
+        if order_form.is_valid():
+            order = Order.objects.create(
+                user=user,
+                name=customer_info['name'],
+                surname=customer_info['surname'],
+                company=customer_info['company'],
+                street=customer_info['street'],
+                city=customer_info['city'],
+                phone=customer_info['phone'],
+                zip_code=customer_info['zip_code']
+            )
+            for item in request.data['items']:
+                OrderItem.objects.create(
+                    order_id=order.pk,
+                    product_id=item['id'],
+                    quantity=item['quantity']
+                )
+            return JsonResponse({'success': True}, status=200)
+        return JsonResponse({'error': order_form.errors}, status=500)
 
     if request.method == "PUT":
         user = get_user_from_token(request)
@@ -273,12 +290,12 @@ def test_payment():
 
 
 @api_view(['POST'])
-def save_stripe_info(request):
+def create_payment(request):
     data = request.data
+    email = data['email']
     payment_method_id = data['payment_method_id']
     extra_msg = ''  # add new variable to response message  # checking if customer with provided email already exists
-    customer_data = stripe.Customer.list(email=data['email']).data
-    amount = str(data['amount']).replace('.', '')
+    customer_data = stripe.Customer.list(email=email).data
     if customer_data:
         customer = customer_data[0]
         extra_msg = "Customer already existed."
@@ -289,9 +306,9 @@ def save_stripe_info(request):
         customer=customer,
         payment_method=payment_method_id,
         currency='usd',
-        amount=amount, confirm=True)
+        amount=str(data['amount']).replace('.', ''), confirm=True)
     return Response(status=status.HTTP_200_OK,
-                    data={'message': 'Success', 'data': {
+                    data={'success': True, 'data': {
                         'customer_id': customer.id, 'extra_msg': extra_msg}
                     })
 

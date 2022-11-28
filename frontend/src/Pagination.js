@@ -1,16 +1,7 @@
-import React from "react";
-import { usePagination, DOTS } from "./hooks/usePagination";
-import { ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
-import {
-  Button,
-  Container,
-  Flex,
-  HStack,
-  VStack,
-  ListItem,
-  ListIcon,
-  List
-} from "@chakra-ui/react";
+import React from 'react';
+import { ArrowLeftIcon, ArrowRightIcon } from '@chakra-ui/icons';
+import { Button, Container, HStack, List, ListItem } from '@chakra-ui/react';
+import { DOTS, usePagination } from './hooks/usePagination';
 
 const Pagination = props => {
   const {
@@ -56,8 +47,8 @@ const Pagination = props => {
             return (
               <ListItem>
                 <Button
-                  bg={currentPage === pageNumber ? "black" : "white"}
-                  color={currentPage === pageNumber ? "white" : "black"}
+                  bg={currentPage === pageNumber ? 'black' : 'white'}
+                  color={currentPage === pageNumber ? 'white' : 'black'}
                   onClick={() => onPageChange(pageNumber)}
                 >
                   {pageNumber}

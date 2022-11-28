@@ -1,11 +1,11 @@
-import React from "react";
-import { Box, Container, Image, useColorModeValue } from "@chakra-ui/react";
+import React from 'react';
+import { Box, Image, useColorModeValue } from '@chakra-ui/react';
 
 const ImageBar = () => (
   <Box
     as="image"
     bg="bg-surface"
-    boxShadow={useColorModeValue("sm", "sm-dark")}
+    boxShadow={useColorModeValue('sm', 'sm-dark')}
     py="2px"
   >
     <Box boxSizing="border-box" px="20">

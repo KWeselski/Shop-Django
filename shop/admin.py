@@ -23,18 +23,10 @@ class ProductAdmin(admin.ModelAdmin):
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ['user', 'delivery_address', 'start_date', 'ordered_date',
-                    'ordered', 'paid', 'coupon', 'get_total_before', 'get_total', ]
-    list_display_links = [
-        'user',
-        'delivery_address',
-        'coupon'
-    ]
+    list_display = ['user', 'created', 'ordered', 'paid', ]
+    list_display_links = ['user']
     list_filter = ['ordered', 'user', 'paid']
-
-    search_fields = [
-        'user__username', ]
-    filter_horizontal = ('items',)
+    search_fields = ['user__username', ]
 
     def get_items(self, obj):
         return "\n".join([str(i.item) for i in obj.items.all()])
@@ -42,7 +34,7 @@ class OrderAdmin(admin.ModelAdmin):
 
 @admin.register(OrderItem)
 class OrderItemAdmin(admin.ModelAdmin):
-    list_display = ['user', 'item', 'quantity', 'get_final_price']
+    list_display = ['order', 'product', 'quantity', 'get_final_price']
 
 
 @admin.register(Coupon)

@@ -1,45 +1,59 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { MdLockOutline, MdOutlineEmail } from 'react-icons/md';
+import { connect, useDispatch } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
 import {
-  Flex,
   Box,
-  Heading,
-  FormControl,
-  FormLabel,
-  Input,
   Button,
   Divider,
+  Flex,
+  FormControl,
+  FormErrorMessage,
+  FormLabel,
+  Heading,
   Icon,
+  Input,
   Text
-} from "@chakra-ui/react";
+} from '@chakra-ui/react';
 import {
-  MdOutlinePersonOutline,
-  MdOutlineEmail,
-  MdLockOutline
-} from "react-icons/md";
-import { connect } from "react-redux";
-import { authSignup } from "../components/actions/authActions";
-import { Link, Redirect } from "react-router-dom";
+  authFail,
+  authSignup,
+  authSuccess,
+  checkAuthTimeout
+} from '../components/actions/authActions';
 
-const Register = ({ register, token }) => {
+const Register = ({ register, authError }) => {
   const [success, setSuccess] = useState(false);
-  const [error, setError] = useState("");
-  const [email, setEmail] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [password, setPassword] = useState("");
-  const [username, setUsername] = useState("");
+  const [hasError, setError] = useState(false);
+  const [email, setEmail] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [password, setPassword] = useState('');
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const onRegister = () => {
-    register(username, email, password, confirmPassword)
-      .then(setSuccess(true))
-      .catch(err => setError(err));
+    axios
+      .post('/rest-auth/registration/', {
+        username: email,
+        email: email,
+        password1: password,
+        password2: confirmPassword
+      })
+      .then(response => {
+        const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
+        localStorage.setItem('token', response.data.key);
+        localStorage.setItem('expirationDate', expirationDate);
+        dispatch(authSuccess(response.data.key, email));
+        dispatch(checkAuthTimeout(3600));
+        setSuccess(true);
+      })
+      .catch(err => dispatch(authFail(err.response.data)));
   };
 
-  useEffect(
-    () => {
-      success && <Redirect to="/" />;
-    },
-    [success]
-  );
+  useEffect(() => {
+    success && navigate('/');
+  }, [success]);
 
   return (
     <React.Fragment>
@@ -56,29 +70,23 @@ const Register = ({ register, token }) => {
           </Box>
           <Box my="4" textAlign="left">
             <form>
-              <FormControl>
-                <FormLabel>Username</FormLabel>
-                <Flex alignItems="center">
-                  <Icon w={8} h={8} p={1} as={MdOutlinePersonOutline} />
-                  <Input
-                    placeholder="Please enter a username"
-                    onChange={e => setUsername(e.currentTarget.value)}
-                  />
-                </Flex>
-              </FormControl>
-              <FormControl>
+              <FormControl isInvalid={authError?.email}>
                 <FormLabel>Email</FormLabel>
                 <Flex alignItems="center">
                   <Icon w={8} h={8} p={1} as={MdOutlineEmail} />
-
                   <Input
                     type="email"
                     placeholder="example@gmail.com"
                     onChange={e => setEmail(e.currentTarget.value)}
                   />
                 </Flex>
+                <FormErrorMessage>
+                  {authError?.email && authError.email.map(err => err)}
+                </FormErrorMessage>
               </FormControl>
-              <FormControl>
+              <FormControl
+                isInvalid={authError?.password1 || authError?.non_field_errors}
+              >
                 <FormLabel>Password</FormLabel>
                 <Flex alignItems="center">
                   <Icon w={8} h={8} p={1} as={MdLockOutline} />
@@ -89,8 +97,15 @@ const Register = ({ register, token }) => {
                     onChange={e => setPassword(e.currentTarget.value)}
                   />
                 </Flex>
+                {authError?.password1 && (
+                  <FormErrorMessage>
+                    {authError.password1.map(err => err)}
+                  </FormErrorMessage>
+                )}
               </FormControl>
-              <FormControl>
+              <FormControl
+                isInvalid={authError?.password2 || authError?.non_field_errors}
+              >
                 <FormLabel>Confirm password</FormLabel>
                 <Flex alignItems="center">
                   <Icon w={8} h={8} p={1} as={MdLockOutline} />
@@ -100,13 +115,20 @@ const Register = ({ register, token }) => {
                     onChange={e => setConfirmPassword(e.currentTarget.value)}
                   />
                 </Flex>
+                {authError?.password2 && (
+                  <FormErrorMessage>
+                    {authError.password2.map(err => err)}
+                  </FormErrorMessage>
+                )}
+                {authError?.non_field_errors && (
+                  <FormErrorMessage>
+                    {authError.non_field_errors.map(err => err)}
+                  </FormErrorMessage>
+                )}
               </FormControl>
             </form>
             <Button
-              bgColor="black"
-              color="white"
-              variant="outline"
-              type="submit"
+              variant="secondary"
               width="full"
               mt={4}
               onClick={() => onRegister()}
@@ -125,14 +147,7 @@ const Register = ({ register, token }) => {
         <Box p={2} textAlign="center">
           <Heading>You have an account?</Heading>
           <Link to="/sign/">
-            <Button
-              bg="white"
-              color="black"
-              variant="primary"
-              type="submit"
-              width="full"
-              mt={4}
-            >
+            <Button variant="primary" width="full" mt={4}>
               Sign in
             </Button>
           </Link>
@@ -144,14 +159,15 @@ const Register = ({ register, token }) => {
 
 const mapStateToProps = state => {
   return {
-    token: state.auth.token
+    token: state.auth.token,
+    authError: state.auth.error
   };
 };
 
-const mapDispatchToProps = distpatch => {
+const mapDispatchToProps = dispatch => {
   return {
-    register: (username, email, password, confirmPassword) =>
-      distpatch(authSignup(username, email, password, confirmPassword))
+    register: (email, password, confirmPassword) =>
+      dispatch(authSignup(email, password, confirmPassword))
   };
 };
 

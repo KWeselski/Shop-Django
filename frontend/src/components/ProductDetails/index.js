@@ -1,34 +1,35 @@
-import React, { Fragment, useEffect, useState } from "react";
-import { connect, useDispatch } from "react-redux";
+import React, { Fragment, useEffect, useState } from 'react';
+import axios from 'axios';
+import { MdFavorite, MdFavoriteBorder } from 'react-icons/md';
+import { connect, useDispatch } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
+import { CheckCircleIcon } from '@chakra-ui/icons';
 import {
-  Heading,
+  AspectRatio,
   Badge,
-  Grid,
   Box,
   Button,
+  Flex,
+  Grid,
   HStack,
-  Image,
+  Heading,
   IconButton,
+  Image,
   Stack,
   Text,
-  Flex,
   VStack,
   useToast
-} from "@chakra-ui/react";
-import axios from "axios";
+} from '@chakra-ui/react';
 import {
   addToWishlistUrl,
   deleteFromWishlistUrl,
   getOpinionsURL,
   productDetailURL
-} from "../../constants";
-import { useParams } from "react-router-dom";
-import OpinionList from "../OpinionList";
-import { CheckCircleIcon } from "@chakra-ui/icons";
-import { MdFavoriteBorder, MdFavorite } from "react-icons/md";
-import { addToCart } from "../actions/cartActions";
+} from '../../constants';
+import OpinionList from '../OpinionList';
+import { addToCart } from '../actions/cartActions';
 
-const ProductDetails = ({ cartItems }) => {
+const ProductDetails = ({ cartItems, token }) => {
   const [product, setProduct] = useState([]);
   const [opinions, setOpinions] = useState([]);
   const [error, setError] = useState(null);
@@ -36,25 +37,26 @@ const ProductDetails = ({ cartItems }) => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const toast = useToast();
+  const navigate = useNavigate();
 
   const addItem = id => {
     if (cartItems.some(item => item.id === parseInt(id))) {
       toast({
-        title: "Product already in cart",
+        title: 'Product already in cart',
         description: product.name,
-        status: "error",
+        status: 'error',
         duration: 900,
-        position: "top-right",
+        position: 'top-right',
         isClosable: true
       });
     } else {
       dispatch(addToCart(id));
       toast({
-        title: "Added to cart",
+        title: 'Added to cart',
         description: product.name,
-        status: "success",
+        status: 'success',
         duration: 900,
-        position: "top-right",
+        position: 'top-right',
         isClosable: true
       });
     }
@@ -63,7 +65,7 @@ const ProductDetails = ({ cartItems }) => {
   const getProduct = id =>
     axios
       .get(productDetailURL(id), {
-        headers: { Authorization: `${localStorage.getItem("token")}` }
+        headers: { Authorization: token }
       })
       .then(res => {
         setProduct(res.data);
@@ -73,7 +75,7 @@ const ProductDetails = ({ cartItems }) => {
   const getOpinions = id =>
     axios
       .get(getOpinionsURL(id), {
-        headers: { Authorization: `${localStorage.getItem("token")}` }
+        headers: { Authorization: token }
       })
       .then(res => {
         setOpinions(res.data);
@@ -86,7 +88,7 @@ const ProductDetails = ({ cartItems }) => {
         addToWishlistUrl(id),
         {},
         {
-          headers: { Authorization: `${localStorage.getItem("token")}` }
+          headers: { Authorization: token }
         }
       )
       .then(res => {
@@ -100,7 +102,7 @@ const ProductDetails = ({ cartItems }) => {
         {},
         {
           headers: {
-            Authorization: `${localStorage.getItem("token")}`
+            Authorization: token
           }
         }
       )
@@ -109,71 +111,79 @@ const ProductDetails = ({ cartItems }) => {
       });
   };
 
-  useEffect(
-    () => {
-      getProduct(id);
-      getOpinions(id);
-    },
-    [onWishlist]
-  );
+  const order = id => {
+    addItem(id);
+    navigate('/order');
+  };
+
+  useEffect(() => {
+    getProduct(id);
+    getOpinions(id);
+  }, [onWishlist]);
 
   return (
     <Fragment>
       <Flex
         align="center"
-        justify={{ base: "center", md: "space-around", xl: "space-between" }}
-        direction={{ base: "column-reverse", md: "row" }}
+        direction={{ base: 'column', md: 'row' }}
         minH="70vh"
-        wrap="no-wrap"
-        px="8"
-        mb="16"
+        p={{ base: '2', sm: '16' }}
+        mb={{ base: '2', sm: '16' }}
       >
         <Box
-          w={{ base: "80%", sm: "60%", md: "50%" }}
-          mb={{ base: 12, md: 0 }}
-          ml={{ base: 20, md: 0 }}
-          p={{ base: "65px" }}
+          w={{ base: '100%', sm: '60%', md: '50%' }}
+          p={{ base: '20px', md: '65px' }}
+          alignItems="center"
         >
-          <Image src={product.image} size="60%" shadow="2xl" />
+          <AspectRatio ratio={4 / 3}>
+            <Image
+              src={product.image}
+              size={{ base: '100%', sm: '60%' }}
+              maxH="600px"
+              shadow="2xl"
+              m="auto"
+            />
+          </AspectRatio>
         </Box>
         <Stack
           spacing={4}
-          w={{ base: "80%", md: "40%" }}
-          align={["center", "center", "flex-start", "flex-start"]}
+          w={{ base: '80%', md: '40%' }}
+          align={['center', 'center', 'flex-start', 'flex-start']}
         >
           <Heading
             as="h1"
             size="xl"
             fontWeight="bold"
             color="primary.800"
-            textAlign={["center", "center", "left", "left"]}
+            textAlign={['center', 'center', 'left', 'left']}
           >
             {product.name}
           </Heading>
           <HStack>
             <HStack>
               <Heading
-                as={product.on_discount ? "s" : "h2"}
+                as={product.on_discount ? 's' : 'h2'}
                 size="xl"
                 fontWeight="bold"
                 color="primary.800"
-                textAlign={["center", "center", "left", "left"]}
+                textAlign={['center', 'center', 'left', 'left']}
               >
                 {product.price}$
               </Heading>
-              {product.on_discount &&
+              {product.on_discount && (
                 <Heading
                   as="h2"
                   size="xl"
                   fontWeight="bold"
                   color="red"
-                  textAlign={["center", "center", "left", "left"]}
+                  textAlign={['center', 'center', 'left', 'left']}
                 >
                   {product.discount_price}$
-                </Heading>}
+                </Heading>
+              )}
             </HStack>
             <CheckCircleIcon />
-            <Text>Dostępny</Text>
+            <Text>Available</Text>
           </HStack>
           <Heading
             as="h2"
@@ -182,12 +192,11 @@ const ProductDetails = ({ cartItems }) => {
             opacity="0.8"
             fontWeight="normal"
             lineHeight={1.5}
-            textAlign={["center", "center", "left", "left"]}
+            textAlign={['center', 'center', 'left', 'left']}
           >
             {product.description}
           </Heading>
           <Button
-            bg="white"
             color="black"
             width="100%"
             p="4"
@@ -200,23 +209,28 @@ const ProductDetails = ({ cartItems }) => {
           </Button>
           <HStack width="100%">
             <Button
-              bg="black"
-              color="white"
-              border="2px"
               width="100%"
               p="4px"
               lineHeight="1"
               size="md"
+              variant="secondary"
+              onClick={() => order(id)}
             >
               Buy now
             </Button>
-            {product.in_wishlist
-              ? <IconButton onClick={() => deleteFromWishlist(product.id)}>
-                  <MdFavorite />
-                </IconButton>
-              : <IconButton onClick={() => addToWishlist(product.id)}>
-                  <MdFavoriteBorder />
-                </IconButton>}
+            {product.in_wishlist ? (
+              <IconButton onClick={() => deleteFromWishlist(product.id)}>
+                <MdFavorite />
+              </IconButton>
+            ) : (
+              <IconButton
+                onClick={() =>
+                  token ? addToWishlist(product.id) : navigate('/sign')
+                }
+              >
+                <MdFavoriteBorder />
+              </IconButton>
+            )}
           </HStack>
           <Text
             fontSize="xs"
@@ -236,7 +250,8 @@ const ProductDetails = ({ cartItems }) => {
 
 const mapStateToProps = state => {
   return {
-    cartItems: state.cart.addedItems
+    cartItems: state.cart.addedItems,
+    token: state.auth.token
   };
 };
 

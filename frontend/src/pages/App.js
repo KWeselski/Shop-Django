@@ -1,48 +1,34 @@
-import React, { useEffect, useState } from "react";
-import { connect } from "react-redux";
-import { ChakraProvider, extendTheme } from "@chakra-ui/react";
-import * as actions from "../components/actions/authActions";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { compose } from "redux";
-import Cart from "./Cart";
-import NavigationBar from "../components/NavBar";
-import Main from "./Main";
-import ProductList from "./ProductList";
-import ProductDetails from "../components/ProductDetails";
-import Register from "./Register";
-import Wishlist from "./Wishlist";
-import Sign from "./Sign";
-
-const theme = extendTheme({
-  components: {
-    Button: {
-      facebook: { rounded: "none", border: "2px", borderColor: "black" }
-    }
-  }
-});
+import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import { compose } from 'redux';
+import NavigationBar from '../components/NavBar';
+import ProductDetails from '../components/ProductDetails';
+import * as actions from '../components/actions/authActions';
+import Cart from './Cart';
+import Main from './Main';
+import Order from './Order';
+import ProductList from './ProductList';
+import Register from './Register';
+import Sign from './Sign';
+import Wishlist from './Wishlist';
 
 function App({ authLogin, isAuthenticated, loadUser, onTryAutoSignup }) {
   const [authenticated, setAuthenticated] = useState(false);
-
-  useEffect(() => {
-    // authLogin("admin", "admin");
-  }, []);
-
   return (
-    <ChakraProvider theme={theme}>
-      <Router>
-        <NavigationBar />
-        <Switch>
-          <Route exact path="/" component={Main} />
-          <Route exact path="/cart" component={Cart} />
-          <Route exact path="/category/:id" component={ProductList} />
-          <Route exact path="/product/:id" component={ProductDetails} />
-          <Route exact path="/register/" component={Register} />
-          <Route exact path="/sign/" component={Sign} />
-          <Route exact path="/wishlist/" component={Wishlist} />
-        </Switch>
-      </Router>
-    </ChakraProvider>
+    <div>
+      <NavigationBar />
+      <Routes>
+        <Route exact path="/" element={<Main />} />
+        <Route exact path="/cart" element={<Cart />} />
+        <Route exact path="/category/:id" element={<ProductList />} />
+        <Route exact path="/order/" element={<Order />} />
+        <Route exact path="/product/:id" element={<ProductDetails />} />
+        <Route exact path="/register/" element={<Register />} />
+        <Route exact path="/sign/" element={<Sign />} />
+        <Route exact path="/wishlist/" element={<Wishlist />} />
+      </Routes>
+    </div>
   );
 }
 

@@ -1,5 +1,5 @@
-const apiURL = "/api";
-const AuthUrl = "/rest-auth";
+const apiURL = '/api';
+const AuthUrl = '/rest-auth';
 
 export const authEndpoint = `${AuthUrl}`;
 
@@ -24,8 +24,28 @@ export const createOrderURL = `${apiURL}/create_order/`;
 export const getOpinionsURL = id => `${apiURL}/get_opinions/${id}`;
 export const postOpinionURL = id => `${apiURL}/post_opinion/${id}`;
 
-export const stripeURL = `${apiURL}/save-stripe-info/`;
-export const awsURL = "https://valee-shop-bucket.s3.eu-central-1.amazonaws.com";
+export const stripeURL = `${apiURL}/create_payment/`;
+export const awsURL = 'https://valee-shop-bucket.s3.eu-central-1.amazonaws.com';
 
 export const addAddressURL = `${apiURL}/add_address/`;
 export const payOrderURL = `${apiURL}/pay_order/`;
+
+export const MONTHS = [
+  '01',
+  '02',
+  '03',
+  '04',
+  '05',
+  '06',
+  '07',
+  '08',
+  '09',
+  '10',
+  '11',
+  '12'
+];
+
+export const CREDIT_CARD_YEARS = [
+  2022, 2023, 2024, 2025, 2026, 2027, 2028, 2029, 2030, 2031, 2032, 2033, 2034,
+  2035, 2036, 2037, 2038, 2039
+];

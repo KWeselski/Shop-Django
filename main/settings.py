@@ -42,15 +42,16 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'corsheaders',    
+    'corsheaders',
     'rest_framework',
     'rest_framework.authtoken',
-    'rest_auth',
-    'rest_auth.registration',
-    'django.contrib.sites',   
+    'dj_rest_auth',
+    'dj_rest_auth.registration',
+    'django.contrib.sites',
     'shop',
     'frontend',
-    'storages',  
+    'storages',
+    'phone_field',
 ]
 
 MIDDLEWARE = [
@@ -78,12 +79,11 @@ TEMPLATES = [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',            
+                'django.contrib.messages.context_processors.messages',
             ],
         },
     },
 ]
-
 
 
 WSGI_APPLICATION = 'main.wsgi.application'
@@ -129,15 +129,18 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.AllowAny',
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.TokenAuthentication',  
-        #'rest_framework.authentication.SessionAuthentication',             
+        'rest_framework.authentication.TokenAuthentication',
     ),
 }
 
-ACCOUNT_EMAIL_REQUIRED = False
-ACCOUNT_AUTHENTICATION_METHOD = 'username'
-ACCOUNT_EMAIL_VERIFICATION = 'none'
-ACCOUNT_LOGOUT_ON_GET = True 
+ACCOUNT_AUTHENTICATION_METHOD = "email"
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = False
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
@@ -157,8 +160,8 @@ AWS_S3_FILE_OVERWRITE = False
 AWS_DEFAULT_ACL = None
 AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 AWS_S3_OBJECT_PARAMETERS = {
-        'CacheControl': 'max-age=86400',
-    }
+    'CacheControl': 'max-age=86400',
+}
 AWS_LOCATION = ''
 use_3 = False
 
@@ -185,7 +188,7 @@ if os.getcwd() == '/app':
     DATABASES['default'].update(db_from_env)
     # Honor the 'X-forwarded-Proto' header for request.is_secure().
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-      # Allow all host headers
+    # Allow all host headers
     ALLOWED_HOSTS = ['valee-shop.herokuapp.com']
 
     # Static asset configuration
@@ -193,4 +196,3 @@ if os.getcwd() == '/app':
 
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
